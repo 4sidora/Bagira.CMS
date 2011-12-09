@@ -622,7 +622,7 @@ class system {
 
 			$fname = system::translite($fname);
 
-	  		// Проверяем, если ли файлы с таким же именем
+	  		// Проверяем, есть ли файл с таким же именем
 	  		$new_filename = $pathTo.'/'.$fname.'.'.$exe;
 			if (file_exists(ROOT_DIR.$new_filename)) {
 	  			// Если есть, придумываем другое название файлу
@@ -743,7 +743,7 @@ class system {
     
 
 	// функция превода текста с кириллицы в транслит
-	function translite($str) {
+	static function translite($str) {
 
 	    $transtable = array(
 	        'А' => 'A',
