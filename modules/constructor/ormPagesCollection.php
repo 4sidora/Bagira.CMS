@@ -180,10 +180,12 @@ class ormPages {
 							FROM <<rights>>,
 							 	(
 								 	SELECT r_parent_id, o_id
-								 	FROM <<objects>>, <<rels>>
+								 	FROM <<objects>>, <<rels>>, <<classes>>
 								 	WHERE r_field_id IS NULL
 										AND r_children_id = o_id
-										AND o_to_trash =0
+										AND o_to_trash = 0 and
+										  c_id = o_class_id and
+										  c_is_page = 1
 									GROUP BY r_parent_id
 							 	) obj
 							WHERE o_id = o_id '.str_replace('GROUP BY o_id', '', self::getSqlForRights()).'
