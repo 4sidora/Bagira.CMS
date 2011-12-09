@@ -70,11 +70,11 @@ class resizer {
 
 		if (!empty($this->original_image) && file_exists($this->original_image))  {
 
-	        switch (substr($this->original_image, -3)) {
-	        	case 'gif': $type = 1; break;
-	            case 'jpg': $type = 2; break;
-	            case 'jpe': $type = 2; break;
-	            case 'png': $type = 3; break;
+	        switch (substr($this->original_image, -4)) {
+	        	case '.gif': $type = 1; break;
+	            case '.jpg': $type = 2; break;
+	            case 'jpeg': $type = 2; break;
+	            case '.png': $type = 3; break;
 	        }
 
 	        switch ($type) {
