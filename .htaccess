@@ -1,0 +1,14 @@
+php_value display_errors 1
+php_value error_reporting 2047
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^robots\.txt$ index.php?way=%{THE_REQUEST} [L]
+RewriteRule ^sitemap\.xml$ index.php?way=%{THE_REQUEST} [L]
+RewriteRule ^([^\.]*)$ index.php?way=%{THE_REQUEST} [L]
+
+<FilesMatch "\.(log)$">
+Order allow,deny
+Deny from all
+</FilesMatch>

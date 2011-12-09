@@ -1,0 +1,76 @@
+
+.hide{
+  display:none;
+}
+
+.main_line{
+  width:100%;
+}
+
+.active_div{
+  float:left;
+  width:15px;
+  height:17px;
+}
+
+.main_link{
+  float:left;
+  display:inline;
+  text-decoration:underline;
+  color:#005ad3 !important;
+}
+
+.main_link > i{
+  color: #828081;
+  font-size: 9px;
+}
+
+.addit_line, .addit_line1{
+  float:left;
+  width:37%;
+  height:19px;
+  display:none;
+  background: #f1f1f1;
+}
+.addit_line1{ width:30%;}
+
+
+a.ledit{
+  float:left;
+}
+
+.zaglushka{
+  float:left;
+  width:15px;
+  height:20px;
+}
+
+#edits{
+  position:absolute;
+  display:none;
+  left:480px;
+  top:0px;
+  background: url(/images/mpanel/i3.gif)  right no-repeat;
+}
+
+.tree_list{
+  float:left;
+  padding:4px;
+  padding-top:6px;
+  padding-bottom:6px;
+}
+
+
+.popdiv_tree_list{
+  top:18px;
+  right:-17px;
+  position:absolute;
+  display:none;
+  width:100px;
+  min-height:20px;
+  background-color:#E0E0E0;
+  padding:10px
+}
+
+
+
