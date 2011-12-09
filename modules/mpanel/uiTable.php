@@ -588,7 +588,7 @@ class uiTable extends uiTableFunctions {
 
 	            if ($column['sortable'] && !strpos($column['field'], ' ') && ($column['field'] != 'children' && $column['field'] != 'parents')) {
 
-	                if ($this->select->orderField() == $column['field']) {
+	                if ($this->isSelection && $this->select->orderField() == $column['field']) {
 	                    $parram = $this->select->orderParram();
 	                    page::assign('sort', $parram);
 
