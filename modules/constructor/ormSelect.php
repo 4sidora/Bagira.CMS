@@ -343,7 +343,7 @@ class ormSelect {
                 } else
                     $sql = 'r_parent_id = "'.$this->parent_id.'" and ';
 
-            } else if ($this->parent_id == 0)
+            } else if ($this->parent_id == 0 && $this->parent_id !== null)
                 $sql = 'r_parent_id is NULL and ';
             else $sql = '';
 
