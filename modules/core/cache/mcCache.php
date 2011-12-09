@@ -9,11 +9,11 @@
 
 */
  
-class fileCache extends defCache {
+class mcCache extends defCache {
 
     private $servers= array(
         array(
-            'host' => 'server1',
+            'host' => '127.0.0.1',
             'port' => 11211,
             'weight' => 1,
         )
