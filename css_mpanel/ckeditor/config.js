@@ -16,7 +16,7 @@ CKEDITOR.editorConfig = function( config )
         ['Cut','Copy','Paste','PasteText','PasteFromWord','-','SelectAll','RemoveFormat'],
         ['Maximize', 'ShowBlocks','Preview','-','About'],
         '/',
-         ['Format'],   
+         ['Format'],
         ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
         ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
         ['JustifyLeft','JustifyCenter','JustifyRight'],
@@ -24,12 +24,4 @@ CKEDITOR.editorConfig = function( config )
         ['Link','Unlink','Anchor'],
         ['Image','Table']
     ];
-
-};
-
-CKEDITOR.on( 'dialogDefinition', function( ev )
-	{
-		var dialogName = ev.data.name;
-		var dialogDefinition = ev.data.definition;
-		dialogDefinition.removeContents( 'advanced' );
-	});
+}
