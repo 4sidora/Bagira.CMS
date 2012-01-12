@@ -206,7 +206,7 @@ class ormEditForm {
             } else $class_list = '';
 
             // Если мы добавляем страницу, выводим специальные элементы управления
-            if (system::$isAdmin && is_a($this->obj, 'ormPage') && !$this->without_sh) {
+            if (system::$isAdmin && ($this->obj instanceof ormPage) && !$this->without_sh) {
 
             	if (isset($_SESSION['SH_FIELDS']) && $_SESSION['SH_FIELDS'] == 'show') {
              		page::assign('sh1', ' style="display:none;"');
@@ -225,7 +225,7 @@ class ormEditForm {
 			} else $fields = $class_list;
 
 			// Подключаем обработчик добавления страниц
-	        if (is_a($this->obj, 'ormPage')) {
+	        if ($this->obj instanceof ormPage) {
 	        	$fields .= '<input id="old_name_val" type="hidden" value="'.$this->obj->name.'">';
 	            $this->javascript[] = '/css_mpanel/edit_page.js';
 	        }
@@ -490,7 +490,7 @@ class ormEditForm {
 		page::assign('field.value', $value);
 
         // Для страниц, для кнопки "Показать \ скрыть доп. поля"
-		if (is_a($this->obj, 'ormPage') && in_array($field['f_sname'], $this->page_fields)) {
+		if (($this->obj instanceof ormPage) && in_array($field['f_sname'], $this->page_fields)) {
         	$sh_page = (isset($_SESSION['SH_FIELDS']) && $_SESSION['SH_FIELDS'] == 'show') ? '' : ' style="display:none;"';
         	page::assign('sh_page', $sh_page);
 		} else page::assign('sh_page', '');

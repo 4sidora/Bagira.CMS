@@ -15,9 +15,11 @@ class language extends innerErrorList {
     private $old_prefix = '';
 
     // Конструктор класса
- 	public function __construct($obj_id = 0) {
+ 	public function __construct($obj_id = 0) {
+
     	if (!empty($obj_id) && is_numeric($obj_id)) {
-    		$this->values = db::q('SELECT * FROM <<langs>> WHERE l_id = "'.$obj_id.'";', record);
+
+    		$this->values = db::q('SELECT * FROM <<langs>> WHERE l_id = "'.$obj_id.'";', record);
     		$this->id = $obj_id;
 
     	} else if (is_array($obj_id) && !empty($obj_id['id']) && !empty($obj_id['l_name'])) {
@@ -34,7 +36,8 @@ class language extends innerErrorList {
 
     // Вернет ID языковой версии сайта
  	public function id() {
-    	return $this->id;    }
+    	return $this->id;
+    }
 
     // Вернет название языковой версии
     public function getName() {
@@ -86,7 +89,8 @@ class language extends innerErrorList {
     }
 
 	// Сохраняет текущие изменения в БД
-    public function save() {
+    public function save() {
+
         if (!$this->issetErrors() && (empty($this->values['l_name']) || empty($this->values['l_prefix'])))
         	$this->newError(52, 'Поля "Название" и "Префикс" обязательны для заполнения!');
 
@@ -95,7 +99,8 @@ class language extends innerErrorList {
 			return false;
 
     	} else if (!empty($this->id)) {
-            // Изменение языка
+
+            // Изменение языка
     		$sql = $this->getSql();
             if (!empty($sql))
 	    		db::q('UPDATE <<langs>> SET '.$sql.' WHERE l_id = "'.$this->id.'";');
@@ -117,7 +122,8 @@ class language extends innerErrorList {
             return true;
 
     	} else {
-            // Добавление языка
+
+            // Добавление языка
             $sql = $this->getSql();
             if (!empty($sql))
             	$this->id = db::q('INSERT INTO <<langs>> SET '.$sql.';');
@@ -149,7 +155,8 @@ class language extends innerErrorList {
                 system::log('Создана новая языковая версия сайта "'.$this->values['l_name'].'" (id:'.$this->id.')', warning);
 				return true;
 
-			} else {				$this->newError(53, 'Произошла ошибка при добавление языка!');
+			} else {
+				$this->newError(53, 'Произошла ошибка при добавление языка!');
 				system::log('Произошла ошибка при добавление языка!', error);
 				return false;
 			}
@@ -189,7 +196,8 @@ class language extends innerErrorList {
     }
 
     // Удаление языковой версии сайта
-    public function delete() {
+    public function delete() {
+
     	if (!empty($this->id) && $this->id != 1) {
 
             $is_ok = true;
@@ -223,7 +231,7 @@ class language extends innerErrorList {
 	            while(list($key, $val) = each($domain))
 		            if (!empty($val['d_id'])){
 			            $domain = domains::get($val['d_id']);
-			            if (is_a($domain, 'domain')) {
+			            if ($domain instanceof domain) {
 				            $domain->setDefLang(1);
 				            $domain->save();
 			            }
@@ -239,7 +247,8 @@ class language extends innerErrorList {
     				$this->newError(54, 'Произошла ошибка при удалении языка "'.$this->values['l_name'].'"!');
     			}
 
-            } else {            	system::log('Пользователь пытался удалить языковую версию "'.$this->values['l_name'].'" (id:'.$this->id.'), но у него не хватило прав на удаление всех страниц!', error);
+            } else {
+            	system::log('Пользователь пытался удалить языковую версию "'.$this->values['l_name'].'" (id:'.$this->id.'), но у него не хватило прав на удаление всех страниц!', error);
             	$this->newError(55, 'Вы не можете удалить язык сайта "'.$this->values['l_name'].'", т.к. не имеете прав на удаление некоторых страниц!');
             }
     	}

@@ -177,7 +177,7 @@ class searchIndex extends searchRanking {
 
     	if (reg::getKey(ormPages::getPrefix('search').'/auto_index'))
 
-    		if (is_a($page, 'ormPage')) {
+    		if ($page instanceof ormPage) {
 
 	            // Если есть, удаляем старый индекс страницы
 	            self::delIndexForPage($page->id);
@@ -189,7 +189,7 @@ class searchIndex extends searchRanking {
     // Индексирует указанную страницу
  	static function indexPage($page) {
 
-    	if (is_a($page, 'ormPage')) {
+    	if ($page instanceof ormPage) {
 
             if ($page->in_search) {
 

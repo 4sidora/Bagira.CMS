@@ -26,7 +26,7 @@ class cache {
 
             eval('self::$class = new '.CACHE_DRIVER.'Cache();');
 
-            return is_a(self::$class, 'defCache');
+            return self::$class instanceof defCache;
 
         } else
             return true;

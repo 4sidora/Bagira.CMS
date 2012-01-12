@@ -31,7 +31,7 @@ class domains {
             // Определяем домен по УРЛу
             if (system::issetUrl(0)) {
 	        	$tmp_domain = self::get(str_replace('_', '.', system::url(0)));
-                if (is_a($tmp_domain, 'domain')) {
+                if ($tmp_domain instanceof domain) {
 					self::$cur_domain = $tmp_domain;
 					system::clipUrl();
 					languages::setCurLang(self::$cur_domain->getDefLang());
@@ -99,10 +99,10 @@ class domains {
 
             }
 
-            if (!is_a(self::$cur_domain, 'domain'))
+            if (!(self::$cur_domain instanceof domain))
             	self::$cur_domain = self::get(1);
 
-			if (!is_a(self::$cur_domain, 'domain'))
+			if (!(self::$cur_domain instanceof domain))
 				die('не могу определить домен');
 
 			self::$cur_site_domain = self::$cur_domain;

@@ -518,7 +518,7 @@ class ormPage extends ormObject {
                 $ret = false;
                 while(list($id, $p) = each($parents)) {
                     $obj = ormPages::get($id);
-                    if (is_a($obj, 'ormPage'))
+                    if ($obj instanceof ormPage)
                         $ret = $obj->isEditable();
                 }
 
@@ -540,10 +540,10 @@ class ormPage extends ormObject {
 
                 $obj = ormPages::get($this->childr[$this->child_num]);
 
-                if (!is_a($obj, 'ormObject'))
+                if (!($obj instanceof ormObject))
                     $obj = ormObjects::get($this->childr[$this->child_num]);
 
-                if (is_a($obj, 'ormObject')) {
+                if ($obj instanceof ormObject) {
 
                     $this->child_num++;
                     if ($this->child_num > count($this->childr))

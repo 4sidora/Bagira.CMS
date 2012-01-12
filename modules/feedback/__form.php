@@ -102,7 +102,7 @@ class __form {
 
 		page::assign('right', $right);
 
-		if (!is_a($obj, 'ormObject') || $obj->issetErrors())
+		if (!($obj instanceof ormObject) || $obj->issetErrors())
 			system::redirect('/feedback/settings');
 
 

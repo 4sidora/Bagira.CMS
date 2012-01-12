@@ -37,7 +37,7 @@ class votingMacros {
             else
                 $obj = ormPages::get($obj_id, 'vote');
 
-            if (is_a($obj, 'ormPage')) {
+            if ($obj instanceof ormPage) {
 
                 $all_count = 0;
                 $result = (!empty($_SESSION['voting_'.$obj->id]) || $obj->close) ? '_result' : '';
@@ -142,7 +142,7 @@ class votingMacros {
                 if ($info['section'] === false)
                     return '';
 
-                if (is_a($info['section'], 'ormPage')) {
+                if ($info['section'] instanceof ormPage) {
                     $section = $info['section'];
                     $obj_id = $section->id;
                 }

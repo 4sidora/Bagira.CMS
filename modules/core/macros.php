@@ -171,7 +171,7 @@ class coreMacros {
         $list = '';
 
         // Определяем источник данных: ID, имя класса, путь, объект ormPage
-        $independent = (is_a($section, 'ormObject')) ? false : true;
+        $independent = ($section instanceof ormObject) ? false : true;
         $class_name = $class_frame = '';
 
         if ($independent) {

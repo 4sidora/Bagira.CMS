@@ -78,7 +78,7 @@ class ormClasses {
 
     // Регистрация нового класса в коллекции. Используется системой при добавлении нового класса.
     public static function registration($class) {
-        if (is_a($class, 'ormClass'))
+        if ($class instanceof ormClass)
             self::$classes[$class->id()] = $class;
     }
 

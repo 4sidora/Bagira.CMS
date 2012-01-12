@@ -180,7 +180,7 @@ class uiTable extends uiTableFunctions {
     	При этом ключи массива должны совпадать с названием столбцов таблицы.
     */
 	function __construct($data, $count = 0) {
-	    if (is_a($data, 'ormSelect')) {
+	    if ($data instanceof ormSelect) {
 	 		$this->select = $data;
 	   		$this->filter = new ormFilterForm($this->select);
 	   		$this->isSelection = true;

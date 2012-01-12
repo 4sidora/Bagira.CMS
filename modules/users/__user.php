@@ -108,7 +108,7 @@ class __user {
 
             $class_name = 'user';
             $class = ormClasses::get($_POST['class_id']);
-   			if (is_a($class, 'ormClass') && $class->isInheritor('user'))
+   			if (($class instanceof ormClass) && $class->isInheritor('user'))
    				$class_name = $class->getSName();
 
             // Говорим какой объект нужно создать

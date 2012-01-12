@@ -207,7 +207,7 @@ class rights {
 			$sel->limit(1);
             $user = $sel->getObject();
 
-            if (is_a($user, 'ormObject')) {
+            if ($user instanceof ormObject) {
 	        	page::assign("group.id", $user->id);
 	         	page::assign("group.name", $user->login);
 	         	page::assign("checked_edit", '');
@@ -283,7 +283,7 @@ class rights {
     */
 	public static function setListForObject($obj) {
 
-		if (is_a($obj, 'ormObject')) {
+		if ($obj instanceof ormObject) {
 
             if (isset($_POST['all_edit']) && isset($_POST['all_view'])) {
 

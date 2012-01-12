@@ -22,7 +22,7 @@ class eShopOrder {
     
     function __construct($order = '') {
 
-        if (is_a($order, 'ormObject') && $order->isInheritor('eshop_order')) {
+        if (($order instanceof ormObject) && $order->isInheritor('eshop_order')) {
 
             $this->obj = $order;
 

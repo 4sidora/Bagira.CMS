@@ -26,13 +26,13 @@ class basket {
         // Получаем экземпляр товара
         if (is_numeric($goods_id))
             $goods = ormPages::get($goods_id, 'goods');
-        else if (is_a($goods_id, 'ormPage'))
+        else if ($goods_id instanceof ormPage)
             $goods = $goods_id;
         else
             $goods = false;
 
         // Добавляем в корзину
-        if (is_a($goods, 'ormPage') && $goods->isInheritor('goods')) {
+        if (($goods instanceof ormPage) && $goods->isInheritor('goods')) {
 
             if (!reg::getKey('/eshop/check_count') || reg::getKey('/eshop/min_count') < $goods->count){
             

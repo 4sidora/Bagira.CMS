@@ -184,7 +184,7 @@ class user {
 
         if (self::$isGuest) {
             return ($group_id == self::$guestGroup) ? true : false;
-    	} else if (is_a(self::$obj, 'ormObject')) {
+    	} else if (self::$obj instanceof ormObject) {
     		return (array_key_exists($group_id, self::$obj->getParents())) ? true : false;
     	} else return false;
 
@@ -193,7 +193,7 @@ class user {
     // Вернет массив, список групп в которые входит пользователь
     static function getGroups() {
            // print_r(self::$obj);
-        if (is_a(self::$obj, 'ormObject'))  {
+        if (self::$obj instanceof ormObject)  {
     		return self::$obj->getParents();
     	}else{
     		return array(self::$guestGroup => self::$guestGroup);
@@ -202,7 +202,7 @@ class user {
 
     // Вернет любую информацию о текущем пользователе
     static function get($name) {
-        if (is_a(self::$obj, 'ormObject'))
+        if (self::$obj instanceof ormObject)
     		return self::$obj->__get($name);
     	else
     		return '';
@@ -220,7 +220,7 @@ class user {
 
     // Вернет экземпляр ORM-объекта для изменение данных пользвателя
     static function getObject() {
-		if (is_a(self::$obj, 'ormObject'))
+		if (self::$obj instanceof ormObject)
 			return self::$obj;
     }
 
@@ -309,7 +309,7 @@ class user {
 
         	return self::getRightsFor($obj);
 
-        } else if (is_a($obj, 'ormObject')) {
+        } else if ($obj instanceof ormObject) {
 
 	        if ($obj->isInheritor('user_group')) {
 

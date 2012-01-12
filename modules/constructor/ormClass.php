@@ -123,7 +123,7 @@ class ormClass extends innerErrorList {
             else {
 
                 $class = $this->getParent();
-                if (is_a($class, 'ormClass'))
+                if ($class instanceof ormClass)
                     return $class->isInheritor($class_name);
                 else
                     return false;
@@ -369,7 +369,7 @@ class ormClass extends innerErrorList {
             $nul .= ($this->parent_id == NULL) ? '' : 'c_parent_id = "'.$this->parent_id.'",';
 
             $parent = $this->getParent();
-            $this->is_page = (is_a($parent, 'ormClass')) ? $parent->isPage() : 0;
+            $this->is_page = ($parent instanceof ormClass) ? $parent->isPage() : 0;
 
             $sql = 'INSERT INTO <<classes>>
 						SET c_name = "'.$this->name.'",
@@ -400,7 +400,7 @@ class ormClass extends innerErrorList {
                     ormClasses::registration($this);
 
                     // Наследует все поля родительского класса
-                    if (is_a($parent, 'ormClass')) {
+                    if ($parent instanceof ormClass) {
 
                         $groups = $parent->getAllGroups();
 

@@ -24,7 +24,7 @@ class structureMacros {
                   
 
             $info = ormPages::getSectionByPath($section_id);
-            if (is_a($info['section'], 'ormPage'))
+            if ($info['section'] instanceof ormPage)
                 $section_id = $info['section']->id;
 
             $no_view = reg::getList(ormPages::getPrefix().'/no_view');
@@ -117,7 +117,7 @@ class structureMacros {
 
             if (empty($templ_name)) {
             	$templ_obj = templates::get($page->template2_id);
-            	$templ_name = (is_a($templ_obj, 'template')) ? $templ_obj->getFile() : 'default';
+            	$templ_name = ($templ_obj instanceof template) ? $templ_obj->getFile() : 'default';
 	        }
 
 	        $templ_file = '/structure/objects/'.$templ_name.'.tpl';
@@ -186,7 +186,7 @@ class structureMacros {
         // Определяем текущий раздел
         $info = ormPages::getSectionByPath($section);
 
-        $section_id = (is_a($info['section'], 'ormPage')) ? $info['section']->id : 'NULL';
+        $section_id = ($info['section'] instanceof ormPage) ? $info['section']->id : 'NULL';
         $class_name = (!empty($info['class'])) ? $info['class'] : '';
 
         // Определяем общий ORM-класс для всех объектов данного раздела.
@@ -488,7 +488,7 @@ class structureMacros {
         $list = '';
 
         // Определяем источник данных: ID, имя класса, путь, объект ormPage
-        $independent = (is_a($section, 'ormPage')) ? false : true;
+        $independent = ($section instanceof ormPage) ? false : true;
         $class_name = $class_frame = '';
 
         if ($independent) {
@@ -504,7 +504,7 @@ class structureMacros {
             if (!empty($info['class']))
                 $class_name = $info['class'];
 
-            if (is_a($info['section'], 'ormPage')) {
+            if ($info['section'] instanceof ormPage) {
                 $section = $info['section'];
                                 
                 if ($TEMPLATE == 'default' && $section->template2_id > 0)
@@ -526,7 +526,7 @@ class structureMacros {
 	    $sel = new ormSelect($class_name);
 	    $sel->findInPages();
 
-	    if (is_a($section, 'ormPage')) {
+	    if ($section instanceof ormPage) {
 
             page::assign('parent_id', $section->id);
             $section_id = $section->id;
@@ -556,7 +556,7 @@ class structureMacros {
         $this->setFilters($sel, $ind, $class_name);
 
         // Сортировка списка
-        $order_by = trim((empty($order_by) && is_a($section, 'ormPage')) ? $section->order_by : $order_by);
+        $order_by = trim((empty($order_by) && ($section instanceof ormPage)) ? $section->order_by : $order_by);
         if (!empty($order_by)) {
             $pos = strpos($order_by, ' ');
             if ($pos) {
@@ -564,7 +564,7 @@ class structureMacros {
             	$order_by = substr($order_by, 0, $pos);
             } else $parram = '';
         	$sel->orderBy($order_by, $parram);
-        } else if (is_a($section, 'ormPage')) $sel->orderBy(position, asc);
+        } else if ($section instanceof ormPage) $sel->orderBy(position, asc);
 
         $class_list = $sel->getClassesList();
 
@@ -580,7 +580,7 @@ class structureMacros {
 	        $sel->fields($fields_str);
 
             // Количество элементов и постраничная навигация
-            $max_count = (empty($max_count) && is_a($section, 'ormPage')) ? $section->number_of_items : $max_count;
+            $max_count = (empty($max_count) && ($section instanceof ormPage)) ? $section->number_of_items : $max_count;
             if (!empty($max_count))
 		        if (isset($fields['funct']) && in_array('structure.navigation', $fields['funct'])) {
 
@@ -674,7 +674,7 @@ class structureMacros {
         $list = '';
 
         // Определяем источник данных: ID, имя класса, путь, объект ormPage
-        $independent = (is_a($section, 'ormPage')) ? false : true;
+        $independent = ($section instanceof ormPage) ? false : true;
         $class_name = $class_frame = '';
 
         if ($independent) {
@@ -687,7 +687,7 @@ class structureMacros {
             if (!empty($info['class']))
                 $class_name = $info['class'];
 
-            if (is_a($info['section'], 'ormPage')) {
+            if ($info['section'] instanceof ormPage) {
                 $section = $info['section'];
 
                 if ($TEMPLATE == 'default' && $section->template2_id > 0)
@@ -712,7 +712,7 @@ class structureMacros {
         $sel->where('tags', '=', $section->tags, 'OR');
 
         // Сортировка списка
-        $order_by = trim((empty($order_by) && is_a($section, 'ormPage')) ? $section->order_by : $order_by);
+        $order_by = trim((empty($order_by) && ($section instanceof ormPage)) ? $section->order_by : $order_by);
         if (!empty($order_by)) {
             $pos = strpos($order_by, ' ');
             if ($pos) {
@@ -720,7 +720,7 @@ class structureMacros {
             	$order_by = substr($order_by, 0, $pos);
             } else $parram = '';
         	$sel->orderBy($order_by, $parram);
-        } else if (is_a($section, 'ormPage')) $sel->orderBy(position, asc);
+        } else if ($section instanceof ormPage) $sel->orderBy(position, asc);
 
         $class_list = $sel->getClassesList();
 
@@ -736,7 +736,7 @@ class structureMacros {
 	        $sel->fields($fields_str);
 
             // Количество элементов и постраничная навигация
-            $max_count = (empty($max_count) && is_a($section, 'ormPage')) ? $section->number_of_items : $max_count;
+            $max_count = (empty($max_count) && ($section instanceof ormPage)) ? $section->number_of_items : $max_count;
             if (!empty($max_count))
 		        if (isset($fields['funct']) && in_array('structure.navigation', $fields['funct'])) {
 
@@ -1247,7 +1247,7 @@ class structureMacros {
             if ($info['section'] === false)
                 return '';
 
-            if (is_a($info['section'], 'ormObject'))
+            if ($info['section'] instanceof ormObject)
                 $obj_id = $info['section']->id;
         }
 
@@ -1290,7 +1290,7 @@ class structureMacros {
             $class = ormClasses::get($obj_id_or_class);
 
         // Получаем список полей
-        if (is_a($class, 'ormClass'))
+        if ($class instanceof ormClass)
             $spec = (!empty($spec)) ? $class->loadSpecFields() : $class->loadFields();
 
         while(list($sname, $field) = each($spec))
@@ -1315,7 +1315,7 @@ class structureMacros {
                     page::assign('field.name', $field['f_name']);
                     page::assign('field.sname', $sname);
 
-                    if (is_a($obj, 'ormObject')) {
+                    if ($obj instanceof ormObject) {
                         page::assign('field.value', $obj->__get($sname));
                         page::assign('field._value', $obj->__get('_'.$sname));
                     }

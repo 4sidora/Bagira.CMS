@@ -455,7 +455,7 @@ class ormMultiForm extends uiTableFunctions {
 	                $obj->setClass($class->getSName());
                 }
 
-                if (isset($obj) && is_a($obj, 'ormObject'))
+                if (isset($obj) && ($obj instanceof ormObject))
 	            	if (!$this->without_del && isset($_POST['delete_'.$obj->id])) {
 
 	            		$obj->toTrash();

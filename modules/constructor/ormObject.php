@@ -131,7 +131,7 @@ class ormObject extends innerErrorList {
 
     // Загружаем данные о полях класса
     protected function loadFields() {
-        if (empty($this->fields) && is_a($this->class, 'ormClass'))
+        if (empty($this->fields) && ($this->class instanceof ormClass))
             $this->fields = $this->class->loadFields();
     }
 
@@ -140,7 +140,7 @@ class ormObject extends innerErrorList {
 
         if (empty($this->cur_prop) || $prinud) {
 
-            if (!empty($this->id) && is_a($this->class, 'ormClass')) {
+            if (!empty($this->id) && ($this->class instanceof ormClass)) {
 
                 $sql =  '/* '.$fname.' */
 	                        SELECT *
@@ -161,7 +161,7 @@ class ormObject extends innerErrorList {
 
         //$value = str_replace('%', '`%`', $value);
 
-        if (is_a($this->class, 'ormClass')) {
+        if ($this->class instanceof ormClass) {
 
             $this->loadFields();
 
@@ -698,7 +698,7 @@ class ormObject extends innerErrorList {
     // Добавление новый или изменяет свойства существующего объекта
     public function save(){
 
-        if(!is_a($this->class, 'ormClass'))
+        if(!($this->class instanceof ormClass))
             $this->newError(37, 'Невозможно создать/изменить объект, т.к. не определен класс для объекта!');
         else if ($this->to_trash)
             $this->newError(38, 'Вы не можете изменить объект помеченный для удаления!');
@@ -1377,7 +1377,7 @@ class ormObject extends innerErrorList {
 
     public function parseAllFields($prefix = 'obj') {
 
-        if(is_a($this->class, 'ormClass')) {
+        if($this->class instanceof ormClass) {
 
             $this->loadFields();
             $this->loadData();
@@ -1395,7 +1395,7 @@ class ormObject extends innerErrorList {
     // Автоматически сохраняет данные объекта пришедшие через $_POST
     public function loadFromPost() {
 
-        if(is_a($this->class, 'ormClass')) {
+        if($this->class instanceof ormClass) {
 
             $this->loadFields();
             $this->loadData();
@@ -1473,10 +1473,10 @@ class ormObject extends innerErrorList {
 
                 $obj = ormObjects::get($this->childr[$this->child_num]);
 
-                if (!is_a($obj, 'ormObject'))
+                if (!($obj instanceof ormObject))
                     $obj = ormPages::get($this->childr[$this->child_num]);
 
-                if (is_a($obj, 'ormObject')) {
+                if ($obj instanceof ormObject) {
 
                     $this->child_num++;
                     if ($this->child_num > count($this->childr))
@@ -1623,7 +1623,7 @@ class ormObject extends innerErrorList {
 
         if (empty($class_name)) {
 
-            if (is_a($this, 'ormPage'))
+            if ($this instanceof ormPage)
                 return ormPages::get($this->getParentId());
             else
                 return ormObjects::get($this->getParentId());
@@ -1713,7 +1713,7 @@ class ormObject extends innerErrorList {
 
     // Получаем экземпляр класса на основе которого создан объект
     public function getClass() {
-        if (is_a($this->class, 'ormClass'))
+        if ($this->class instanceof ormClass)
             return $this->class;
     }
 
@@ -1728,7 +1728,7 @@ class ormObject extends innerErrorList {
 
     // Проверяет, создал ли текущий объект на основе наследника указанного ORM-класса
     public function isInheritor($class_name) {
-        if (is_a($this->class, 'ormClass'))
+        if ($this->class instanceof ormClass)
             return $this->class->isInheritor($class_name);
         else
             return false;

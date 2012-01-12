@@ -37,7 +37,7 @@ class __page {
 
             $obj = ormPages::get(system::url(2));
 
-			if (is_a($obj, 'ormPage')) {
+			if ($obj instanceof ormPage) {
 				$parent_id = $obj->getParentId();
 				ui::setHeader($obj->name);
 	            ui::setNaviBar(lang::get('TEXT_EDIT').$obj->getClass()->getPadej(1));
@@ -125,7 +125,7 @@ class __page {
 		page::assign('right', $right);
 
         // Если произошли ошибки, перенаправляем на главную страницу модуля
-		if (!is_a($obj, 'ormPage') || $obj->issetErrors())
+		if (!($obj instanceof ormPage) || $obj->issetErrors())
 			system::redirect('/structure/tree');
 
 
@@ -328,7 +328,7 @@ class __page {
 
 	    	$obj = ormPages::get(system::url(2));
 
-	    	if (is_a($obj, 'ormPage')){
+	    	if ($obj instanceof ormPage){
 				$obj->active = ($obj->active) ? false : true;
 				$obj->save();
 
@@ -347,7 +347,7 @@ class __page {
 
         			$obj = ormPages::get($id);
 
-			    	if (is_a($obj, 'ormPage')){
+			    	if ($obj instanceof ormPage){
 						$obj->active = ($obj->active) ? false : true;
 						$obj->save();
 

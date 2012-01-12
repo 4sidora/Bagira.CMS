@@ -28,7 +28,7 @@ class controller {
 
  	private function parsePageContent($page) {
 
-		if (is_a($page, 'ormPage') && $page->active) {
+		if (($page instanceof ormPage) && $page->active) {
 
             page::assign('page_id', $page->id);
 

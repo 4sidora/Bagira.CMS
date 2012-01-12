@@ -8,7 +8,7 @@ class __profile {
 		$obj = user::getObject();
 
         // Если произошли ошибки, перенаправляем на главную страницу админки
-		if (!is_a($obj, 'ormObject'))
+		if (!($obj instanceof ormObject))
 			system::redirect('/');
 
         // Устанавливаем кнопки для формы
@@ -34,7 +34,7 @@ class __profile {
         $obj = user::getObject();
 
         // Если произошли ошибки, перенаправляем на главную страницу админки
-		if (!is_a($obj, 'ormObject'))
+		if (!($obj instanceof ormObject))
 			system::redirect('/');
 
         // Присваиваем пришедшие значения полям в объекте

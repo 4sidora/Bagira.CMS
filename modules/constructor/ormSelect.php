@@ -104,10 +104,10 @@ class ormSelect {
     // Вернет ID базового ORM-класса выборки
     public function getObjectsClass(){
 
-        if (!is_a($this->class, 'ormClass'))
+        if (!($this->class instanceof ormClass))
             $this->checkFieldList();
 
-        if (is_a($this->class, 'ormClass'))
+        if ($this->class instanceof ormClass)
             return $this->class->id();
     }
 

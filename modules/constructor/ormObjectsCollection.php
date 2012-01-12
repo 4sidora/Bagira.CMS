@@ -57,7 +57,7 @@ class ormObjects {
                     self::$objects[$id] = $obj;
             }
 
-            if (is_a($obj, 'ormObject') && !$obj->inTrash())
+            if (($obj instanceof ormObject) && !$obj->inTrash())
                 if (empty($filter_class) || $obj->isInheritor($filter_class))
                     return $obj;
         }

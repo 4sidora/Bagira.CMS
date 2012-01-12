@@ -47,17 +47,17 @@ class languages {
 
 		        	self::$cur_lang = self::get(system::url(0));
 
-		        	if (is_a(self::$cur_lang, 'language')) {
+		        	if (self::$cur_lang instanceof language) {
 			        	system::clipUrl();
 			        	self::$isCliped = true;
 		        	}
 		        }
             }
 
-			if (!is_a(self::$cur_lang, 'language'))
+			if (!(self::$cur_lang instanceof language))
 				self::$cur_lang = self::get(domains::curDomain()->getDefLang());
 
-			if (!is_a(self::$cur_lang, 'language'))
+			if (!(self::$cur_lang instanceof language))
 				die('не могу определить язык');
 		}
 	}
@@ -67,8 +67,10 @@ class languages {
 	* @param integer $lang_id - ID языковой версии
 	* @desc Принудительная установка текущей языковой версии
 	*/
-	static function setCurLang($lang_id) {    	if (!self::$isCliped && system::$isAdmin && is_numeric($lang_id)) {    		$tmp = self::get($lang_id);
-    		if (is_a($tmp, 'language'))
+	static function setCurLang($lang_id) {
+    	if (!self::$isCliped && system::$isAdmin && is_numeric($lang_id)) {
+    		$tmp = self::get($lang_id);
+    		if ($tmp instanceof language)
     			self::$cur_lang = $tmp;
     	}
 	}

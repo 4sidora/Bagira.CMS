@@ -340,7 +340,7 @@ class ormPages {
 
 			$obj = self::$pages_obj[$page_id];
 
-            if (isset($obj) && is_a($obj, 'ormPage') && !$obj->issetErrors() && $obj->id == $page_id)
+            if (isset($obj) && ($obj instanceof ormPage) && !$obj->issetErrors() && $obj->id == $page_id)
             	if (empty($filter_class) || $obj->isInheritor($filter_class))
             		return $obj;
 

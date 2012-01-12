@@ -27,7 +27,7 @@ class ormFilterForm {
   	* @desc Конструктор.
  	*/
 	public function __construct($select){
-		if (is_a($select, 'ormSelect'))
+		if ($select instanceof ormSelect)
 			$this->select = $select;
 	}
 
@@ -87,7 +87,7 @@ class ormFilterForm {
     // Получаем список фильтров, для создания формы фильтрации
     private function getFiltersList() {
 
-        if (is_a($this->select, 'ormSelect') && empty($this->filters)) {
+        if (($this->select instanceof ormSelect) && empty($this->filters)) {
 
             $class_name = $this->select->getObjectsClass();
             if (!empty($class_name))

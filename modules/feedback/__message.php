@@ -118,7 +118,7 @@ class __message {
 
 	    	$obj = ormPages::get(system::url(2));
 
-	    	if (is_a($obj, 'ormPage')){
+	    	if ($obj instanceof ormPage){
 				$obj->active = ($obj->active) ? false : true;
 				$obj->save();
 
@@ -137,7 +137,7 @@ class __message {
 
         			$obj = ormPages::get($id);
 
-			    	if (is_a($obj, 'ormPage')){
+			    	if ($obj instanceof ormPage){
 						$obj->active = ($obj->active) ? false : true;
 						$obj->save();
 

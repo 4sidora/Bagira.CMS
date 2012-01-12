@@ -48,7 +48,7 @@ class controller {
 
     	if (system::isAjax()) {
 
-            if ($error < 2 && is_a($vote, 'ormPage'))
+            if ($error < 2 && ($vote instanceof ormPage))
             	$data = page::macros('voting')->objView($vote->id);
 
             echo json_encode(array('error' => 0, 'html' => $data, 'msg' => $msg));

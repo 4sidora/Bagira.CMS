@@ -831,7 +831,7 @@ class ui {
 
             $field = new ormField($field_id);
 
-            if (is_a($field, 'ormField') && !$field->issetErrors()) {
+            if (($field instanceof ormField) && !$field->issetErrors()) {
 
                 page::assign('field_id', $field->getSName().$prefix);
                 page::assign('ol_width', $width);
@@ -913,7 +913,7 @@ class ui {
                 if (!$obj = ormPages::get(system::url(1)))
                     $obj = ormObjects::get(system::url(1));
 
-                if (is_a($obj, 'ormObject') && !$obj->issetErrors()) {
+                if (($obj instanceof ormObject) && !$obj->issetErrors()) {
 
                     page::assign('id', $obj->id);
                     page::assign('name', $obj->name);
