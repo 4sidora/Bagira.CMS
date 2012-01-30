@@ -7,6 +7,7 @@ class controller {
 
         $answers = system::POST('answers');
         $error = 2;
+        $msg = '';
 
     	if (count($answers) > 0) {
 

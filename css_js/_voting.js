@@ -26,7 +26,6 @@ $(window).load(function(){
 
             }, 'json');
 
-
         }
         return false;
 
