@@ -583,7 +583,7 @@ ul.objectsLink li a.new {    float:left;    display:block;    margin-left:10px;}
 .basictable i{ display:inline; margin-left:9px; float:left; }
 
 .navigate{color:#000000; font-size:12px; margin-left:20px; width:480px; display:inline; float:left; height:23px; padding-top:7px;}
-.navigate a,  .navigate a:link,   .navigate a:visited { color: #005ad3; font-size:12px;  text-decoration:underline; }
+.navigate a,  .navigate a:link,   .navigate a:visited { cursor: pointer; color: #005ad3; font-size:12px;  text-decoration:underline; }
 .navigate a:hover {  color: #e33729;}
 .navigate strong{ color:#000000;}
 
