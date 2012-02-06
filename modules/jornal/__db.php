@@ -37,7 +37,8 @@ class __db {
         $mas = db::q('SELECT rev_state, rev_user, rev_user_id, rev_datetime,
         			concat(rev_message, " <b>", o_name, "</b>") rev_msg, rev_ip
 		        	FROM <<revue>>, <<objects>>
-		        	WHERE rev_obj_id = o_id'.$limit, records);
+		        	WHERE rev_obj_id = o_id
+		        	ORDER BY rev_datetime DESC '.$limit, records);
 
          /*
            Сделать фильтры:
