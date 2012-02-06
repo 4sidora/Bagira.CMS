@@ -192,7 +192,7 @@ $(function () {
                        onselect: function (node) {
 
                             if ($("#isEditable").text() == 1)
-			                	document.location.replace($("#"+node.id+" > a").attr("href"));
+			                	document.location.href($("#"+node.id+" > a").attr("href"));
 			           		else
 			           			window.parent.addToLinkList($("#parram").val(), $("#"+node.id).attr("name"));
 

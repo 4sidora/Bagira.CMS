@@ -172,7 +172,7 @@ END;
 // Ячейка со значением объекта
 $TEMPLATE['item_val'] = <<<END
 <td class="cell_gamename%first%" style="cursor: pointer;"
-	onmousedown="document.location.replace('%url%%parram%');">
+	onmousedown="document.location.href = '%url%%parram%';">
 	 %value%
 </td>
 END;
