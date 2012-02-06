@@ -14,6 +14,8 @@ class controller {
         if(!empty($_POST['enter']))
             if (!user::auth($_POST['login'], $_POST['passw']))
                $this->showAuthForm();
+            else
+                header("Location: ".$_SERVER["HTTP_REFERER"]);
 
         // Если пользователь не админ, показываем форму авторизации
         if (!user::isAdmin())
