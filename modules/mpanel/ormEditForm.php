@@ -634,7 +634,7 @@ class ormEditForm {
       		$this->java .= page::parse('rules.push("valid_email,%field.sname%,'.lang::get('CONSTR_BASE_FIELD_E3').'");');
 
         if ($field['f_type'] == 20)
-        	$this->java .= page::parse('rules.push("reg_exp,%field.sname%,^(((f|ht){1}tp:/)*/[-a-zA-Z0-9@:%_\+.~#?&//=]+)*$, '.lang::get('CONSTR_BASE_FIELD_E4').'");');
+        	$this->java .= page::parse('rules.push("reg_exp,%field.sname%,^(((f|ht){1}tp:/)*/[-a-zA-Z0-9@:%_\+.~#?&//=]+)*$|^\/{1}, '.lang::get('CONSTR_BASE_FIELD_E4').'");');
 
         if ($field['f_type'] == 40)
       		$this->java .= page::parse('rules.push("digits_only,%field.sname%,'.lang::get('CONSTR_BASE_FIELD_E6').'");');

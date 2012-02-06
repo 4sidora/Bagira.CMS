@@ -1109,7 +1109,7 @@ class system {
 
             case isUrl: // Адрес сайта
                 if ($var == '') return ''; else
-                    return preg_match("(((f|ht){1}tp:/)*/[-a-zA-Z0-9@:%_\+.~#?&//=]+)", trim($var)) ? $var : false;
+                    return preg_match("[(((f|ht){1}tp:/)*/[-a-zA-Z0-9@:%_\+.~#?&//=]+)|^\/{1}]", trim($var)) ? $var : false;
                 break;
 
             case isPassword: // Пароль, проверка на длину и кодирование

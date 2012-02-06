@@ -408,7 +408,7 @@ class ormMultiForm extends uiTableFunctions {
 	      		$this->java .= page::parse('rules.push("valid_email,'.$obj_id.','.lang::get('CONSTR_BASE_FIELD_E3').'");');
 
             if ($field['f_type'] == 20)
-                $this->java .= page::parse('rules.push("reg_exp,'.$obj_id.',^(((f|ht){1}tp:/)*/[-a-zA-Z0-9@:%_\+.~#?&//=]+)*$, '.lang::get('CONSTR_BASE_FIELD_E4').'");');
+                $this->java .= page::parse('rules.push("reg_exp,'.$obj_id.',^(((f|ht){1}tp:/)*/[-a-zA-Z0-9@:%_\+.~#?&//=]+)*$|^\/{1}, '.lang::get('CONSTR_BASE_FIELD_E4').'");');
 
             if ($field['f_type'] == 40)
                 $this->java .= page::parse('rules.push("digits_only,'.$obj_id.','.lang::get('CONSTR_BASE_FIELD_E6').'");');
