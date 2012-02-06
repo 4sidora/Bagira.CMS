@@ -240,8 +240,7 @@ class system {
 
                 // постраничная
                 $navig_val = '';
-                $navig_pos = strpos ($way_str, '^');
-
+                $navig_pos = strpos ($way_str, '=');
 
                 if ($navig_pos !== false) {
 

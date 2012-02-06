@@ -75,7 +75,7 @@ END;
 $TEMPLATE['print_link'] = <<<END
 
         <td width="100">
-			<a href="%current_url%^print" target="_blank" style="float:right;padding-top:10px;">Печать</a>
+			<a href="%current_url%=print" target="_blank" style="float:right;padding-top:10px;">Печать</a>
 			<img src="/css_mpanel/images/printv.jpg" width="30" height="30" border=0 style="float:right;">
 		</td>
 END;

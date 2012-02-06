@@ -167,7 +167,7 @@ class structureMacros {
                     page::assign('obj.class', $class);
 
 
-		    		page::assign('print_url', $page->url.'^print');
+		    		page::assign('print_url', $page->url.'=print');
 
 		    		return page::parse($TEMPLATE[$pre.$templ]);
 	        }
@@ -1084,10 +1084,10 @@ class structureMacros {
 
 		        page::assign('current_num', $current_num);
 		        page::assign('count_page', $count_page);
-		        page::assign('first_page', $current_url.'^1');
-		        page::assign('previous_page', $current_url.'^'.($current_num - 1));
-		        page::assign('next_page', $current_url.'^'.($current_num + 1));
-		        page::assign('last_page', $current_url.'^'.$count_page);
+		        page::assign('first_page', $current_url.'=1');
+		        page::assign('previous_page', $current_url.'='.($current_num - 1));
+		        page::assign('next_page', $current_url.'='.($current_num + 1));
+		        page::assign('last_page', $current_url.'='.$count_page);
 
 		        if (!empty($smeshenie)) {
 
@@ -1112,7 +1112,7 @@ class structureMacros {
                     for ($i = $niz; $i < $verx+1; $i++){
 
                          page::assign('page_num', $i);
-                         page::assign('page_url', $current_url.'^'.$i);
+                         page::assign('page_url', $current_url.'='.$i);
                          $tmpl = ($i == $current_num) ? 'list_active' : 'list';
                          $pages .= page::parse($TEMPLATE[$tmpl]);
                     }
@@ -1138,7 +1138,7 @@ class structureMacros {
 
 
                     page::assign('page_num', $current_num);
-                    page::assign('page_url', $current_url.'^'.$current_num);
+                    page::assign('page_url', $current_url.'='.$current_num);
                     page::fParse('list', $TEMPLATE['list_active']);
                 }
 
