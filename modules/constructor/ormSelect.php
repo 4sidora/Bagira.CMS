@@ -514,18 +514,44 @@ class ormSelect {
 
                     // Если это связь
                     $num = rand(100, 999);
-
                     $this->tables[', <<rels>> link_'.$num.'.&.'] = 1;
 
-                    if ($this->fields[$field]['f_relation'] > 0)
-                        return '(link_'.$num.'.&..r_children_id = obj_.&..o_id and
-			            	link_'.$num.'.&..r_parent_id = "'.$val.'" and
-			            	link_'.$num.'.&..r_field_id '.$znak.' "%field_'.$this->fields[$field]['f_sname'].'_repl%")';
-                    else
-                        return '(link_'.$num.'.&..r_parent_id = obj_.&..o_id and
-			            	link_'.$num.'.&..r_children_id = "'.$val.'" and
-			            	link_'.$num.'.&..r_field_id '.$znak.' "%field_'.$this->fields[$field]['f_sname'].'_repl%")';
+                    if (empty($val2)) $val2 = 'OR'; else if ($val2 != 'OR') $val2 = 'AND';
 
+                    if ($val2 == 'OR' && is_array($val)) {
+
+                        $rels = '';
+                        foreach($val as $value) {
+
+                            $obj_id = (is_array($value)) ? $value['id'] : $value;
+
+                            if (!empty($rels)) $rels .= $val2;
+
+                            $parent_field = ($this->fields[$field]['f_relation'] > 0) ? 'r_parent_id' : 'r_children_id';
+                            $child_field = ($this->fields[$field]['f_relation'] > 0) ? 'r_children_id' : 'r_parent_id';
+
+                            $rels .= '(link_'.$num.'.&..'.$child_field.' = obj_.&..o_id and
+                                link_'.$num.'.&..'.$parent_field.' = "'.$obj_id.'" and
+                                link_'.$num.'.&..r_field_id '.$znak.' "%field_'.$this->fields[$field]['f_sname'].'_repl%")';
+                        }
+
+                        if (!empty($rels))
+                            return '(
+                                    link_.&..r_children_id = obj_.&..o_id and
+                                    link_.&..r_field_id is NULL and ('.$rels.')
+                                )';
+
+                    } else {
+
+                        if ($this->fields[$field]['f_relation'] > 0)
+                            return '(link_'.$num.'.&..r_children_id = obj_.&..o_id and
+                                link_'.$num.'.&..r_parent_id = "'.$val.'" and
+                                link_'.$num.'.&..r_field_id '.$znak.' "%field_'.$this->fields[$field]['f_sname'].'_repl%")';
+                        else
+                            return '(link_'.$num.'.&..r_parent_id = obj_.&..o_id and
+                                link_'.$num.'.&..r_children_id = "'.$val.'" and
+                                link_'.$num.'.&..r_field_id '.$znak.' "%field_'.$this->fields[$field]['f_sname'].'_repl%")';
+                    }
 
                 } else if ($this->fields[$field]['f_type'] == 105) {
 
