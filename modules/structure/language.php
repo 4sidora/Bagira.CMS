@@ -65,6 +65,15 @@ class language extends innerErrorList {
     		return $this->values['l_prefix'];
     }
 
+    // Вернет префикс для формирования ссылок, исходя из текущей языковой версии
+	public function pre(){
+		
+		if ($this->id != domains::curDomain()->getDefLang())
+			return '/'.$this->getPrefix();
+		else
+			return '';
+	}
+
     /**
 	* @return null
 	* @param string $name - префикс
