@@ -787,13 +787,17 @@ class ormPages {
     // Определяем раздел и класс выводимых элементов в зависимости от пути
     public static function getSectionByPath($path){
 
-        $sub_section = false;
         $section = '';
 
         if (is_numeric($path)) {
 
-            $section = ormPages::get($path);
-            $class_name = '';
+            if ($path == 0) {
+                $section = 'root';
+                $class_name = '';
+            } else {
+                $section = ormPages::get($path);
+                $class_name = '';
+            }
 
         } else {
 
