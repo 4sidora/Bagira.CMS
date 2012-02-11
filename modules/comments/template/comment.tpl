@@ -22,7 +22,6 @@ jQuery(document).ready(function() {
 
 	<form id="changeForm" name="changeForm" action="" method="post" enctype="multipart/form-data">
 
-
         <div class="fieldBox">
             %user_name%
             <label>E-mail пользователя:</label> %obj.email%<br/>

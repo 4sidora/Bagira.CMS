@@ -399,10 +399,14 @@ class ormPages {
 
     	if ($page = ormPages::get($page_id)) {
 
-            if (!$recursi && $page->is_home_page)
-            	return languages::pre().'/';
+            if ($lang = languages::get($page->lang_id)) {
 
-            $url = (!$recursi) ? languages::pre() : '';
+                if (!$recursi && $page->is_home_page)
+            	    return $lang->pre().'/';
+
+                $url = (!$recursi) ? $lang->pre() : '';
+            } else
+                $url = '';
 
 	        if (isset(self::$pages_rel[$page_id])) {
 

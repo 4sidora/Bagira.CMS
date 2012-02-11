@@ -937,6 +937,8 @@ class ormSelect {
                 				pt_'.$sn.'.pseudo_url pseudo_url,
                 				pt_'.$sn.'.in_new_window in_new_window,
                 				pt_'.$sn.'.is_home_page is_home_page,
+                				pt_'.$sn.'.lang_id lang_id,
+                				pt_'.$sn.'.domain_id domain_id,
                 				pt_'.$sn.'.template_id template_id,
                 				pt_'.$sn.'.template2_id template2_id';
 
