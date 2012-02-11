@@ -174,7 +174,7 @@ form{ margin:0px; padding:0px;}
 .but_sub, .but_sub ins{background:url("../css_mpanel/i/i15.png");overflow:hidden; margin-right:10px;  }
 .but_sub{position:relative;float:left;height:29px;padding-right:6px;background-position:6px -0px;cursor:pointer;}
 .but_sub ins{display:block;position:absolute;width:5px;height:100%;right:-11px;margin-left:100%;top:0;background-position:-379px -0px;}
-.but_sub a{border:0px solid red; text-decoration:none; position:relative;top:6px;margin-top:-0.65em;padding:0 .5em 0 .8em;line-height:1.3;  font:normal 12px/1.2 Arial,sans-serif;color:#000; text-align:center;}
+.but_sub .a{border:0px solid red; text-decoration:none; position:relative;top:6px;margin-top:-0.65em;padding:0 .5em 0 .8em;line-height:1.3;  font:normal 12px/1.2 Arial,sans-serif;color:#000; text-align:center;}
 
 .but_sub:hover{  position:relative;float:left;height:29px;padding-right:6px;background-position:6px -29px;cursor:pointer; }
 .but_sub:hover ins{display:block;position:absolute;width:5px;height:100%;right:-11px;margin-left:100%;top:0;background-position:-379px -29px;}
@@ -314,7 +314,7 @@ absolute; top:0px; left:0px; border: 0;width:25px;height: 25px;cursor: pointer;b
 
 .add{display: block;width: 24px;height: 22px;background: url("../css_mpanel/i/i15.png")  -360px 0px  no-repeat;padding: 7px 0 0 0px;text-decoration: none;color:#3a2d1d;margin:0 11px 10px 0px;}
 .add span{ border-left:1px solid #d5d5d5; background:url("../css_mpanel/i/i11.png") 5px -68px no-repeat; display:block;width:15px; height:15px;}
-.addcategor,.addcategor2{position:relative; float:left; width:24px; margin-right:11px;	}
+.addcategor,.addcategor2{position:relative; float:left; width:24px; margin-right:11px;margin-left: -10px;	}
 .add:hover{ background-position: -360px -29px;}
 .addcategor .newhidden ul {width:150px;float:left;}
 .addcategor .newhidden{top:27px;right:2px	;left:inherit;}
