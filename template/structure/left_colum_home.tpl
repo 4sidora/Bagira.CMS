@@ -11,7 +11,7 @@
         
         
         
-         %voting.objList(all, default, 1)% 
+         %voting.objList(all, default, 1, random)%
         
         <h3>%structure.getProperty(name, 1578)% </h3>
         %structure.getProperty(content, 1578)%

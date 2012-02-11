@@ -122,9 +122,10 @@ class votingMacros {
      *                      Если вывести список всех голосований на сайте, укажите "all".
 	* @param string $templ_name - Шаблон оформления.
     * @param int $max_count - Максимальное количество элементов в списке.
+    * @param string $order_by - Способ сортировки элементов списка. SQL-подобный синтаксис, например: "name DESC".
 	* @desc МАКРОС: Выводит список голосований из указанного раздела. 
 	*/
-    public function objList($obj_id = 'all', $templ_name = 'default', $max_count = 10) {
+    public function objList($obj_id = 'all', $templ_name = 'default', $max_count = 10, $order_by = 0) {
 
         $templ_file = '/voting/'.$templ_name.'.tpl';
         $TEMPLATE = page::getTemplate($templ_file);
@@ -134,7 +135,7 @@ class votingMacros {
 
         $key = 'vote-list'.$obj_id.$templ_name.$max_count;
 
-        if (!($data = cache::get($key))) {
+        if (!($data = cache::get($key)) || $order_by == 'random') {
 
             if ($obj_id != 'all') {
                 $info = ormPages::getSectionByPath($obj_id);
@@ -153,7 +154,18 @@ class votingMacros {
             $sel->findInPages();
             $sel->where('active', '=', 1);
             $sel->where('view_in_menu', '=', 1);
-            $sel->orderBy('publ_date', desc);
+
+            // Сортировка списка
+            if (!empty($order_by)) {                
+                $pos = strpos($order_by, ' ');
+                if ($pos) {
+                    $parram = substr($order_by, $pos + 1);
+                    $order_by = substr($order_by, 0, $pos);
+                } else $parram = '';
+                $sel->orderBy($order_by, $parram);
+            } else
+                $sel->orderBy('publ_date', desc);
+
             $sel->limit($max_count);
 
             if (is_numeric($obj_id))
