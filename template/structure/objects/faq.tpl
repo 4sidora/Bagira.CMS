@@ -1,6 +1,9 @@
 <?php
 
 $TEMPLATE['frame'] = <<<END
+
+%structure.filterABC(350 faq, filter_abc, ru, content)%
+
 <div id="leftcolumn">
     <ul class="questionanswer">
         %list%
@@ -13,6 +16,13 @@ $TEMPLATE['frame'] = <<<END
 <div class="clear"></div> 
 
 %feedback.form(faq)%
+
+END;
+
+
+$TEMPLATE['list_empty_category_faq'] = <<<END
+
+	На указанную букву ничего не найдено!
 
 END;
 

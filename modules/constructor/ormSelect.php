@@ -108,7 +108,7 @@ class ormSelect {
             $this->checkFieldList();
 
         if ($this->class instanceof ormClass)
-            return $this->class->id();
+            return $this->class->getSName();
     }
 
     // Вернет список классов объектов участвующих в выборке

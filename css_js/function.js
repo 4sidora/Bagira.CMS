@@ -342,6 +342,19 @@ $(window).load(function(){
         });
     });
 
+    // выбор буквы
+    $('.filterABC span').click(function(){
+
+        if ($(this).attr('rel') == 'all')
+            $('#filter_abc').val('');
+        else
+            $('#filter_abc').val($(this).text());
+
+        $('#filterForm').submit();
+
+        return false;
+    });
+
 });
 
 function getCurAnchor() {

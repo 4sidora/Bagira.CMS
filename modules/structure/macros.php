@@ -175,6 +175,44 @@ class structureMacros {
  	}
 
 
+    public function filterABC($section, $templ_name = 'filter_abc', $alphabet = 'ru', $field = 'name') {
+
+        $templ_file = '/structure/objects/'.$templ_name.'.tpl';
+	    $TEMPLATE = page::getTemplate($templ_file);
+
+		if (!is_array($TEMPLATE))
+		    return page::errorNotFound('structure.filterABC', $templ_file);
+
+        // Определяем текущий раздел
+        $info = ormPages::getSectionByPath($section);
+
+        $section_id = (is_a($info['section'], 'ormPage')) ? $info['section']->id : 'NULL';
+        $class_name = (!empty($info['class'])) ? $info['class'] : '';
+        $ind = (is_array($info['section'])) ? $info['section'] : $section_id;
+        $prefix = md5($class_name.$ind);
+
+        page::assign('section_id', $section_id);
+        page::assign('class_name', $class_name);
+        page::assign('target', $prefix);
+
+        // Вывод Азбуки
+
+        $this->checkFilterPost($field, 0, $prefix);
+        $cur_symbol = (isset($_SESSION['filters'][$prefix][$field])) ? $_SESSION['filters'][$prefix][$field]['val'] : '';
+        
+        $list = '';
+        $mas = lang::get('ALPHABET_'.$alphabet);
+        foreach ($mas as $val) {
+            page::assign('symbol', $val);
+            $act = ($cur_symbol == $val) ? '_active' : '';
+            $list .= page::parse($TEMPLATE['list'.$act]);
+        }
+        page::assign('list', $list);
+
+        return page::parse($TEMPLATE['frame']);
+
+    }
+
     public function filter($section, $templ_name = 'filter_default') {
 
         $templ_file = '/structure/objects/'.$templ_name.'.tpl';
@@ -312,7 +350,14 @@ class structureMacros {
 
             if (isset($_POST[$fname])) {
 
-                if ($_POST[$fname] == '' || (empty($_POST[$fname]) && ($field['f_type'] == 90 || $field['f_type'] == 95)))
+                if (isset($_POST[$fname.'_FILTER_ABC'])) {
+
+                    $value = array(
+                        'val' => system::checkVar($_POST[$fname], isString),
+                        'ABC' => true
+                    );
+
+                } else if ($_POST[$fname] == '' || (empty($_POST[$fname]) && ($field['f_type'] == 90 || $field['f_type'] == 95)))
                     $value = '';
                 else if ($field['f_type'] == 50 || ($field['f_type'] > 69 && $field['f_type'] < 86))
                     $value = system::checkVar($_POST[$fname], isInt);
@@ -374,7 +419,13 @@ class structureMacros {
                         if ($value !== '' || (isset($value2) && $value2 !== '')) {
 
 
-                            if ($field['f_type'] == 50) {
+                            if (is_array($value) && isset($value['val'])) {
+
+                                // Фильтр по первым буквам
+                                $sel->where($fname, 'LIKE', $value['val'].'%');
+                                $is_filtered = true;
+
+                            } else if ($field['f_type'] == 50) {
 
                                 // Галочка
                                 if (!empty($value)){
@@ -494,9 +545,7 @@ class structureMacros {
         if ($independent) {
 
             $info = ormPages::getSectionByPath($section);
-
             //print_r($info);
-
             
             if ($info['section'] === false)
                 return '';
@@ -553,6 +602,7 @@ class structureMacros {
             $sel->where($field, '=', $value);
 
         $ind = (is_array($section)) ? $section : $section_id;
+
         $this->setFilters($sel, $ind, $class_name);
 
         // Сортировка списка

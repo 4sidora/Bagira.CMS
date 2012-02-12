@@ -2779,3 +2779,22 @@ margin-top: 0.15em;
 .right_link {
     float:left;margin-left:20px;margin-top:7px;
 }
+
+
+.filterABC {
+    margin:10px;
+    margin-bottom:25px;
+    margin-top:-10px;
+}
+
+.filterABC span.reset {
+    margin-right:0;
+    font-weight:bold;
+}
+
+.filterABC span {
+    cursor:pointer;
+    text-transform: uppercase;
+    margin-right:10px;
+    text-decoration:underline;
+}
