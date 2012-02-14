@@ -22,13 +22,15 @@ class __minitext {
         	ui::setCancelButton('/structure/tree');
 
         $list = reg::getList(ormPages::getPrefix().'/minitext', true);
-        $texts = array();
-        while(list($num, $val) = each($list))
+        $texts = $js = array();
+        foreach($list as $val) {
         	$texts[] = array(
         		'id' => $val['id'],
         		'num' => '<center>%text_'.$val['id'].'%</center>',
         		'text' => $val['value']
         	);
+            $js['text_'.$val['id'].'_vvv'] = $val['value'];
+        }
 
         // Форма редактирования
         $form = new uiMultiForm('change');
@@ -37,8 +39,9 @@ class __minitext {
         $form->addColumn('text', lang::get('STRUCTURE_TABLE_FIELD_9'), 700, lang::get('STRUCTURE_TABLE_FIELD_10'));
         $form->addColumn('num', lang::get('STRUCTURE_TABLE_FIELD_8'), 150, lang::get('STRUCTURE_TABLE_FIELD_11'), false);
 
+        $js = '<script language="javascript"> var textlist = '.json_encode($js).';</script>';
 
-		return $form->getHTML('multi_form_memo');
+		return $js.$form->getHTML('multi_form_memo');
  	}
 
 

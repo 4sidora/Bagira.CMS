@@ -29,6 +29,11 @@ function onSelectldObjectLinks() {
 
 jQuery(document).ready(function() {
 
+    if (textlist)
+        $('#mainlist_change textarea').each(function(){
+            $(this).text(textlist[$(this).attr('id') + '_vvv']);
+        });
+    
 	$(document).click(function(e){
  		if ($(e.target).attr('class') != 'btn_list' && $(e.target).attr('class') != 'stre')
 	    	$(".btn_list").hide();
