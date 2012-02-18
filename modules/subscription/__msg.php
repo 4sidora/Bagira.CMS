@@ -142,7 +142,7 @@ class __msg {
                     if ($part_num > $obj->part_count) $part_num = 1;
 
 			        page::assign('subject', $parent->subject);
-			       // page::assign('count_part', system::declOfNum($count, lang::get('SUBSCRIBE_TS')));
+			       // page::assign('count_part', ruNumbers::decl($count, lang::get('SUBSCRIBE_TS')));
 			        page::assign('count_part', $count);
 			        page::assign('count_part2', $count);
 			        page::assign('part_num', $part_num);

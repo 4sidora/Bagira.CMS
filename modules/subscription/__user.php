@@ -243,7 +243,7 @@ class __user {
 	 			}
     		}
 
-            ui::MessageBox(lang::get('SUBSCRIBE_ADDED_EMAILS').system::declOfNum($count, lang::get('SUBSCRIBE_AE')).'.');
+            ui::MessageBox(lang::get('SUBSCRIBE_ADDED_EMAILS').ruNumbers::decl($count, lang::get('SUBSCRIBE_AE')).'.');
 
 	        system::redirect('/subscription/user/'.system::POST('parent_id', isInt));
 

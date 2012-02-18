@@ -69,9 +69,9 @@ $LANG['SUBSCRIBE_DEL_TITLE_MULTI2'] = 'Удаление рассылок';
 $LANG['SUBSCRIBE_DEL_TEXT_MULTI2'] = 'Вы действительно хотите удалить выбранные рассылки?'.$LANG['dtp'];
 
 $LANG['SUBSCRIBE_ADDED_EMAILS'] = 'В список подпичиков было добавлено ';
-$LANG['SUBSCRIBE_AE'][0] = 'адрес';
-$LANG['SUBSCRIBE_AE'][1] = 'адреса';
-$LANG['SUBSCRIBE_AE'][2] = 'адресов';
+$LANG['SUBSCRIBE_AE'][1] = 'адрес';
+$LANG['SUBSCRIBE_AE'][2] = 'адреса';
+$LANG['SUBSCRIBE_AE'][5] = 'адресов';
 
 
 $LANG['SUBSCRIBE_TEXT_SETTINGS'][1] = 'Количество писем отправляемых за одну итерацию:';
@@ -95,9 +95,9 @@ $LANG['SUBSCRIBE_TEXT_SEND'][10] = ' части не завершена!';
 $LANG['SUBSCRIBE_TEXT_SEND'][11] = 'Что бы продолжить рассылку этой части, нажмите кнопку &quot;Отправить выпуск подписчикам&quot;.';
 
 
-$LANG['SUBSCRIBE_TS'][0] = 'часть.';
-$LANG['SUBSCRIBE_TS'][1] = 'части.';
-$LANG['SUBSCRIBE_TS'][2] = 'частей.';
+$LANG['SUBSCRIBE_TS'][1] = 'часть.';
+$LANG['SUBSCRIBE_TS'][2] = 'части.';
+$LANG['SUBSCRIBE_TS'][5] = 'частей.';
 
 $LANG['SUBSCRIBE_HIST_START'] = 'Начал отправку %part% части выпуска <b>%name%</b> рассылки';
 $LANG['SUBSCRIBE_HIST_CONTINUE'] = 'Возобновил отправку %part% части выпуска <b>%name%</b> рассылки';
