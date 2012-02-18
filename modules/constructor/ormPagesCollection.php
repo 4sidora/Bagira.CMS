@@ -692,7 +692,7 @@ class ormPages {
         	$text .= $addit_text.Chr(13);
 
         reset(self::$pages);
-        while (list($id, $page) = each(self::$pages))
+        foreach (self::$pages as $page)
             if (!$page['in_index'])
             	$text .= 'Disallow: '.self::getPageUrlById($page['o_id']).'/'.Chr(13);
 
@@ -730,8 +730,8 @@ class ormPages {
         $cur_date = reg::getKey('/structure/'.domains::curId().'/cur_date');
         $text = '';
         reset(self::$pages);
-        while (list($id, $page) = each(self::$pages))
-            if ($page['active'] && $page['in_index']) {
+        foreach (self::$pages as $page)
+            if ($page['active'] && $page['in_index'] && empty($page['other_link'])) {
 
                 $date = date('Y-m-d', strtotime($page['o_change_date']));
                 if ($cur_date) {
