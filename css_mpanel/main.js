@@ -29,7 +29,7 @@ function onSelectldObjectLinks() {
 
 jQuery(document).ready(function() {
 
-    if (textlist)
+    if (typeof textlist != "undefined")
         $('#mainlist_change textarea').each(function(){
             $(this).text(textlist[$(this).attr('id') + '_vvv']);
         });
