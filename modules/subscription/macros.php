@@ -40,6 +40,9 @@ class subscriptionMacros {
             $list .= page::parse($TEMPLATE['list']);
 	   	}
 
+        // Парсим текст сообщения об ошибке
+        page::parseError('subscription');
+
 	   	if (empty($list))
 	   		return page::parse($TEMPLATE['empty']);
 	  	else {

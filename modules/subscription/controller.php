@@ -6,23 +6,67 @@ class controller {
 
         $email = system::POST('email', isEmail);
 
-        if (!empty($email) && !empty($_POST['subscribes'])) {
+        if (empty($email)) {
+
+            $answer = array(
+                'error' => 1,
+                'msg' => lang::get('SUBSCRIPTION_EMPTY_EMAIL')
+            );
+
+        } else if (empty($_POST['subscribes'])) {
+
+            $answer = array(
+                'error' => 2,
+                'msg' => lang::get('SUBSCRIPTION_EMPTY_LIST')
+            );
+
+        } else {
 
             $sid = mailingProcess::addEmail($email, $_POST['subscribes'], true);
 
             if ($sid) {
 
-            	page::globalVar('h1', lang::get('SUBSCRIPTION_TITLE'));
-            	page::globalVar('title', lang::get('SUBSCRIPTION_TITLE'));
-            	return lang::get('SUBSCRIPTION_MSG');
+                $answer = array(
+                    'error' => 0,
+                    'msg' => lang::get('SUBSCRIPTION_MSG')
+                );
 
-            } else if (!empty($_POST['back_url']))
-            	system::redirect($_POST['back_url']);
+            } else {
+
+                $answer = array(
+                    'error' => 3,
+                    'msg' => lang::get('SUBSCRIPTION_ERROR')
+                );
+            }
 		}
+
+        if (system::isAjax()) {
+
+            echo json_encode($answer);
+            system::stop();
+
+        } else {
+
+            if (!empty($answer['error'])) {
+
+                system::saveError('subscription', $answer);
+                
+                if (!empty($_POST['back_url']))
+                    system::redirect($_POST['back_url'], true);
+
+            } else
+                system::redirect('/subscription/ok');
+        }
 
 		system::redirect('/');
  	}
 
+    // Подтверждение подписки
+    public function okAction() {
+        page::globalVar('h1', lang::get('SUBSCRIPTION_TITLE'));
+        page::globalVar('title', lang::get('SUBSCRIPTION_TITLE'));
+        return lang::get('SUBSCRIPTION_MSG');
+    }
 
     // Просмотр письма
  	public function viewAction() {

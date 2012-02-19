@@ -1,7 +1,7 @@
 <?php
 
 $TEMPLATE['frame'] = <<<END
-<form id="subscribeForm" action="/subscription/subscribe" method="post">
+<form id="subscribeForm" action="%pre_lang%/subscription/subscribe" method="post">
 
     <div class="subscribe">
         <h4><b>Подписка на рассылку</b></h4>
