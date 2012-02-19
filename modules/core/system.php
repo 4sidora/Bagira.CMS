@@ -434,8 +434,8 @@ class system {
 	*/
     static function redirect($url, $absolut = false){
 
-    	if (!$absolut && self::$isAdmin)
-    		$url = self::au().$url;
+    	if (!$absolut)
+            $url = (self::$isAdmin) ? self::au().$url : languages::pre().$url;
 
     	Header('Location: '.$url);
     	self::stop();
@@ -867,6 +867,20 @@ class system {
 	    if (is_array($_POST) && count($_POST) > 0)
 	    	while(list($key, $text) = each($_POST))
 	    		$_SESSION['SAVING_POST'][$key] = $text;
+	}
+
+    // Сохраняет в сессию информацию об ошибке.
+	static function saveError($errorIndex, $answer) {
+
+        if (is_array($answer)) {
+
+            foreach($answer as $key => $val)
+                $_SESSION['error'][$errorIndex]['alert_'.$key] = $val;
+
+            return true;
+        } 
+
+        return false;
 	}
 
     /**

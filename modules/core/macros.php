@@ -131,8 +131,8 @@ class coreMacros {
 	* @param string $url - Ссылка на любой ресурс.
 	* @desc МАКРОС: Делает редирект на указанный URL.
 	*/
- 	public function redirect($url) {
-		system::redirect($url);
+ 	public function redirect($url, $absolut = 0) {
+		system::redirect($url, $absolut);
  	}
 
 

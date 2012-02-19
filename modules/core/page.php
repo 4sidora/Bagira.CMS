@@ -132,6 +132,25 @@ class page {
 
     /**
      * @return null
+     * @param string $errorIndex - Префик ошибки
+     * @desc Парсит все данные об ошибке хранящиеся в сессии, записанные методом system::saveError();
+     */
+    static function parseError($errorIndex) {
+
+        if (!empty($_SESSION['error'][$errorIndex])) {
+
+            $ses = $_SESSION['error'][$errorIndex];
+            unset($_SESSION['error'][$errorIndex]);
+            
+        } else $ses = array();
+
+        page::assign('alert_text', (!empty($ses['alert_text'])) ? $ses['alert_text'] : '');
+        page::assign('alert_error', (!empty($ses['alert_error'])) ? $ses['alert_error'] : '');
+        page::assign('alert_field', (!empty($ses['alert_field'])) ? $ses['alert_field'] : '');
+    }
+
+    /**
+     * @return null
      * @param string $arr - Имя макроса
      * @param string $val - Значение
      * @desc Объявляет макрос и присваивает ему значение для парсинга на страницу
@@ -594,6 +613,7 @@ class page {
             $page = array(
                 'html' => self::$arr,
                 'page_id' => ormPages::getCurPageId(),
+                'page_url' => system::getCurrentUrlPN(),
                 'active_pages' => ormPages::getActiveId()
             );
             

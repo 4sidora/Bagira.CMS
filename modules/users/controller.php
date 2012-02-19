@@ -11,7 +11,7 @@ class controller {
    		}
 
 		if (!empty($_POST['back_url']))
-			system::redirect($_POST['back_url']);
+			system::redirect($_POST['back_url'], true);
 		else
 		 	system::redirect('/');
  	}
@@ -40,7 +40,7 @@ class controller {
 		user::logout(false);
 
 		if (!empty($_POST['back_url']))
-			system::redirect($_POST['back_url']);
+			system::redirect($_POST['back_url'], true);
 		else
 			system::redirect('/');
  	}
@@ -170,10 +170,12 @@ class controller {
             system::savePostToSession();
          	$_SESSION['reg_user_error'] = lang::get('SITE_CAPHCA');
             $_SESSION['reg_user_error2'] = 'captcha';
+
 			if (!empty($_POST['back_url']))
-				system::redirect($_POST['back_url']);
+				system::redirect($_POST['back_url'], true);
 			else
 				system::redirect('/users/add');
+
 	    } else
 	    	$_SESSION['core_secret_number'] = '';
 
@@ -183,7 +185,7 @@ class controller {
          	$_SESSION['reg_user_error'] = lang::get('USERS_COMFIRM');
             $_SESSION['reg_user_error2'] = 'confirm';
 			if (!empty($_POST['back_url']))
-				system::redirect($_POST['back_url']);
+				system::redirect($_POST['back_url'], true);
 			else
 				system::redirect('/users/add');
         }
@@ -247,7 +249,7 @@ class controller {
             }
 
 			if (!empty($_POST['back_url']))
-				system::redirect($_POST['back_url']);
+				system::redirect($_POST['back_url'], true);
 			else
 				system::redirect('/users/add');
 		}
@@ -358,7 +360,7 @@ class controller {
             $_SESSION['reg_user_error2'] = $tmp['focus'];
 
 			if (!empty($_POST['back_url']))
-				system::redirect($_POST['back_url']);
+				system::redirect($_POST['back_url'], true);
 			else
 				system::redirect('/users/edit');
 		}

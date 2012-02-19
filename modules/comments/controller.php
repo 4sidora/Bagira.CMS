@@ -43,7 +43,7 @@ class controller {
         }
 
         if (!empty($_POST['back_url']) && !system::isAjax())
-			system::redirect($_POST['back_url'].'#comment'.$obj_id);
+			system::redirect($_POST['back_url'].'#comment'.$obj_id, true);
 		else
 		 	system::stop();
     }

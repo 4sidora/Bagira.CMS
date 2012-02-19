@@ -58,7 +58,7 @@ class controller {
     	} else {
 
         	if (!empty($_POST['back_url']))
-				system::redirect($_POST['back_url']);
+				system::redirect($_POST['back_url'], true);
 			else
 			 	system::redirect('/');
     	}
