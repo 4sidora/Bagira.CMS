@@ -25,7 +25,6 @@ $(window).load(function(){
                 } else alert(data.msg);
 
             }, 'json');
-
         }
         return false;
 

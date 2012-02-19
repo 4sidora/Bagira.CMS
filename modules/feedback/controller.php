@@ -12,11 +12,18 @@ class controller {
         if ($form_obj = ormObjects::get(system::POST('form_id'))) {
 
             $issetErrors = false;
+            $answer = array();
 
+            // Проверка капчи
             if ($form_obj->captcha && (system::POST('random_image') != $_SESSION['core_secret_number'])) {
+
                 $issetErrors = true;
-                echo json_encode(array('error' => 1, 'data' => lang::get('FEEDBACK_ERROR1')));
-                //system::savePostToSession();
+                
+                $answer = array(
+                    'field' => 'random_image',
+                    'msg' => lang::get('FEEDBACK_ERROR1')
+                );
+                
             } else
                 $_SESSION['core_secret_number'] = '';
 
@@ -71,10 +78,13 @@ class controller {
                 } else {
 
                     $issetErrors = true;
-                    //system::savePostToSession();
-
+                    
                     $f = $obj->getErrorFields();
-                    echo json_encode(array('error' => $f['focus'], 'data' => $obj->getErrorListText(' ')));
+
+                    $answer = array(
+                        'field' => $f['focus'],
+                        'msg' => $obj->getErrorListText(' ')
+                    );
                 }
             }
 
@@ -126,27 +136,40 @@ class controller {
                     $mail->Send();
                 }
 
-                //page::globalVar('h1', lang::get('FEEDBACK_TITLE'));
-                //page::globalVar('title', lang::get('FEEDBACK_TITLE'));
 
-                if ($form_obj->msg != '')
-                    $text = $form_obj->msg;
-                else
-                    $text = lang::get('FEEDBACK_MSG_1');
+                // Показываем результат
+                if (system::isAjax()) {
 
-                echo json_encode(array('error' => 0, 'data' => strip_tags($text)));
+                    if ($form_obj->msg != '')
+                        $text = $form_obj->msg;
+                    else
+                        $text = lang::get('FEEDBACK_MSG_1');
+
+                    echo json_encode(array('field' => 0, 'msg' => strip_tags($text)));
+
+                } else
+    		        system::redirect('/feedback/ok/'.$form_obj->id);
+
 
             } else {
 
                 // Произошли ошибки
-                
-                /*system::stop();
 
-		        if (empty($_POST['back_url']))
-		        	$_POST['back_url'] = '/structure/map';
+                if (system::isAjax()) {
 
-		        system::redirect($_POST['back_url']);*/
+                    echo json_encode($answer);
 
+                } else {
+
+                    system::savePostToSession();
+
+                    system::saveError('feedback', $answer);
+
+                    if (empty($_POST['back_url']))
+		        	    $_POST['back_url'] = '/structure/map';
+
+    		        system::redirect($_POST['back_url'], true);
+                }
             }
 
             system::stop();
@@ -156,6 +179,22 @@ class controller {
 
     private function parse($val) {
         return page::parse(str_replace(array('{', '}'), '%', $val));
+    }
+
+    function okAction(){
+
+        if ($form_obj = ormObjects::get(system::url(2))) {
+
+            page::globalVar('h1', lang::get('FEEDBACK_TITLE'));
+            page::globalVar('title', lang::get('FEEDBACK_TITLE'));
+
+            if ($form_obj->msg != '')
+                return $form_obj->msg;
+            else
+                return lang::get('FEEDBACK_MSG_1');
+        }
+
+        system::redirect('/');
     }
 
 }

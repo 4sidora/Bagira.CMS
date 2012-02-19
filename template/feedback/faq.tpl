@@ -6,7 +6,7 @@ $TEMPLATE['frame'] = <<<END
     <h2>Вопрос о товаре</h2>
     <a href="#" title="" class="cross"></a>
 
-    <form id="faqForm" action="/feedback/send_message" method="post">
+    <form id="faqForm" action="%pre_lang%/feedback/send_message" method="post">
 
         <label for="name">Имя</label>
         <input type="text" id="name" name="name" value="%feedback.name%"/>
@@ -18,7 +18,7 @@ $TEMPLATE['frame'] = <<<END
 
 
         <h4>Ваш вопрос</h4>
-        <textarea cols="auto" rows="0" id="content" name="content"></textarea>
+        <textarea cols="auto" rows="0" id="content" name="content">%feedback.content%</textarea>
 
         <div class="captcha">
             <label for="random_image">Введите код</label>

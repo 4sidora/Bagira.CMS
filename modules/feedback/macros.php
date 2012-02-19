@@ -22,10 +22,8 @@ class feedbackMacros {
 
      	page::assignSavingPost('feedback');
 
-     	if (!empty($_SESSION['show_alert'])) {
-	    	page::assign('show_alert', $_SESSION['show_alert']);
-	        $_SESSION['show_alert'] = '';
-	    } else page::assign('show_alert', '');
+        // Парсим текст сообщения об ошибке
+        page::parseError('feedback');
 
      	return page::parse($TEMPLATE['frame'], 1);
      }
@@ -44,7 +42,7 @@ class feedbackMacros {
             $obj = new ormPage();
             $obj->setClass($form_obj->form_class);
 
-            $form = new ormEditForm($obj, '/feedback/send_message');
+            $form = new ormEditForm($obj, languages::pre().'/feedback/send_message');
 
             $form->tabuList('pseudo_url', 'h1', 'keywords', 'title', 'description',
                             'active', 'is_home_page', 'view_in_menu', 'view_submenu', 'in_search', 'answer',
@@ -55,11 +53,17 @@ class feedbackMacros {
             if ($form_obj->captcha)
                 $form->showCaptcha();
 
-            if (!empty($_SESSION['show_alert'])) {
-                page::assign('show_alert', $_SESSION['show_alert']);
-                $_SESSION['show_alert'] = '';
-            } else
-                page::assign('show_alert', '');
+            // Парсим текст сообщения
+            if (!empty($_SESSION['alert_text'])) {
+                page::assign('alert_text', $_SESSION['alert_text']);
+                $_SESSION['alert_text'] = '';
+            } else page::assign('alert_text', '');
+
+            // Парсим название поля, которое заполнено не правильно
+            if (!empty($_SESSION['alert_field'])) {
+                page::assign('alert_field', $_SESSION['alert_field']);
+                $_SESSION['alert_field'] = '';
+            } else page::assign('alert_field', '');
 
             return $form->getHTML('feedback/'.$templ_name);
 

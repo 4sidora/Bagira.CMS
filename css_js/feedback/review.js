@@ -33,27 +33,22 @@ $(window).load(function(){
 
         } else {
 
-            $.post('/feedback/send_message', $("#reviewForm").serialize(), function(data) {
+            $.post($("#faqForm").attr('action'), $("#reviewForm").serialize(), function(data) {
 
-                if (data.error == 0) {
+                if (data.field == 0) {
 
-                    alert(data.data);
+                    alert(data.msg);
 
                     $('.cross').click();
+                    $('#captcha').attr('src', '/core/random_image/'+(Math.random()*10000).toFixed(0));
                     $('#random_image, #content').val('');
-                    $('#captcha').attr('src', '/core/random_image/'+(Math.random()*10000).toFixed(0));
-
-                } else if (data.error == 1) {
-
-                    alert(data.data);
-                    $('#captcha').attr('src', '/core/random_image/'+(Math.random()*10000).toFixed(0));
-                    $('#random_image').val('');
-                    $('#random_image').focus();
 
                 } else {
 
-                    alert(data.data);
-                    $('#'+data.error).focus();
+                    alert(data.msg);
+                    $('#captcha').attr('src', '/core/random_image/'+(Math.random()*10000).toFixed(0));
+                    $('#random_image').val('');
+                    $('#'+data.field).focus();
                 }
 
             }, 'json');
