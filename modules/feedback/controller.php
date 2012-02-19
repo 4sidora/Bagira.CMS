@@ -15,7 +15,7 @@ class controller {
             $answer = array();
 
             // Проверка капчи
-            if ($form_obj->captcha && (system::POST('random_image') != $_SESSION['core_secret_number'])) {
+            if ($form_obj->captcha && !system::validCapcha('random_image')) {
 
                 $issetErrors = true;
                 
@@ -23,9 +23,7 @@ class controller {
                     'field' => 'random_image',
                     'msg' => lang::get('FEEDBACK_ERROR1')
                 );
-                
-            } else
-                $_SESSION['core_secret_number'] = '';
+            }
 
 
             // Если указанно куда, добавляем объект в БД
@@ -145,7 +143,7 @@ class controller {
                     else
                         $text = lang::get('FEEDBACK_MSG_1');
 
-                    echo json_encode(array('field' => 0, 'msg' => strip_tags($text)));
+                    system::json(array('field' => 0, 'msg' => strip_tags($text)));
 
                 } else
     		        system::redirect('/feedback/ok/'.$form_obj->id);
@@ -157,13 +155,13 @@ class controller {
 
                 if (system::isAjax()) {
 
-                    echo json_encode($answer);
+                    system::json($answer);
 
                 } else {
 
                     system::savePostToSession();
 
-                    system::saveError('feedback', $answer);
+                    system::saveErrorToSession('feedback', $answer);
 
                     if (empty($_POST['back_url']))
 		        	    $_POST['back_url'] = '/structure/map';

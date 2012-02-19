@@ -133,7 +133,7 @@ class page {
     /**
      * @return null
      * @param string $errorIndex - Префик ошибки
-     * @desc Парсит все данные об ошибке хранящиеся в сессии, записанные методом system::saveError();
+     * @desc Парсит все данные об ошибке хранящиеся в сессии, записанные методом system::saveErrorToSession();
      */
     static function parseError($errorIndex) {
 
@@ -144,7 +144,7 @@ class page {
             
         } else $ses = array();
 
-        page::assign('alert_text', (!empty($ses['alert_text'])) ? $ses['alert_text'] : '');
+        page::assign('alert_msg', (!empty($ses['alert_msg'])) ? $ses['alert_msg'] : '');
         page::assign('alert_error', (!empty($ses['alert_error'])) ? $ses['alert_error'] : '');
         page::assign('alert_field', (!empty($ses['alert_field'])) ? $ses['alert_field'] : '');
     }

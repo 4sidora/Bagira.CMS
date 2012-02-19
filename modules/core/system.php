@@ -869,12 +869,19 @@ class system {
 	    		$_SESSION['SAVING_POST'][$key] = $text;
 	}
 
-    // Сохраняет в сессию информацию об ошибке.
-	static function saveError($errorIndex, $answer) {
+    /**
+	* @param string $errorIndex - Идентификатор ошибки, любая строка
+	* @param array $param - Массив может иметь следующие параметры:
+     *                       alert_msg - сообщение об ошибке
+     *                       alert_field - имя поля вызвавшего ошибку
+     *                       alert_error - код ошибки
+	* @desc Сохраняет в сессию информацию об ошибке.
+	*/
+	static function saveErrorToSession($errorIndex, $param) {
 
-        if (is_array($answer)) {
+        if (is_array($param)) {
 
-            foreach($answer as $key => $val)
+            foreach($param as $key => $val)
                 $_SESSION['error'][$errorIndex]['alert_'.$key] = $val;
 
             return true;
@@ -882,6 +889,21 @@ class system {
 
         return false;
 	}
+
+    // Проверяет имеет ли указанное поле(пришедшее через POST) значение равное коду капчи.
+    static function validCapcha($field_name) {
+
+        $ret = (system::POST($field_name) == $_SESSION['core_secret_number']);
+        $_SESSION['core_secret_number'] = '';
+        
+        return $ret;
+    }
+
+    // Вернет в браузер ответ в формате Json. $param - список параметров ответа.
+    static function json($param) {
+        echo json_encode($param);
+        system::stop();
+    }
 
     /**
 	* @return null

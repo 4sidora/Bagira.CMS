@@ -1,7 +1,7 @@
 <?php
 
 $TEMPLATE['frame'] = <<<END
-<b>%alert_text%</b>
+<b>%alert_msg%</b>
 
 
 %javascript%

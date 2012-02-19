@@ -40,25 +40,20 @@ class controller {
             }
 		}
 
-        if (system::isAjax()) {
-
-            echo json_encode($answer);
-            system::stop();
-
-        } else {
+        if (!system::isAjax()) {
 
             if (!empty($answer['error'])) {
 
-                system::saveError('subscription', $answer);
+                system::saveErrorToSession('subscription', $answer);
                 
                 if (!empty($_POST['back_url']))
                     system::redirect($_POST['back_url'], true);
 
             } else
                 system::redirect('/subscription/ok');
-        }
 
-		system::redirect('/');
+        } else
+            system::json($answer);
  	}
 
     // Подтверждение подписки

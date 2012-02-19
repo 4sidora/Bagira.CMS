@@ -50,7 +50,7 @@ class __index {
             	$data = reg::getKey(ormPages::getPrefix('search').'/index_date');
             	if (empty($data)) $data = '-';
 
-                echo json_encode(
+                system::json(
                     array(
                          'pages' => searchIndex::getCountPages(),
                          'words' => searchIndex::getCountWords(),

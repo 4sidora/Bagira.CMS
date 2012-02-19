@@ -14,11 +14,9 @@ class controller {
         if (user::isGuest() && reg::getKey('/comments/only_reg'))
             system::stop();
 
-        if (user::isGuest() && system::POST('random_image') != $_SESSION['core_secret_number']) {
-            echo json_encode(array('error' => 1, 'data' => lang::get('FEEDBACK_ERROR1')));
-            system::stop();
-	    } else
-	    	$_SESSION['core_secret_number'] = '';
+        if (user::isGuest() && !system::validCapcha('random_image'))
+            system::json(array('error' => 1, 'data' => lang::get('FEEDBACK_ERROR1')));
+
 
         // Добавляем новый комментарий
         $comment = new comment();
@@ -32,15 +30,12 @@ class controller {
 
         $obj_id = $comment->save();
 
-        if (!$obj_id) {
-            echo json_encode(array('error' => 2, 'data' => $comment->getErrorListText(' ')));
-            system::stop();
-        } else {
+        if ($obj_id) {
             page::assign('current_url', system::POST('back_url'));
             $html = page::macros('comments')->view($comment->id());            
-            echo json_encode(array('error' => 0, 'data' => $html));
-            system::stop();
-        }
+            system::json(array('error' => 0, 'data' => $html));
+        } else
+            system::json(array('error' => 2, 'data' => $comment->getErrorListText(' ')));
 
         if (!empty($_POST['back_url']) && !system::isAjax())
 			system::redirect($_POST['back_url'].'#comment'.$obj_id, true);

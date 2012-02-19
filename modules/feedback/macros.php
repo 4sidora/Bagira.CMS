@@ -54,16 +54,7 @@ class feedbackMacros {
                 $form->showCaptcha();
 
             // Парсим текст сообщения
-            if (!empty($_SESSION['alert_text'])) {
-                page::assign('alert_text', $_SESSION['alert_text']);
-                $_SESSION['alert_text'] = '';
-            } else page::assign('alert_text', '');
-
-            // Парсим название поля, которое заполнено не правильно
-            if (!empty($_SESSION['alert_field'])) {
-                page::assign('alert_field', $_SESSION['alert_field']);
-                $_SESSION['alert_field'] = '';
-            } else page::assign('alert_field', '');
+            page::parseError('feedback');
 
             return $form->getHTML('feedback/'.$templ_name);
 

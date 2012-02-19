@@ -112,13 +112,11 @@ class controller {
 
                 $_SESSION['change_rate'][$page->id] = 1;
                 
-                echo json_encode(array('error' => 0, 'new_rate' => $new_rate));
-                system::stop();
+                system::json(array('error' => 0, 'new_rate' => $new_rate));
             }
         }
 
-        echo json_encode(array('error' => 1, 'new_rate' => 0));
-        system::stop();
+        system::json(array('error' => 1, 'new_rate' => 0));
     }
 
 
