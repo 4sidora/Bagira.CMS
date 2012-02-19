@@ -28,8 +28,6 @@ $TEMPLATE['frame_form'] = <<<END
 <div class="clear"></div>
 </div>
 
-%auth_error%
-
 END;
 
 $TEMPLATE['frame_account'] = <<<END

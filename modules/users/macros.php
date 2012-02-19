@@ -18,11 +18,6 @@ class usersMacros {
 
 	   	if (user::isGuest()) {
 
-            if (!empty($_SESSION['auth_error'])) {
-            	$_SESSION['auth_error'] = 0;
-            	page::fParse('auth_error', $TEMPLATE['auth_error']);
-            } else page::assign('auth_error','');
-
 			return page::parse($TEMPLATE['frame_form']);
 
 	   	} else {
@@ -50,14 +45,7 @@ class usersMacros {
 
 	   	if (user::isGuest()) {
 
-	   	    if (!empty($_SESSION['reg_user_error'])) {
-                page::assign('error_msg', $_SESSION['reg_user_error']);
-                page::assign('error_field', $_SESSION['reg_user_error2']);
-                $_SESSION['reg_user_error'] = '';
-            } else {
-                page::assign('error_msg', '');
-                page::assign('error_field', '');
-            }
+            page::parseError('recover');
 
             page::assign('login_or_email', ((isset($_SESSION['SAVING_POST']['login_or_email'])) ? $_SESSION['SAVING_POST']['login_or_email'] : ''));
 
@@ -96,14 +84,7 @@ class usersMacros {
             } else page::assign('photo', '');
 
             // Сообщение об ошибках
-            if (!empty($_SESSION['reg_user_error'])) {
-                page::assign('error_msg', $_SESSION['reg_user_error']);
-                page::assign('error_field', $_SESSION['reg_user_error2']);
-                $_SESSION['reg_user_error'] = '';
-            } else {
-                page::assign('error_msg', '');
-                page::assign('error_field', '');
-            }
+            page::parseError('edit_user');
 
 	        return page::parse($TEMPLATE['frame']);
         }
@@ -123,18 +104,11 @@ class usersMacros {
 	    	return page::errorNotFound('users.changePassword', $templ_file);
 
 	   	if (!user::isGuest()) {
+
             if (system::url(2) == 'ok')
                 return page::parse($TEMPLATE['frame_ok']);
             else {
-
-                if (system::url(2) == 'error') {
-                    page::assign('error_msg', lang::get('USERS_CHANGE_PSW_MSG'));
-                    page::assign('error_field', 'current_password');
-                } else {
-                    page::assign('error_msg', '');
-                    page::assign('error_field', '');
-                }
-
+                page::parseError('change_password');
                 return page::parse($TEMPLATE['frame']);
             }
 	   	}
@@ -162,14 +136,7 @@ class usersMacros {
 		    	page::assign('obj.'.$name, '');
 
             // Вывод сообщения об ошибках
-            if (!empty($_SESSION['reg_user_error'])) {
-                page::assign('error_msg', $_SESSION['reg_user_error']);
-                page::assign('error_field', $_SESSION['reg_user_error2']);
-                $_SESSION['reg_user_error'] = '';
-            } else {
-                page::assign('error_msg', '');
-                page::assign('error_field', '');
-            }
+            page::parseError('add_user');
 
             // Согласие с условиями регистрации
             page::assign('checked', ((isset($_SESSION['SAVING_POST']['confirm'])) ? 'checked' : ''));

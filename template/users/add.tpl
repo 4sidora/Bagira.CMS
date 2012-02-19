@@ -4,13 +4,11 @@ $TEMPLATE['frame'] = <<<END
 
     <script type="text/javascript" src="/css_js/users/add.js"></script>
 
-
-    <div id="error_msg" style="display:none;">%error_msg%</div>
-    <div id="error_field" style="display:none;">%error_field%</div>
+    <div id="alert_msg" style="display:none;">%alert_msg%</div>
+    <div id="alert_field" style="display:none;">%alert_field%</div>
 
     <div class="registration">
-        <form id="addUserForm" action="/users/add_proc" method="post" enctype="multipart/form-data">
-
+        <form id="addUserForm" action="%pre_lang%/users/add_proc" method="post" enctype="multipart/form-data">
 
                             <div class="marker">
                                 <label for="login">E-mail</label>
@@ -65,10 +63,6 @@ $TEMPLATE['frame'] = <<<END
             <br/><br/><br/>
 
             <div class="clear"></div>
-
-
-
-
 
                             <div class="marker">
                                 <label for="captcha">Что на картинке?</label>

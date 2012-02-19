@@ -30,9 +30,9 @@ $(window).load(function(){
         return wrong;
     });
 
-    if ($('#error_msg').text() != '') {
-        alert($('#error_msg').text());
-        $('#'+$('#error_field').text()).focus();
+    if ($('#alert_msg').text() != '') {
+        alert($('#alert_msg').text());
+        $('#'+$('#alert_field').text()).focus();
     }
     
 });

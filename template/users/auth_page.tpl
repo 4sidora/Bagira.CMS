@@ -27,8 +27,4 @@ $TEMPLATE['frame_form'] = <<<END
 
 END;
 
-$TEMPLATE['auth_error'] = <<<END
-
-END;
-
 ?>

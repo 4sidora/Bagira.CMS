@@ -2,10 +2,8 @@
 
 $TEMPLATE['frame'] = <<<END
 
-<script type="text/javascript" src="/css_js/users/changePassword.js"></script>
-
-<div id="error_msg" style="display:none;">%error_msg%</div>
-<div id="error_field" style="display:none;">%error_field%</div>
+<div id="alert_msg" style="display:none;">%alert_msg%</div>
+<div id="alert_field" style="display:none;">%alert_field%</div>
 
 
  <div class="registration">
@@ -40,6 +38,9 @@ $TEMPLATE['frame'] = <<<END
         </form>
 
  </div>
+
+
+<script type="text/javascript" src="/css_js/users/changePassword.js"></script>
 
 END;
 

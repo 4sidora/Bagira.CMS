@@ -6,14 +6,37 @@ class controller {
     public function authAction() {
 
    		if (!user::auth(system::POST('login'), system::POST('passw'))) {
-        	$_SESSION['auth_error'] = system::POST('login');
-            system::redirect('/users/auth-page');
+
+            if (system::isAjax()) {
+
+                system::json(array('error' => 1));
+                
+            } else {
+
+                $_SESSION['auth_error'] = system::POST('login');
+                system::redirect('/users/auth-page');
+            }
    		}
 
-		if (!empty($_POST['back_url']))
-			system::redirect($_POST['back_url'], true);
-		else
-		 	system::redirect('/');
+        if (system::isAjax()) {
+
+            $param = array(
+                'id' => user::get('id'),
+                'login' => user::get('login'),
+                'name' => user::get('name'),
+                'surname' => user::get('surname'),
+                'avatara' => user::get('avatara')
+            );
+
+            system::json($param);
+
+        } else {
+
+            if (!empty($_POST['back_url']))
+                system::redirect($_POST['back_url'], true);
+            else
+                system::redirect('/');
+        }
  	}
 
     // Страница авторизации пользователя
@@ -35,14 +58,21 @@ class controller {
  	}
 
     // Обработчик выхода пользователя из системы
- 	public function logoutAction() {
+    public function logoutAction() {
 
-		user::logout(false);
+        user::logout(false);
 
-		if (!empty($_POST['back_url']))
-			system::redirect($_POST['back_url'], true);
-		else
-			system::redirect('/');
+        if (system::isAjax()) {
+
+            system::json(array('error' => 0));
+
+        } else {
+
+            if (!empty($_POST['back_url']))
+                system::redirect($_POST['back_url'], true);
+            else
+                system::redirect('/');
+        }
  	}
 
 
@@ -58,43 +88,57 @@ class controller {
  	public function recover_passwAction() {
 
         // Проверка капчи
-     	if (system::POST('random_image') != $_SESSION['core_secret_number']) {
-            system::savePostToSession();
-         	$_SESSION['reg_user_error'] = lang::get('SITE_CAPHCA');
-            $_SESSION['reg_user_error2'] = 'captcha';
-			system::redirect('/users/recover');
-	    } else
-	    	$_SESSION['core_secret_number'] = '';
+     	if (!system::validCapcha('random_image')) {
+
+            $answer = array(
+                'msg' => lang::get('SITE_CAPHCA'),
+                'field' => 'captcha'
+            );
+
+            if (system::isAjax()) {
+                               
+                system::json($answer);
+
+            } else {
+
+                system::savePostToSession();
+                system::saveErrorToSession('recover', $answer);
+                system::redirect('/users/recover');
+            }
+	    }
 
         // Ищем нужного пользователя
-        $sel = new ormSelect('user');
-        $sel->where(
-        	$sel->logOR(
-	        	$sel->val('login', '=', system::POST('login_or_email')),
-	        	$sel->val('email', '=', system::POST('login_or_email'))
-        	)
-        );
-        $sel->limit(1);
+        if (empty($answer)) {
+            
+             $sel = new ormSelect('user');
+             $sel->where(
+                 $sel->logOR(
+                     $sel->val('login', '=', system::POST('login_or_email')),
+                     $sel->val('email', '=', system::POST('login_or_email'))
+                 )
+             );
+             $sel->limit(1);
 
-        if ($user = $sel->getObject()) {
+             if ($user = $sel->getObject()) {
 
-	        // Формируем временный ключ восставновления
-	        $key = md5(date('d.m.Y').$user->id);
-	        $user->md5_flag = $key;
-	        $user->save();
+                 // Формируем временный ключ восставновления
+                 $key = md5(date('d.m.Y').$user->id);
+                 $user->md5_flag = $key;
+                 $user->save();
 
-            // Отправляет письмо с инструкциями
-            $url_pre = 'http://'.domains::curDomain()->getName().languages::pre();
-	        page::assign('url', $url_pre.'/users/send_passw/'.$key);
-            page::assign('login', $user->login);
-            page::assign('name', $user->name);
-      		system::sendMail('/users/mails/recover1.tpl', $user->email);
+                 // Отправляет письмо с инструкциями
+                 $url_pre = 'http://'.domains::curDomain()->getName().languages::pre();
+                 page::assign('url', $url_pre.'/users/send_passw/'.$key);
+                 page::assign('login', $user->login);
+                 page::assign('name', $user->name);
+                 system::sendMail('/users/mails/recover1.tpl', $user->email);
+             }
         }
 
-	  	page::globalVar('h1', lang::get('USERS_RECOVER_H1'));
- 	    page::globalVar('title', lang::get('USERS_RECOVER_H1'));
-
-   		return lang::get('USERS_RECOVER_MSG');
+        if (system::isAjax())
+            system::json(array('ok' => 1));
+        else
+            system::redirect('/users/ok/recover');
  	}
 
     // Формирование письма с новым паролем
@@ -114,7 +158,7 @@ class controller {
 
 	        	$key = md5(date('d.m.Y').$user->id);
 
-		    	if ($key = $userKey) {
+		    	if ($key == $userKey) {
 
                     // Генерируем новый пароль
                     $passw = rand(100000, 999999);
@@ -159,6 +203,8 @@ class controller {
     // Обработчик регистрации пользователя
  	public function add_procAction() {
 
+        $answer = array();
+
         if (!reg::getKey('/users/reg'))
             system::redirect('/');
 
@@ -166,102 +212,108 @@ class controller {
         	system::redirect('/users/edit');
 
      	// Проверка капчи
-        if (system::POST('random_image') != $_SESSION['core_secret_number']) {
-            system::savePostToSession();
-         	$_SESSION['reg_user_error'] = lang::get('SITE_CAPHCA');
-            $_SESSION['reg_user_error2'] = 'captcha';
-
-			if (!empty($_POST['back_url']))
-				system::redirect($_POST['back_url'], true);
-			else
-				system::redirect('/users/add');
-
-	    } else
-	    	$_SESSION['core_secret_number'] = '';
-
+        if (!system::validCapcha('random_image'))
+            $answer = array('msg' => lang::get('SITE_CAPHCA'), 'field' => 'captcha');
+	    
         // Проверка согласия с условиями оферты
-        if (reg::getKey('/users/confirm') && !system::POST('confirm', isBool)) {
-            system::savePostToSession();
-         	$_SESSION['reg_user_error'] = lang::get('USERS_COMFIRM');
-            $_SESSION['reg_user_error2'] = 'confirm';
-			if (!empty($_POST['back_url']))
-				system::redirect($_POST['back_url'], true);
-			else
-				system::redirect('/users/add');
-        }
+        if (reg::getKey('/users/confirm') && !system::POST('confirm', isBool))
+            $answer = array('msg' => lang::get('USERS_COMFIRM'), 'field' => 'confirm');
 
         // Добавляем объект
-        $obj = new ormObject();
-		$obj->setParent(41);  	// Устанавливаем группу "Пользователи сайта"
-  		$obj->setClass('user');
-  		$obj->tabuList('def_modul', 'active', 'last_visit', 'last_ip', 'groups');
-        $obj->loadFromPost();
-        $obj->active = 1;
-        $obj->email = $obj->newVal('login');
+        if (empty($answer)) {
+            
+            $obj = new ormObject();
+            $obj->setParent(41);  	// Устанавливаем группу "Пользователи сайта"
+            $obj->setClass('user');
+            $obj->tabuList('def_modul', 'active', 'last_visit', 'last_ip', 'groups');
+            $obj->loadFromPost();
+            $obj->active = 1;
+            $obj->email = $obj->newVal('login');
 
-        if ($obj->save()) {
+            if ($obj->save()) {
 
-            if (reg::getKey('/users/activation')) {
+                if (reg::getKey('/users/activation')) {
 
-                // Регистрация с проверкой
+                    // Регистрация с проверкой
 
-                // Формируем временный ключ активации пользователя
-		        $key = md5(date('d.m.Y').'activate'.$obj->id);
-		        $obj->md5_flag = $key;
-		        $obj->active = 0;
-		        $obj->save();
+                    // Формируем временный ключ активации пользователя
+                    $key = md5(date('d.m.Y').'activate'.$obj->id);
+                    $obj->md5_flag = $key;
+                    $obj->active = 0;
+                    $obj->save();
 
-                // Отправляем письмо
-                $url_pre = 'http://'.domains::curDomain()->getName().languages::pre();
-		        page::assign('url', $url_pre.'/users/activate/'.$key);
-	            page::assign('passw', system::POST('password'));
-	            page::assign('login', $obj->login);
-            	page::assign('name', $obj->name);
-                system::sendMail('/users/mails/activate.tpl', $obj->email);
+                    // Отправляем письмо
+                    $url_pre = 'http://'.domains::curDomain()->getName().languages::pre();
+                    page::assign('url', $url_pre.'/users/activate/'.$key);
+                    page::assign('passw', system::POST('password'));
+                    page::assign('login', $obj->login);
+                    page::assign('name', $obj->name);
+                    system::sendMail('/users/mails/activate.tpl', $obj->email);
 
-                $_SESSION['user_email'] = $obj->login;
-                system::redirect('/users/ok');
+                    $_SESSION['user_email'] = $obj->login;
 
-	        } else {
+                } else {
 
-	            // Регистрация без проверки
+                    // Регистрация без проверки
 
-                // Отправляем письмо
-	            page::assign('passw', system::POST('password'));
-	            page::assign('login', $obj->login);
-            	page::assign('name', $obj->name);
-	            system::sendMail('/users/mails/registration.tpl', $obj->email);
+                    // Отправляем письмо
+                    page::assign('passw', system::POST('password'));
+                    page::assign('login', $obj->login);
+                    page::assign('name', $obj->name);
+                    system::sendMail('/users/mails/registration.tpl', $obj->email);
+                }
 
-                system::redirect('/users/ok');
-	        }
+                // Можно автоматически авторизовать пользователя
+                //user::authHim($obj);
 
-        } else {
+                // Все хорошо. Пользователь добавлен.
+                if (system::isAjax())
+                    system::json(array('ok' => 1));
+                else
+                    system::redirect('/users/ok');
+
+            } else {
+
+                // Произошли ошибки
+                
+                if ($obj->issetErrors(32))
+                    $answer = array('msg' => lang::get('USERS_ISSET'), 'field' => 'login');
+                else {
+                    $tmp = $obj->getErrorFields();
+                    $answer = array('msg' => $obj->getErrorListText(' '), 'field' => $tmp['focus']);
+                }
+            }
+        }
+
+        if (!system::isAjax()) {
 
             system::savePostToSession();
+            system::saveErrorToSession('add_user', $answer);
 
-            if ($obj->issetErrors(32)) {
-                $_SESSION['reg_user_error'] = lang::get('USERS_ISSET');
-                $_SESSION['reg_user_error2'] = 'login';
-            } else {
-                $_SESSION['reg_user_error'] = $obj->getErrorListText(' ');
-                $tmp = $obj->getErrorFields();
-                $_SESSION['reg_user_error2'] = $tmp['focus'];
-            }
+            if (!empty($_POST['back_url']))
+                system::redirect($_POST['back_url'], true);
+            else
+                system::redirect('/users/add');
 
-			if (!empty($_POST['back_url']))
-				system::redirect($_POST['back_url'], true);
-			else
-				system::redirect('/users/add');
-		}
+        } else
+            system::json($answer);
  	}
 
 
-    // Сообщение после успешной регистрации
+    // Сообщение после успешной регистрации или об отправке сообщения для восстановления пароля
     public function okAction() {
 
-        if (reg::getKey('/users/activation') && isset($_SESSION['user_email'])) {
+        if (system::url(2) == 'recover') {
 
-            // С проверкой пользователя
+            // Восстановление пароля
+            page::globalVar('h1', lang::get('USERS_RECOVER_H1'));
+            page::globalVar('title', lang::get('USERS_RECOVER_H1'));
+
+            return lang::get('USERS_RECOVER_MSG');
+
+        } else if (reg::getKey('/users/activation') && isset($_SESSION['user_email'])) {
+
+            // Регистрация - С проверкой пользователя
             page::globalVar('h1', lang::get('USERS_ADD_H1'));
  	    	page::globalVar('title', lang::get('USERS_ADD_H1'));
 
@@ -269,7 +321,7 @@ class controller {
 
         } else {
 
-            // Без активации пользователя
+            // Регистрация - Без активации пользователя
             page::globalVar('h1', lang::get('USERS_ADD_H1'));
  	    	page::globalVar('title', lang::get('USERS_ADD_H1'));
 
@@ -295,7 +347,7 @@ class controller {
 
 	        	$key = md5(date('d.m.Y').'activate'.$user->id);
 
-		    	if ($key = $userKey) {
+		    	if ($key == $userKey) {
 
 					$user->active = 1;
 					$user->md5_flag = '';
@@ -336,7 +388,11 @@ class controller {
             $obj = user::getObject();
             $obj->avatara = '';
             $obj->save();
-            system::redirect('/users/edit');
+            
+            if (!empty($_POST['back_url']))
+				system::redirect($_POST['back_url'], true);
+			else
+				system::redirect('/users/edit');
         }
 
         $obj = user::getObject();
@@ -348,24 +404,27 @@ class controller {
 
             cache::delete('user'.$obj->id);
 
-        	$_SESSION['reg_user_error'] = lang::get('USERS_CHANGE_MSG');
-            $_SESSION['reg_user_error2'] = '';
-            system::redirect('/users/edit');
+            $answer = array('msg' => lang::get('USERS_CHANGE_MSG'), 'field' => '');
 
         } else {
 
         	system::savePostToSession();
-            $_SESSION['reg_user_error'] = $obj->getErrorListText(' ');
-            $tmp = $obj->getErrorFields();
-            $_SESSION['reg_user_error2'] = $tmp['focus'];
 
-			if (!empty($_POST['back_url']))
+            $tmp = $obj->getErrorFields();
+            $answer = array('msg' => $obj->getErrorListText(' '), 'field' => $tmp['focus']);
+		}
+
+        if (!system::isAjax()){
+
+            system::saveErrorToSession('edit_user', $answer);
+
+            if (!empty($_POST['back_url']))
 				system::redirect($_POST['back_url'], true);
 			else
 				system::redirect('/users/edit');
-		}
 
-   		system::redirect('/users/edit');
+        } else
+            system::json($answer);
  	}
 
     // Страница изменения пароля
@@ -393,12 +452,27 @@ class controller {
 
                     $user->password = system::POST('password');
 
-                    if ($user->save())
-                        system::redirect('/users/change_password/ok');
+                    if ($user->save()) {
+
+                        if (system::isAjax())
+                            system::json(array('ok' => 1));
+                        else
+                            system::redirect('/users/change_password/ok');
+                    }
                 }
 
-        } else
-            system::redirect('/users/change_password/error');
+        } else {
+
+            $answer = array('msg' => lang::get('USERS_CHANGE_PSW_MSG'), 'field' => 'current_password');
+
+            if (!system::isAjax()) {
+
+                system::saveErrorToSession('change_password', $answer);
+                system::redirect('/users/change_password');
+
+            } else 
+                system::json($answer);
+        }
 
         system::redirect('/users/change_password');
     }
