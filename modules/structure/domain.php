@@ -44,6 +44,12 @@ class domain extends innerErrorList {
     		return $this->values['d_name'];
     }
 
+    // Вернет ссылку на доммен
+    public function getUrl() {
+        if (isset($this->values['d_name']))
+    		return 'http://'.$this->values['d_name'];
+    }
+
 	/**
 	* @return null
 	* @param string $name - Доменное имя сайта
