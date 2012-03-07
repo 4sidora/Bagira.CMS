@@ -507,6 +507,10 @@ class page {
         self::$arr = '';
     }
 
+    static function disableCacheForThisPage(){
+        self::$isCachePage = false;
+    }
+
     // Определяет, можно ли кешировать текущую страницу
     static function isCashePage(){
 
@@ -553,7 +557,6 @@ class page {
         if (self::isCashePage()) {
 
             if (($data = cache::get(system::getCurrentUrlPN()))) {
-
 
                 if (!strpos($data['html'], 'structure.filter')) {
 
@@ -614,7 +617,8 @@ class page {
                 'html' => self::$arr,
                 'page_id' => ormPages::getCurPageId(),
                 'page_url' => system::getCurrentUrlPN(),
-                'active_pages' => ormPages::getActiveId()
+                'active_pages' => ormPages::getActiveId(),
+                'host' => $_SERVER['HTTP_HOST']
             );
             
             cache::set(system::getCurrentUrlPN(), $page);

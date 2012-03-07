@@ -628,9 +628,16 @@ class ormPages {
 
     // Вернет контент для страницы "Страница не найдена"
     static function get404(){
+        page::disableCacheForThisPage();
 		page::globalVar('h1', lang::get('ERROR_404_TITLE'));
         page::globalVar('title', lang::get('ERROR_404_TITLE'));
-		return lang::get('ERROR_404_TEXT').page::macros('structure')->menu('map');
+
+        if (!($data = cache::get('error404'))) {
+            $data = lang::get('ERROR_404_TEXT').page::macros('structure')->menu('map');
+            cache::set('error404', $data);
+        }
+ 
+		return $data;
 	}
 
     // Возвращает ключ настроек для любого модуля в зависимости от текущего домена и языка

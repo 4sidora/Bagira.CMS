@@ -13,7 +13,10 @@ abstract class defCache {
 
     // Генирация уникального ключа в зависимости от текущего сайта
     private function getUniqueKey($key) {
-        return md5($_SERVER['HTTP_HOST'].md5($key));
+
+        $server_name = (CACHE_BY_DOMAIN) ? str_replace('www.', '', $_SERVER['HTTP_HOST']) : '';
+
+        return md5($server_name.md5($key));
     }
 
     /**
@@ -23,7 +26,6 @@ abstract class defCache {
      */
     function get($id) {
 
-       
         $value = $this->getValue($this->getUniqueKey($id));
 
         if($value !== false)

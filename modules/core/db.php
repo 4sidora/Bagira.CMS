@@ -52,7 +52,8 @@ class db{
 
                 page::globalVar('title', 'Bagira.CMS');
                 page::globalVar('content', $msg);
-                page::parseIt(TEMPL_DIR.'/offline.tpl', true);
+                page::parseIt(TEMPL_DIR.'/offline.tpl', true, true);
+                system::stop();
             }
 		}
 	}
