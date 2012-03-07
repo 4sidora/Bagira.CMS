@@ -822,6 +822,10 @@ class system {
 	    return $str;
 	}
 
+    // Вернет true, если система запущена на локальном сервере
+    static function isLocalhost() {
+        return ($_SERVER['SERVER_ADDR'] == '127.0.0.1' || $_SERVER['SERVER_ADDR'] == 'localhost');
+    }
 
 	// Вернет true, если запрос был передан через Ajax
 	static function isAjax() {
