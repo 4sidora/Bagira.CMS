@@ -152,11 +152,26 @@ class __page {
         // Выбор шаблона оформления объектов
         $form->addField('param', 10, '', lang::get('STRUCTURE_TEMPLATE2'), $this->getTemplateBox('template2_id', templates::getByDestination(1), $obj->template2_id, 1));
 
+        // Выводим ID и URL страницы
+        $this->getPageInfo($obj, $form);
+
         $form->newTabs(lang::get('STRUCTURE_TABS_RIGHT'), rights::getListForObject($obj, system::action()));
         //$form->newTabs(lang::get('STRUCTURE_TABS_RESTORE'), '&nbsp;');
 
         return $form->getHTML();
  	}
+
+    private function getPageInfo($obj, $form) {
+        if ($obj->id != 0) {
+            $domain = (system::isLocalhost()) ? domains::curDomain()->getUrl() : '';
+            $form->addInBottomTabs('param', '
+                <div class="clear"></div><div class="otstup"></div>
+                <div class="fieldBox"><label><b></b>'.lang::get('STRUCTURE_PAGE_URL').'</label> <a href="'.$domain . $obj->_url.'">'.$obj->_url.'</a></div>
+                <div class="fieldBox"><label><b></b>'.lang::get('STRUCTURE_PAGE_URL').'</label> '.$obj->id.'</div>
+            ');
+        }
+    }
+
 
  	private function getTemplateBox($field_name, $templs, $value, $fla = 0) {
 

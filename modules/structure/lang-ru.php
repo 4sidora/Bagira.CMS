@@ -70,6 +70,8 @@ $LANG['STRUCTURE_TABS_RESTORE'] = 'Резервные копии';
 $LANG['STRUCTURE_TEMPLATE'] = 'Шаблон страницы';
 $LANG['STRUCTURE_TEMPLATE2'] = 'Шаблон содержимого';
 $LANG['STRUCTURE_NO_CHANGE'] = '>> не выбран <<';
+$LANG['STRUCTURE_PAGE_ID'] = 'URL страницы:';
+$LANG['STRUCTURE_PAGE_URL'] = 'ID страницы:';
 
 $LANG['STRUCTURE_SETTINGS'] = 'Настройки';
 $LANG['STRUCTURE_MINITEXT'] = 'Мини-тексты';
