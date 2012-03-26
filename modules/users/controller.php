@@ -39,6 +39,15 @@ class controller {
         }
  	}
 
+    public function social_authAction(){
+        user::socialAuth(system::url(2));
+    }
+
+    public function social_auth_confirmAction(){
+        user::socialAuthConfirm();
+    }
+
+
     // Страница авторизации пользователя
     public function auth_pageAction() {
 

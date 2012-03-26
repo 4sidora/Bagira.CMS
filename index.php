@@ -75,6 +75,10 @@
     system::addClass('innerErrorList', MODUL_DIR.'/core/innerErrorList.php');
     system::addClass('elFinder', MODUL_DIR.'/core/elFinder.php');
 
+    // Авторизация через соц. сети
+    system::addClass('TwitterOAuth', MODUL_DIR.'/users/social/twitter/twitteroauth/twitteroauth.php');
+    system::addClass('LightOpenID', MODUL_DIR.'/users/social/openid.php');
+
     // Подсистема кэширования
     system::addClass('defCache', MODUL_DIR.'/core/cache/defCache.php');
     system::addClass('fileCache', MODUL_DIR.'/core/cache/fileCache.php');

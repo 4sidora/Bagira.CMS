@@ -2,13 +2,13 @@
 
 class usersMacros {
 
-
     /**
-	* @return stirng
+	* @return string
 	* @param string $templ_name - Шаблон оформления
+    * @param string $services - Список социальных сервисов разделенных "|", в заданном порядке, через которые доступна авторизация
 	* @desc МАКРОС: Выводит форму авторизации или ссылку на личный кабинет текущего пользователя
 	*/
- 	function authForm($templ_name = 'auth') {
+ 	function authForm($templ_name = 'auth', $services = 'facebook|twitter|vk|google|yandex') {
 
     	$templ_file = '/users/'.$templ_name.'.tpl';
         $TEMPLATE = page::getTemplate($templ_file);
@@ -17,6 +17,20 @@ class usersMacros {
 	    	return page::errorNotFound('users.authForm', $templ_file);
 
 	   	if (user::isGuest()) {
+
+            // Формируем список социальных кнопок
+            $services = explode('|', $services);
+			$list = '';
+			foreach($services as $service)
+				if (reg::getKey('/users/'.$service.'_bool') && isset($TEMPLATE['social_btn_'.$service]))
+				    $list .= page::parse($TEMPLATE['social_btn_'.$service]);
+
+            if (!empty($list)) {
+			    page::assign('list', $list);
+			    page::fParse('social_buttons', $TEMPLATE['social_buttons']);
+            } else
+                page::assign('social_buttons');
+
 
 			return page::parse($TEMPLATE['frame_form']);
 
@@ -31,7 +45,7 @@ class usersMacros {
 	}
 
 	/**
-	* @return stirng
+	* @return string
 	* @param string $templ_name - Шаблон оформления
 	* @desc МАКРОС: Выводит форму напоминания пароля
 	*/
@@ -55,7 +69,7 @@ class usersMacros {
 	}
 
     /**
-	* @return stirng
+	* @return string
 	* @param string $templ_name - Шаблон оформления
 	* @desc МАКРОС: Выводит форму редактирования акаунта
 	*/
@@ -91,7 +105,7 @@ class usersMacros {
 	}
 
     /**
-	* @return stirng
+	* @return string
 	* @param string $templ_name - Шаблон оформления
 	* @desc МАКРОС: Выводит форму изменения пароля
 	*/
@@ -116,7 +130,7 @@ class usersMacros {
 
 
     /**
-	* @return stirng
+	* @return string
 	* @param string $templ_name - Шаблон оформления
 	* @desc МАКРОС: Выводит форму регистрации пользователя
 	*/
@@ -147,8 +161,34 @@ class usersMacros {
         }
 	}
 
+    /**
+	* @return string
+	* @param string $templ_name - Шаблон оформления
+	* @desc МАКРОС: Выводит форму второго шага авторизации через соц сети, если требуется указать e-mail или согласиться с правилами.
+	*/
+    function socialAuthConfirm($templ_name = 'social_auth_confirm') {
 
+        $templ_file = '/users/'.$templ_name.'.tpl';
+        $TEMPLATE = page::getTemplate($templ_file);
 
+        if (!is_array($TEMPLATE))
+            return page::errorNotFound('users.socialAuthConfirm', $templ_file);
+
+        if (user::isGuest() && !empty($_SESSION['SOCIAL_AUTH_USER_INFO'])) {
+
+            page::assign('obj.email', '');
+            foreach($_SESSION['SOCIAL_AUTH_USER_INFO'] as $key => $val)
+                page::assign('obj.'.$key, $val);
+
+            page::assign('email_block', (reg::getKey('/users/ask_email') && empty($_SESSION['SOCIAL_AUTH_USER_INFO']['email'])) ? page::parse($TEMPLATE['email']) : '');
+            page::assign('confirm_block', (reg::getKey('/users/confirm')) ? page::parse($TEMPLATE['confirm']) : '');
+
+            // Вывод сообщения об ошибках
+            page::parseError('social_auth_confirm');
+
+            return page::parse($TEMPLATE['frame']);
+        }
+    }
 
 
 

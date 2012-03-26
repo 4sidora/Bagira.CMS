@@ -14,20 +14,16 @@ class __change {
 
         page::assignArray(lang::get('CONFIG_FORM_FIELD'));
 
-        page::assign('errorCountBlock', reg::getKey('/users/errorCountBlock'));
-       // page::assign('errorCountCapcha', reg::getKey('/users/errorCountCapcha'));
 		ui::CheckBox('gzip', 1, reg::getKey('/core/gzip'), lang::get('CONFIG_FORM_FIELD', 9));
-		ui::CheckBox('reg', 1, reg::getKey('/users/reg'), lang::get('CONFIG_FORM_FIELD', 11));
-		ui::CheckBox('activation', 1, reg::getKey('/users/activation'), lang::get('CONFIG_FORM_FIELD', 28));
-        ui::CheckBox('confirm', 1, reg::getKey('/users/confirm'), lang::get('CONFIG_FORM_FIELD', 35));
-               
         ui::CheckBox('delToTrash', 1, reg::getKey('/core/delToTrash'), lang::get('CONFIG_FORM_FIELD', 12));
         ui::CheckBox('noIE6', 1, reg::getKey('/core/noIE6'), lang::get('CONFIG_FORM_FIELD', 34));
-
+        
         ui::loadFile('watermark', reg::getKey('/core/watermark'));
 
         ui::CheckBox('scaleBigJpeg', 1, reg::getKey('/core/scaleBigJpeg'), lang::get('CONFIG_FORM_FIELD', 33));
         page::assign('sizeBigJpeg', reg::getKey('/core/sizeBigJpeg'));
+
+
 
          // Форма редактирования языков
         $form = new uiMultiForm('langs');
@@ -79,12 +75,6 @@ class __change {
         reg::setKey('/core/scaleBigJpeg', system::POST('scaleBigJpeg', isBool));
         reg::setKey('/core/sizeBigJpeg', system::POST('sizeBigJpeg', isInt));
         reg::setKey('/core/noIE6', system::POST('noIE6', isBool));
-
-        //reg::setKey('/users/errorCountCapcha', system::POST('errorCountCapcha'));
-        reg::setKey('/users/errorCountBlock', system::POST('errorCountBlock'));
-        reg::setKey('/users/reg', system::POST('reg', isBool));
-        reg::setKey('/users/activation', system::POST('activation', isBool));
-        reg::setKey('/users/confirm', system::POST('confirm', isBool));
 
 
         // Загрузка ватермарка

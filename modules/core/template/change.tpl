@@ -29,32 +29,6 @@ $TEMPLATE['frame'] = <<<END
 	   	%noIE6%
 
 
-
-	 	<div class="otstup"></div>
-	 	<div class="otstup"></div>
-
-	    %reg%
-
-	    <div class="otstup"></div>
-
-	    %activation%
-
-        <div class="otstup"></div>
-
-	    %confirm%
-
-	    <div class="otstup"></div>
-	 <!---
-	    %text.10%
-	   	<input class="input" type="text" name="errorCountCapcha" id="errorCountCapcha" value="%errorCountCapcha%" style="width:20px;">
-	   	%text.30%
-
-	    <div class="otstup"></div>
-	                 --->
-	    %text.29%
-	   	<input class="input" type="text" name="errorCountBlock" id="errorCountBlock" value="%errorCountBlock%" style="width:20px;">
-	   	%text.30%
-
 	    <div class="otstup"></div>
 	    <div class="otstup"></div>
 	   	<div align="left">%text.32%</div>

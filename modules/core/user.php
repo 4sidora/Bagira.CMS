@@ -13,6 +13,12 @@
     	- Проверка прав доступа
 */
 
+define('SOCIAL_TYPE_TWITTER', 1);
+define('SOCIAL_TYPE_FACEBOOK', 2);
+define('SOCIAL_TYPE_VK', 3);
+define('SOCIAL_TYPE_GOOGLE', 4);
+define('SOCIAL_TYPE_YANDEX', 5);
+
 class user {
 
     private static $right = array();
@@ -169,6 +175,499 @@ class user {
 
         return $ret;
     }
+
+    public static function socialAuth($service_name){
+
+        if (user::isGuest()) {
+
+            switch ($service_name) {
+                case 'twitter':
+                    self::authTwitter();
+                    break;
+
+                case 'facebook':
+                    self::authFacebook();
+                    break;
+
+                case 'vk':
+                    self::authVK();
+                    break;
+
+                case 'yandex':
+                    self::authYandex();
+                    break;
+
+                case 'google':
+                    self::authGoogle();
+                    break;
+            }
+        }
+    }
+
+    // авторизация Google
+    private static function authGoogle() {
+
+        if (reg::getKey('/users/yandex_bool')) {
+
+            try {
+                $openid = new LightOpenID('http://'.$_SERVER['SERVER_NAME']);
+
+                if(!$openid->mode) {
+
+                    $openid->identity = 'https://www.google.com/accounts/o8/id';
+                    $openid->required = array('contact/email');
+
+                    header('Location: ' . $openid->authUrl());
+
+                } elseif($openid->mode == 'cancel') {
+
+                    self::closeWindowAndOpen('/');
+                    system::stop();
+
+                } else {
+
+                    // Получение данных пользователя при успешной аутентификации
+                    if ($openid->validate()) {
+
+                        $attrs = $openid->getAttributes();
+                        $name = substr($attrs['contact/email'], 0, strpos($attrs['contact/email'], '@'));
+
+                        $user_info = array(
+                            'identity' => $openid->identity,
+                            'login' => $attrs['contact/email'],
+                            'email' => $attrs['contact/email'],
+                            'first_name' => $name,
+                            'last_name' => '',
+                            'social' => 'google',
+                            'social_type' => SOCIAL_TYPE_GOOGLE
+                        );
+
+                        self::checkSocialUser($user_info);
+
+                    } else {
+                        echo 'Ошибка входа на сайт';
+                        system::stop();
+                    }
+                }
+            } catch(ErrorException $e) {
+                echo $e->getMessage();
+            }       
+        }
+    }
+
+    // авторизация Yandex
+    private static function authYandex() {
+
+        if (reg::getKey('/users/yandex_bool')) {
+            
+            try {
+                $openid = new LightOpenID('http://'.$_SERVER['SERVER_NAME']);
+
+                if(!$openid->mode) {
+    
+                    $openid->identity = 'http://www.yandex.ru/';
+                    $openid->required = array('contact/email');
+                    $openid->optional = array('namePerson');
+
+                    header('Location: ' . $openid->authUrl());
+
+                } elseif($openid->mode == 'cancel') {
+
+                    self::closeWindowAndOpen('/');
+                    system::stop();
+
+                } else {
+
+                    // Получение данных пользователя при успешной аутентификации
+                    if ($openid->validate()) {
+
+                        $attrs = $openid->getAttributes();
+                        $login = substr($openid->identity, 24, strlen($openid->identity) - 25);
+
+                        $user_info = array(
+                            'identity' => $openid->identity,
+                            'login' => 'ya.'.$login,
+                            'email' => $attrs['contact/email'],
+                            'first_name' => strtok($attrs['namePerson'],' '),
+                            'last_name' => strtok(' '),
+                            'social' => 'yandex',
+                            'social_type' => SOCIAL_TYPE_YANDEX
+                        );
+
+                        self::checkSocialUser($user_info);
+
+                    } else {
+                        echo 'Ошибка входа на сайт';
+                        system::stop();
+                    }
+                }
+
+            } catch(ErrorException $e) {
+                echo $e->getMessage();
+            }
+        }
+    }
+
+
+    // авторизация VK
+	private static function authVK() {
+
+        if (reg::getKey('/users/vk_bool')) {
+            
+            $app_id = reg::getKey('/users/vk_id');
+            $app_secret = reg::getKey('/users/vk_secret');
+            $back_url = "http://".$_SERVER['SERVER_NAME']."/users/social-auth/vk";
+
+            if (isset($_GET['code'])){
+
+                $url = "https://api.vkontakte.ru/oauth/access_token?client_id=".$app_id."&client_secret=".$app_secret."&code=".$_GET['code'];
+                $response = json_decode(@file_get_contents($url));
+
+                if (isset($response->error))
+                    system::redirect('/');
+    
+                $arrResponse = json_decode(@file_get_contents("https://api.vkontakte.ru/method/getProfiles?uid={$response->user_id}&access_token={$response->access_token}&fields=last_name"))->response;
+
+                $user_info = array(
+                    'identity' => 'http://vk.com/id'.$arrResponse[0]->uid,
+                    'login' => $arrResponse[0]->uid,
+                    'first_name' => $arrResponse[0]->first_name,
+                    'last_name' => $arrResponse[0]->last_name,
+                    'social' => 'vk',
+                    'social_type' => SOCIAL_TYPE_VK
+                );
+
+                self::checkSocialUser($user_info);
+
+            } else {
+                system::redirect("http://api.vkontakte.ru/oauth/authorize?client_id=".$app_id."&scope=&redirect_uri=".$back_url."&response_type=code");
+            }
+        }
+ 	}
+
+    private static function authFacebook() {
+
+        if (reg::getKey('/users/facebook_bool')) {
+            $app_id = reg::getKey('/users/facebook_id');
+            $app_secret = reg::getKey('/users/facebook_secret');
+            $back_url = "http://".$_SERVER['SERVER_NAME']."/users/social-auth/facebook";
+
+            $code = (isset($_REQUEST["code"])) ? $_REQUEST["code"] : 0;
+
+            if(empty($code)) {
+                $_SESSION['state'] = md5(uniqid(rand(), TRUE)); //CSRF protection
+                $dialog_url = "http://www.facebook.com/dialog/oauth?client_id="
+                  . $app_id . "&redirect_uri=" . urlencode($back_url) . "&state="
+                  . $_SESSION['state']. "&scope=email";
+
+                echo("<script> top.location.href='" . $dialog_url . "'</script>");
+
+            } else if($_REQUEST['state'] == $_SESSION['state']) {
+
+                $token_url = "https://graph.facebook.com/oauth/access_token?"
+                  . "client_id=" . $app_id . "&redirect_uri=" . urlencode($back_url)
+                  . "&client_secret=" . $app_secret . "&code=" . $code;
+
+                $response = @file_get_contents($token_url);
+                $params = null;
+                parse_str($response, $params);
+
+                $graph_url = "https://graph.facebook.com/me?access_token=". $params['access_token'];
+
+                $user = json_decode(file_get_contents($graph_url));
+
+                $user_info = array(
+                    'identity' => 'http://www.facebook.com/profile.php?id='.$user->id,
+                    'login' => $user->id,
+                    'email' => $user->email,
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'social' => 'facebook',
+                    'social_type' => SOCIAL_TYPE_FACEBOOK
+                );
+
+                self::checkSocialUser($user_info);
+
+            } else
+                echo "The state does not match. You may be a victim of CSRF.";
+        }
+ 	}
+
+
+    // авторизация через Твиттер
+	private static function authTwitter() {
+
+        if (reg::getKey('/users/twitter_bool')) {
+            $app_id = reg::getKey('/users/twitter_id');;
+            $app_secret = reg::getKey('/users/twitter_secret');
+            $back_url = "http://".$_SERVER['SERVER_NAME']."/users/social-auth/twitter";
+
+            if (!isset($_REQUEST['oauth_verifier'])){
+                $connection = new TwitterOAuth($app_id, $app_secret);
+                $request_token = $connection->getRequestToken($back_url);
+
+                $_SESSION['oauth_token'] = $token = $request_token['oauth_token'];
+                $_SESSION['oauth_token_secret'] = $request_token['oauth_token_secret'];
+
+                $url = $connection->getAuthorizeURL($token);
+
+                header('Location: ' . $url);
+
+            } else if (!empty($_SESSION['oauth_token']) && !empty($_SESSION['oauth_token_secret'])){
+
+                $connection = new TwitterOAuth($app_id, $app_secret, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
+                $access_token = $connection->getAccessToken($_REQUEST['oauth_verifier']);
+
+                unset($_SESSION['oauth_token']);
+                unset($_SESSION['oauth_token_secret']);
+
+                $connection = new TwitterOAuth($app_id, $app_secret, $access_token['oauth_token'], $access_token['oauth_token_secret']);
+                $content = $connection->get('account/verify_credentials');
+
+                $user = array(
+                    'identity' => 'http://twitter.com/'.$content->screen_name,
+                    'login' => '@'.$content->screen_name,
+                    'first_name' => strtok($content->name,' '),
+                    'last_name' => strtok(' '),
+                    'social' => 'twitter',
+                    'social_type' => SOCIAL_TYPE_TWITTER
+                );
+
+                self::checkSocialUser($user);
+            }
+        }
+ 	}
+
+    // Проверяем, зарегистрирован ли указанный пользователь на сайте. Если да - авторизуем, если нет - регистрируем.
+    private static function checkSocialUser($user_info){
+
+        $sel = new ormSelect('user');
+        $sel->where(
+            $sel->val('social_identity', '=', $user_info['identity']),
+            $sel->val('social_type', '=', $user_info['social_type'])
+        );
+        $sel->limit(1);
+
+        if ($user = $sel->getObject()) {
+
+            // Пользователь уже зарегистрирован
+            $groups = $user->getParents();
+            $sel = new ormSelect('user_group');
+            $sel->where('id', '=', $groups, 'OR');
+            $sel->where('active', '=', 1);
+
+            if (!$user->active || $sel->getCount() < 1) {
+
+                // Ошибка: Пользователь или группа выключены, авторизация не возможна
+                echo lang::get('USERS_DISABLE_AUTH');
+                die;
+
+            } else if (user::authHim($user)) {
+
+                // Пользователь авторизован, закрываем дочернее окно и возвращаемся на сайт
+                self::closeWindowAndOpen('/');
+            }
+
+        } else {
+
+            // Пользователь еще не создан, регистрируем
+            if (reg::getKey('/users/confirm') || (reg::getKey('/users/ask_email') && empty($user_info['email']))) {
+
+                // Запрашивает согласие с правилами или e-mail
+                $_SESSION['SOCIAL_AUTH_USER_INFO'] = $user_info;
+                echo page::macros('users')->socialAuthConfirm();
+
+            } else {
+
+                // регистрируем
+                $user = self::createUserForSocial($user_info);
+
+                if ($user && !$user->issetErrors()) {
+                    
+                    user::authHim($user);
+                    self::closeWindowAndOpen('/');
+
+                } else {
+
+                    echo $user->getErrorListText();
+                }
+            }
+
+            system::stop();
+        }
+    }
+
+    private static function closeWindowAndOpen($url){
+        echo "<script type='text/javascript'>window.opener.location.href='$url'; window.close();</script>";
+    }
+
+    private static function createUserForSocial($user_info) {
+
+        if (!empty($user_info['login']) && !empty($user_info['first_name'])) {
+
+            $obj = new ormObject();
+            $obj->setParent(41);  	// Устанавливаем группу "Пользователи сайта"
+            $obj->setClass('user');
+            $obj->active = 1;
+            $obj->login = $user_info['login'];
+            $obj->name = $user_info['first_name'];
+            $obj->surname = $user_info['last_name'];
+            $obj->social_identity = $user_info['identity'];
+            $obj->social_type = $user_info['social_type'];
+            $obj->password = rand(100000, 999999);
+            
+            if (!empty($user_info['email']))
+                $obj->email = $user_info['email'];
+            else {
+                $md5 = substr(md5($user_info['login'].$user_info['social'].rand(10, 99)), 0, 15);
+                $obj->email = $md5.'@'.domains::curDomain()->getName();
+            }
+       
+            if ($obj->save())
+                unset($_SESSION['SOCIAL_AUTH_USER_INFO']);
+
+            return $obj;
+        }
+    }
+
+    static function socialAuthConfirm(){
+
+        if (user::isGuest() && isset($_SESSION['SOCIAL_AUTH_USER_INFO'])) {
+            
+            $confirm = system::POST('confirm', isBool);
+            $email = system::POST('email', isEmail);
+
+            $validate = true;
+
+            if (empty($_SESSION['SOCIAL_AUTH_USER_INFO']['email'])) {
+                if (reg::getKey('/users/ask_email') && empty($email))
+                    $validate = false;
+                else if (!empty($email))
+                    $_SESSION['SOCIAL_AUTH_USER_INFO']['email'] = $email;
+            }
+
+            if (reg::getKey('/users/confirm') && !$confirm)
+                $validate = false;
+
+            if ($validate) {
+
+                $user = self::createUserForSocial($_SESSION['SOCIAL_AUTH_USER_INFO']);
+
+                if ($user && !$user->issetErrors()) {
+
+                    user::authHim($user);
+                    self::closeWindowAndOpen('/');
+
+                } else {
+
+                    echo $user->getErrorListText();
+                }
+
+                system::stop();
+            }
+        }
+    }
+
+
+    /**
+	* @return $ret true если пользователь успешно авторизовался
+	* @param string $login - email пользователя
+	* $identity - уникальный идентификатор полученный от соц. сети
+	* $f_name - имя пользователя
+	* $l_name - фамилия пользователя
+	* $network - название соц. сети
+	* @desc авторизует пользовател через соц. сеть, если такового нету, то создает затем авторизует
+	*/
+
+	static function authSoc($login, $identity, $f_name, $l_name, $network) {
+
+    	$ret = false;
+		//проверяем наличие соц. сети если нету созлаем ее
+		$sel = new ormSelect('soc');
+		$sel->where($sel->val('name', '=', $network));
+		$sel->limit(1);
+		if (!$sel->getObject()){
+			$obj = new ormObject();
+           	$obj->setClass("soc");
+			$obj->active = 1;
+           	$obj->name = $network;
+			$obj->save();
+		}
+
+     	$login = system::checkVar($login, isString);
+
+		//ищем пользователя по email'у
+		$sel = new ormSelect('user');
+	    $sel->where(
+	        $sel->val('active', '=', 1),
+			$sel->val('login', '=', trim($login)),
+			$sel->containedIn('user_group', $sel->val('active', '=', 1))
+		);
+    	$sel->limit(1);
+
+		//нашли пользователя с email
+  		if(self::$obj = $sel->getObject()) {
+
+			  	/*$user_id = self::$obj->id;
+
+			  	//выбираем id соц. сети
+			  	$sel = new ormSelect('soc');
+	    		$sel->where( $sel->val('name', '=', trim($network)) );
+        		$sel->limit(1);
+			  	$obj = $sel->getObject();
+
+			  	$soc_id = $obj->id; */
+
+			  	//смотрим есть ли у пользователя с данный уникальный идентификатор
+			  	$t = db::q("SELECT <<__user>>.email,<<identity>>.value
+			  	FROM <<__user>>,<<identity>>
+			  	WHERE <<__user>>.obj_id = <<identity>>.user_id AND <<identity>>.value ='".$identity."'",records);
+
+
+			  	if ($t){
+				 	$ret = self::authHim(self::$obj);
+									echo ("
+									<script type='text/javascript'>
+				 						window.opener.location.href='/'; window.close();
+									</script>
+									");
+			  	}else{
+				  	//если нету перекидываем на регистрацию
+					$_SESSION["soc_email"] = $login;
+			  		$_SESSION["soc_identity"] = $identity;
+			  		$_SESSION["soc_f_name"] = $f_name;
+			  		$_SESSION["soc_l_name"] = $l_name;
+			  		$_SESSION["soc_network"] = $network;
+
+			  		system::redirect("/users/add_procSoc/");
+				 	//db::q("INSERT INTO <<identity>> (value,user_id,soc_id) VALUES ('".$identity."', '".$user_id."', '".$soc_id."');");
+				 	//$ret = self::authHim(self::$obj);
+			  	}
+
+			//не нашли пользователя
+      		} else {
+
+			  $_SESSION["soc_email"] = $login;
+			  $_SESSION["soc_identity"] = $identity;
+			  $_SESSION["soc_f_name"] = $f_name;
+			  $_SESSION["soc_l_name"] = $l_name;
+			  $_SESSION["soc_network"] = $network;
+
+			  echo ("
+						<script type='text/javascript'>
+				 			window.opener.location.href='/users/add_procSoc/'; window.close();
+						</script>
+					");
+			  die;
+
+			  //system::redirect("/users/add_procSoc/");
+
+            }
+
+
+        return $ret;
+    }
+
 
     // Отправка сообщения о блокировки пользователя
     private static function sendMailBlock($user) {

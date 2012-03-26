@@ -1,4 +1,15 @@
 
+//функции всплывающего окна для авторизации через соц. сети
+function OpenAuthWindow(ob){
+    OpenAuthWindowUrl($(ob).attr('href'),$(ob).text());
+}
+
+function OpenAuthWindowUrl(url,title){
+    var params = "menubar=no,location=no,resizable=yes,scrollbars=no,status=no,width=1000,height=500"
+    var nwin= window.open(url, title, params);
+    nwin.focus()
+}
+
 $(window).load(function(){
 
 

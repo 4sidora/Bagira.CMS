@@ -14,6 +14,26 @@ $RIGHT['users']['user_add'] = 'Добавление пользователя';
 $RIGHT['users']['user_del'] = 'Удаление пользователя';
 $RIGHT['users']['user_act'] = 'Активность пользователя';
 
+$RIGHT['users']['settings'] = 'Настройки модуля';
+
+$LANG['USERS_FORM_FIELD'][1] = 'Общие';
+$LANG['USERS_FORM_FIELD'][9] = 'При регистрации через соц. сети требовать указать e-mail';
+$LANG['USERS_FORM_FIELD'][10] = 'Показывать пользователю капчу после';
+$LANG['USERS_FORM_FIELD'][11] = 'Разрешить регистрацию новых пользователей на сайте';
+$LANG['USERS_FORM_FIELD'][28] = 'Все пользователи проходят проверку при регистрации';
+$LANG['USERS_FORM_FIELD'][29] = 'Блокировать пользователя после';
+$LANG['USERS_FORM_FIELD'][30] = 'попыток неправильного ввода пароля.';
+$LANG['USERS_FORM_FIELD'][35] = 'Требовать от новых пользователей соглашения с условиями регистрации';
+$LANG['USERS_FORM_FIELD'][36] = 'Авторизация через соц. сети';
+$LANG['USERS_FORM_FIELD'][37] = 'создать приложение';
+$LANG['USERS_FORM_FIELD'][38] = 'ID приложения';
+$LANG['USERS_FORM_FIELD'][39] = 'Secret code';
+$LANG['USERS_FORM_FIELD'][40] = 'Включить авторизацию через Twitter';
+$LANG['USERS_FORM_FIELD'][41] = 'Включить авторизацию через Facebook';
+$LANG['USERS_FORM_FIELD'][42] = 'Включить авторизацию через VK';
+$LANG['USERS_FORM_FIELD'][43] = 'Включить авторизацию через Yandex';
+$LANG['USERS_FORM_FIELD'][44] = 'Включить авторизацию через Google';
+
 
 $LANG['BTN_NEW_UGROUP'] = 'Добавить группу';
 $LANG['BTN_NEW_USER'] = 'Добавить пользователя';

@@ -6,9 +6,10 @@ RewriteCond %{REQUEST_FILENAME} !-f
 
 RewriteRule ^robots\.txt$ index.php?way=%{THE_REQUEST} [L]
 RewriteRule ^sitemap\.xml$ index.php?way=%{THE_REQUEST} [L]
-RewriteRule ^([^\.]*)$ index.php?way=%{THE_REQUEST} [L]
+RewriteRule ^([^\.]*)$ index.php?way=%{THE_REQUEST} [L,QSA]
 
 <FilesMatch "\.(log)$">
 Order allow,deny
 Deny from all
 </FilesMatch>
+

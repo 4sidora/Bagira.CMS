@@ -2798,3 +2798,15 @@ margin-top: 0.15em;
     margin-right:10px;
     text-decoration:underline;
 }
+
+.social-buttons {
+    float:right;
+    display:block;
+    margin-top: -10px;
+    margin-right: 100px;
+}
+
+.social-buttons a {
+    float:left;
+    margin-right:10px;
+}

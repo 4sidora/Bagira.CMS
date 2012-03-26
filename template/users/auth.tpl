@@ -4,7 +4,7 @@ $TEMPLATE['frame_form'] = <<<END
 <div class="enter whiteshader"><span>Войти в личный кабинет</span></div>
 
 <div id="autorisation">
-	<h2>Войти на сайт</h2><br/>
+	<h2>Войти на сайт %social_buttons%</h2><br/>
 	<a href="#" title="" class="cross"></a>
 
     <form id="authForm" action="%pre_lang%/users/auth" method="post">
@@ -23,7 +23,9 @@ $TEMPLATE['frame_form'] = <<<END
             <a href="%pre_lang%/users/recover" title="">Забыли пароль?</a>
             <input name="back_url" type="hidden" value="%current_url_pn%" />
     </form>
+
     Впервые на «B Mart»?<br/>Зарегистрируйтесь прямо сейчас
+
     <a href="%pre_lang%/users/add" title="" class="button">Регистрация</a>
 <div class="clear"></div>
 </div>
@@ -37,6 +39,41 @@ $TEMPLATE['frame_account'] = <<<END
 <form name="auth_form" action="%pre_lang%/users/logout" method="post">
 	<input name="back_url" type="hidden" value="%current_url_pn%" />
 </form>
+END;
+
+
+$TEMPLATE['social_buttons'] = <<<END
+<div class="social-buttons">%list%</div>
+END;
+
+$TEMPLATE['social_btn_twitter'] = <<<END
+<a href="/users/social-auth/twitter" onclick="OpenAuthWindow(this); return false;">
+    <img src="/css_mpanel/i/social-icons/icon_twitter.png">
+</a>
+END;
+
+$TEMPLATE['social_btn_vk'] = <<<END
+<a href="/users/social-auth/vk" onclick="OpenAuthWindow(this); return false;">
+    <img src="/css_mpanel/i/social-icons/icon_vk.png">
+</a>
+END;
+
+$TEMPLATE['social_btn_facebook'] = <<<END
+<a href="/users/social-auth/facebook" onclick="OpenAuthWindow(this); return false;">
+    <img src="/css_mpanel/i/social-icons/icon_fb.png">
+</a>
+END;
+
+$TEMPLATE['social_btn_yandex'] = <<<END
+<a href="/users/social-auth/yandex" onclick="OpenAuthWindow(this); return false;">
+    <img src="/css_mpanel/i/social-icons/icon_yandex.png">
+</a>
+END;
+
+$TEMPLATE['social_btn_google'] = <<<END
+<a href="/users/social-auth/google" onclick="OpenAuthWindow(this); return false;">
+    <img src="/css_mpanel/i/social-icons/icon_google.png">
+</a>
 END;
 
 ?>
