@@ -501,10 +501,30 @@ class ormSelect {
 
                 } else if (in_array($field, $this->psevdo)) {
 
+
+
                     if ($znak == 'BETWEEN' && $val2 != '')
                         return 'obj_.&..o_'.$field.' BETWEEN "'.$val.'" and "'.$val2.'"';
-                    else
-                        return 'obj_.&..o_'.$field.' '.$znak.' "'.$val.'"';
+                    else {
+
+                        if (is_array($val)) {
+                            
+                            $znak = 'IN';
+                            $value = '';
+                            foreach($val as $k => $v)
+                                $value .= (empty($value)) ? $k : ', '.$k;
+
+                            $value = '('.$value.')';
+
+                        } else
+                            $value = ' "'.$val.'"';
+
+                        echo '<br/>';
+                        echo 'obj_.&..o_'.$field.' '.$znak.' '.$value;
+                        echo '<br/>';
+                        
+                        return 'obj_.&..o_'.$field.' '.$znak.' '.$value;
+                    }
 
                 }
 
