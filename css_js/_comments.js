@@ -1,14 +1,14 @@
 $(window).load(function(){
 
     // Кнопка "Ответить" у каждого комментария
-    $('a.answer').live('click', function() {
+    $('body').on('click', 'a.answer', function() {
         $("#comment_parent_id").val($(this).attr('rel'));
         $("#comment_text").focus();
         return false;
     });
 
     // Изменение рейтинга комментария
-    $('.change-rate').live('click', function(){
+    $('body').on('click', '.change-rate', function(){
 
         var id = $(this).attr('rel');
         var vector = $(this).attr('href');

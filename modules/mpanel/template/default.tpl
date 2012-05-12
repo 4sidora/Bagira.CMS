@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="icon" href="/css_mpanel/i/favicon.ico" type="image/x-icon"/>
 <link href="/css_mpanel/mpanel.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="/css_mpanel/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/css_mpanel/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="/css_mpanel/jquery.cookie.js"></script>
 <script type="text/javascript" src="/css_mpanel/jquery.rsv.js"></script>
 
@@ -93,7 +93,7 @@
    <div class="clear"></div>
 
 </div><!-- end contr-->
-<div class="footer">© 2010-<script>var time=new Date(); var years=  time.getYear(); if (years<200) years += 1900; document.write(years);</script> <a target="_blank" href="http://www.bagira-cms.ru/license" title="Bagira.CMS">Bagira.CMS v1.1.7b</a>.  Все права защищены. </div>
+<div class="footer">© 2010-<script>var time=new Date(); var years=  time.getYear(); if (years<200) years += 1900; document.write(years);</script> <a target="_blank" href="http://www.bagira-cms.ru/license" title="Bagira.CMS">Bagira.CMS v1.1.8b</a>.  Все права защищены. </div>
 </div></div>
 
 

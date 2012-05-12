@@ -79,7 +79,7 @@ jQuery(document).ready(function() {
 
 	});
     // Для работы с полем типа ObjectLink
-    $('.delObjectLink').live('click', function() {
+    $("body").on("click", ".delObjectLink", function() {
 		$("#objectsLinkList_"+this.id).remove();
 		return false;
 	});

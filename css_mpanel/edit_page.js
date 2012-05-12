@@ -25,7 +25,7 @@ function translite(val){
 
 jQuery(document).ready(function() {
 
-	$("#name").live('change', function (){
+    $("body").on("change", "#name", function (){
 
             if ($("#title").val() == $("#old_name_val").val())
                 $("#title").val($(this).val());

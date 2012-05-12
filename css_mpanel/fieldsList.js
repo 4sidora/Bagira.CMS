@@ -158,7 +158,7 @@ function changeField(obj_id, state, type) {
                 }
             });
 
-		    $("#fname").live("change", function (){
+            $("body").on("change", "#fname", function (){
 		    	Translit("#fname", "#fsname");
 		    });
 
@@ -297,7 +297,7 @@ function changeGroup(obj_id, state) {
 		          ]
 		    });
 
-		    $("#group_name").live("change", function (){
+            $("body").on("change", "#group_name", function (){
 		    	Translit("#group_name", "#group_sname");
 		    });
 

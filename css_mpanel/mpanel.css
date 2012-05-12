@@ -294,7 +294,7 @@ form{ margin:0px; padding:0px;}
 .fieldBox .send { color:#434343; font:normal 13px Arial, Helvetica, sans-serif; padding-left:25px; background:url("../css_mpanel/i/i11.png") left -210px no-repeat; display:block;}
 
 
-.search{width: auto; overflow:hidden; height: 25px;background: url(../images/searchbar.png) no-repeat;margin: 0 20px 2px 20px; position:relative;}
+.search{width: auto; overflow:hidden; height: 25px;/*background: url(../images/searchbar.png) no-repeat;*/margin: 0 20px 2px 20px; position:relative;}
 .search a{position:
 absolute; top:0px; right:0px; display: block;height: 25px;width:25px;  background:url(i/i20.png) right top;}
 .search a:hover{ background-position:right bottom;}

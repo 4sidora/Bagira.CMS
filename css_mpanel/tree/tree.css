@@ -51,7 +51,7 @@ a.ledit{
   display:none;
   left:480px;
   top:0px;
-  background: url(/images/mpanel/i3.gif)  right no-repeat;
+  /*background: url(/images/mpanel/i3.gif)  right no-repeat;*/
 }
 
 .tree_list{

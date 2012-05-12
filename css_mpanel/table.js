@@ -56,8 +56,7 @@ jQuery(document).ready(function() {
 		}
 	});
 
-    
-	//$(".selectbox_filter").live('change', function() {
+
     $(".selectbox_filter").change(function() {
     	reloadTable($("#filter_form").serialize());
 	});
@@ -87,8 +86,8 @@ function ShowFilters(){
 function issetChecked() {
 
 	var check = false;
- 	$(".pointer2 > input::checkbox").each(function() {
-  		if ($(this).attr("checked") == true) check = true;
+ 	$(".pointer2 > input:checkbox").each(function() {
+  		if ($(this).attr("checked")) check = true;
   	});
 
    	if (!check)
@@ -114,7 +113,8 @@ function reloadTable(parram) {
 function setTableEvents(){
 
  	// Обрабатываем события при наведении на строку
-    $(".table_swich").live("mouseover", function() {
+
+    $("body").on("mouseover", ".table_swich", function() {
 
     	var cur_id = $(this).attr("name");
         var cord = getOffsetRect(this);
@@ -135,7 +135,7 @@ function setTableEvents(){
 
         return false;
 
-	}).live("mouseout", function() {
+	}).on("mouseout", ".table_swich", function() {
 
 	    var cur_id = $(this).attr("name");
 
@@ -149,75 +149,75 @@ function setTableEvents(){
 
 
 	// Обрабатываем события при наведении на блок с иконками
-    $("#table_edits").live("mouseover", function() {
+    $("body").on("mouseover", "#table_edits", function() {
 
 	    $("#table_swich_"+$(this).attr("name")).css({ backgroundColor: "#ffeeac"});
      	$(this).show();
 
         return true;
 
-    }).live("mouseout", function() {
+    }).on("mouseout", "#table_edits", function() {
 
     	$("#table_swich_"+$(this).attr("name")).css({ backgroundColor: ""});
      	$(this).hide();
 
         return true;
-
 	});
 
 	// Постраничная навигация
-	$("#max_count").live("change", function() {
+    $("body").on("change", "#max_count", function() {
     	reloadTable({ 'max_count': $(this).val() });
 	});
 
-	$(".table_page_navig").live("click", function() {
+    $("body").on("click", ".table_page_navig", function() {
         reloadTable({ 'page_num': $(this).attr('name') });
 		return false;
 	});
 
 
 
-	// Активация чекбоксов
-	$("#bigcheck").live("click", function() {
-          $(".pointer2 > input::checkbox").attr("checked", $(this).attr("checked"));
+    // Активация чекбоксов
+    $("body").on("click", "#bigcheck", function() {
+        var checked = ($(this).attr("checked")) ? true : false;
+        $(".pointer2 > input:checkbox").attr("checked", checked);
     });
 
-    $(".pointer2 > input::checkbox").live("click", function() {
-          var check = true;
-          $(".pointer2 > input::checkbox").each(function() {
-          	if ($(this).attr("checked") == false) check = false;
-          });
-          $("#bigcheck").attr("checked", check);
+    $("body").on("click", ".pointer2 > input:checkbox", function() {
+        var check = true;
+        $(".pointer2 > input:checkbox").each(function() {
+            if (!$(this).attr("checked")) check = false;
+        });
+        $("#bigcheck").attr("checked", check);
     });
 
     // Активность объекта
-    $(".ks_act").live("click", function() {
+    $("body").on("click", ".ks_act", function() {
 
-          var knopa = $(this);
-          var id = $("#table_edits").attr("name");
-          knopa.addClass("load_animate");
+        var knopa = $(this);
+        var id = $("#table_edits").attr("name");
+        knopa.addClass("load_animate");
 
-          $.get(knopa.attr("name"), function(data){
+        $.get(knopa.attr("name"), function(data){
 
-             var img = $("#phtml_"+id+"_"+$('#table_parent_id').val()+" > .active_div > .activate");
-             var act = (data == 'active') ? '1' : '0';
-             img.attr("src", '/css_mpanel/tree/images/file'+act+'.gif');
-             img.attr("name", act);
+            var img = $("#phtml_"+id+"_"+$('#table_parent_id').val()+" > .active_div > .activate");
+            var act = (data == 'active') ? '1' : '0';
+            img.attr("src", '/css_mpanel/tree/images/file'+act+'.gif');
+            img.attr("name", act);
 
-             if (data == 'active') {
-             	knopa.removeClass('activ_elem_0');
-             	knopa.addClass('activ_elem_1');
-             } else if (data == 'no_active') {
+            if (data == 'active') {
+                knopa.removeClass('activ_elem_0');
+                knopa.addClass('activ_elem_1');
+            } else if (data == 'no_active') {
                 knopa.removeClass('activ_elem_1');
-             	knopa.addClass('activ_elem_0');
-             } else if (data != '') alert(data);
+                knopa.addClass('activ_elem_0');
+            } else if (data != '') alert(data);
 
-             knopa.removeClass("load_animate");
-          });
+            knopa.removeClass("load_animate");
+        });
     });
 
     // Множественное изменение активности
-    $(".right_active_multi").live("click", function() {
+    $("body").on("click", ".right_active_multi", function() {
 
     	if (issetChecked()) {
 
@@ -228,8 +228,8 @@ function setTableEvents(){
 
           		if (data == 'invert') {
 
-		          	$(".pointer2 > input::checkbox").each(function() {
-		          		if ($(this).attr("checked") == true) {
+		          	$(".pointer2 > input:checkbox").each(function() {
+		          		if ($(this).attr("checked")) {
 
                             var img = $("#phtml_"+$(this).val()+"_"+$('#table_parent_id').val()+" > .active_div > .activate");
                             var act = ($(img).attr("name") == '0') ? '1' : '0';
@@ -255,7 +255,7 @@ function setTableEvents(){
     });
 
     // Удаление объекта
-    $("#del_button").live("click", function() {
+    $("body").on("click", "#del_button", function() {
 
         var id = $("#table_edits").attr("name");
         var obj_name = $('#table_swich_'+id+' > td.td_name').text();
@@ -293,7 +293,7 @@ function setTableEvents(){
     });
 
     // Множественное удаление объектов
-    $(".right_drop_multi").live("click", function() {
+    $("body").on("click", ".right_drop_multi", function() {
 
 		if (issetChecked()) {
 
@@ -314,8 +314,8 @@ function setTableEvents(){
 
 			          		if (data == 'delete') {
 					          	if ($.tree)
-						          	$(".pointer2 > input::checkbox").each(function() {
-						          		if ($(this).attr("checked") == true) {
+						          	$(".pointer2 > input:checkbox").each(function() {
+						          		if ($(this).attr("checked")) {
 						          			var obj_id = $(this).val();
 
 						          			$(".main_line").each(function(){

@@ -208,7 +208,7 @@
                                 if(this.settings.ui.theme_name !== false) {
                                         if(this.settings.ui.theme_path === false) {
                                                 $("script").each(function () {
-                                                        if(this.src.toString().match(/jquery\.tree.*?js$/)) { _this.settings.ui.theme_path = this.src.toString().replace(/jquery\.tree.*?js$/, "") + "themes/" + _this.settings.ui.theme_name + "/style.css"; return false; }
+                                                       //  if(this.src.toString().match(/jquery\.tree.*?js$/)) { _this.settings.ui.theme_path = this.src.toString().replace(/jquery\.tree.*?js$/, "") + "themes/" + _this.settings.ui.theme_name + "/style.css"; return false; }
                                                 });
                                         }
                                         if(this.settings.ui.theme_path != "" && $.inArray(this.settings.ui.theme_path, tree_component.themes) == -1) {
@@ -395,8 +395,7 @@
                                                 //event.stopPropagation();
                                                 return true;
                                         });
-                                $("#" + this.container.attr("id") + " li")
-                                        .live("click", function(event) { // WHEN CLICK IS ON THE ARROW
+                            $("body").on("click", "#" + this.container.attr("id") + " li", function(event) { // WHEN CLICK IS ON THE ARROW
                                                 if(event.target.tagName != "LI") return true;
                                                 _this.off_height();
                                                 if(event.pageY - $(event.target).offset().top > _this.li_height) return true;
@@ -404,8 +403,7 @@
                                                 event.stopPropagation();
                                                 return false;
                                         });
-                                $("#" + this.container.attr("id") + " li a")
-                                        .live("click.jstree", function (event) { // WHEN CLICK IS ON THE TEXT OR ICON
+                            $("body").on("click.jstree", "#" + this.container.attr("id") + " li a", function (event) { // WHEN CLICK IS ON THE TEXT OR ICON
                                                 if(event.which && event.which == 3) return true;
                                                 if(_this.locked) {
                                                         event.preventDefault();
@@ -418,7 +416,7 @@
                                                 event.target.blur();
                                                 return false;
                                         })
-                                        .live("dblclick.jstree", function (event) { // WHEN DOUBLECLICK ON TEXT OR ICON
+                                .on("dblclick.jstree", "#" + this.container.attr("id") + " li a", function (event) { // WHEN DOUBLECLICK ON TEXT OR ICON
                                                 if(_this.locked) {
                                                         event.preventDefault();
                                                         event.stopPropagation();
@@ -430,14 +428,14 @@
                                                 event.stopPropagation();
                                                 event.target.blur();
                                         })
-                                        .live("contextmenu.jstree", function (event) {
+                                .on("contextmenu.jstree", "#" + this.container.attr("id") + " li a", function (event) {
                                                 if(_this.locked) {
                                                         event.target.blur();
                                                         return _this.error("LOCKED");
                                                 }
                                                 return _this.callback("onrgtclk", [_this.get_node(event.target).get(0), _this, event]);
                                         })
-                                        .live("mouseover.jstree", function (event) {
+                                .on("mouseover.jstree", "#" + this.container.attr("id") + " li a", function (event) {
                                                 if(_this.locked) {
                                                         event.preventDefault();
                                                         event.stopPropagation();
@@ -449,7 +447,7 @@
                                                 }
                                                 _this.callback("onhover",[_this.get_node(event.target).get(0), _this]);
                                         })
-                                        .live("mousedown.jstree", function (event) {
+                                .on("mousedown.jstree", "#" + this.container.attr("id") + " li a", function (event) {
                                                 if(_this.settings.rules.drag_button == "left" && event.which && event.which != 1)        return true;
                                                 if(_this.settings.rules.drag_button == "right" && event.which && event.which != 3)        return true;
                                                 _this.focus.apply(_this);

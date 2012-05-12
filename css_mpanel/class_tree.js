@@ -20,7 +20,7 @@ $(function () {
     });
 
     // Удаление объекта
-    $(".del_button").live("click", function() {
+    $("body").on("click", ".del_button", function() {
 
         var id = $(this).attr('name');
         var url = $(this).attr('href');

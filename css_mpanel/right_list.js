@@ -1,7 +1,8 @@
 
 
 function trySelectAll() {
-	var check = true;
+
+	var check = true;
  	$(".check_view").each(function() {
   		if ($(this).attr("checked") == false) check = false;
   	});
@@ -11,7 +12,7 @@ function trySelectAll() {
 jQuery(document).ready(function() {
 
 	// Активация чекбоксов для ПРОСМОТРА
-	$("#bigcheck_view").live("click", function() {
+    $("body").on("click", "#bigcheck_view", function() {
           $(".check_view").attr("checked", $(this).attr("checked"));
           if (!$(this).attr("checked")) {
           	$(".check_edit").attr("checked", false);
@@ -19,7 +20,7 @@ jQuery(document).ready(function() {
           }
     });
 
-    $(".check_view").live("click", function() {
+    $("body").on("click", ".check_view", function() {
           if (!$(this).attr("checked")) {
           	$("#cd_edit_"+$(this).val()).attr("checked", false);
           	$("#bigcheck_edit").attr("checked", false);
@@ -29,7 +30,7 @@ jQuery(document).ready(function() {
 
 
     // Активация чекбоксов для РЕДАКТИРОВАНИЯ
-    $("#bigcheck_edit").live("click", function() {
+    $("body").on("click", "#bigcheck_edit", function() {
           $(".check_edit").attr("checked", $(this).attr("checked"));
           if ($(this).attr("checked")) {
           	$(".check_view").attr("checked", true);
@@ -37,7 +38,7 @@ jQuery(document).ready(function() {
           }
     });
 
-    $(".check_edit").live("click", function() {
+    $("body").on("click", ".check_edit", function() {
 
           if ($(this).attr("checked")) {
           	$("#cd_view_"+$(this).val()).attr("checked", true);
