@@ -100,16 +100,14 @@ class __comment {
 
         if (system::issetUrl(2) && is_numeric(system::url(2))) {
 
-            // Одиночное удаление
             if ($obj = comments::get(system::url(2))){
 				$obj->setActive(!$obj->isActive());
                 $obj->save();
-				echo (!$obj->isActive()) ? 'active' : 'no_active';
+				echo ($obj->isActive()) ? 'active' : 'no_active';
             }
 
         } else if (isset($_POST['objects'])) {
 
-        	// Множественное удаление
         	while(list($id, $val) = each($_POST['objects'])) {
 
         		if ($obj = comments::get($val)) {
