@@ -519,10 +519,11 @@ class ormSelect {
                         } else
                             $value = ' "'.$val.'"';
 
+                        /*
                         echo '<br/>';
                         echo 'obj_.&..o_'.$field.' '.$znak.' '.$value;
                         echo '<br/>';
-                        
+                        */
                         return 'obj_.&..o_'.$field.' '.$znak.' '.$value;
                     }
 

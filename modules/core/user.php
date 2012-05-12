@@ -487,9 +487,10 @@ class user {
                     user::authHim($user);
                     self::closeWindowAndOpen('/');
 
-                } else {
-
+                } else if ($user instanceof ormObject) {
                     echo $user->getErrorListText();
+                } else {
+                    echo 'Unknown error';
                 }
             }
 
@@ -566,106 +567,6 @@ class user {
                 system::stop();
             }
         }
-    }
-
-
-    /**
-	* @return $ret true если пользователь успешно авторизовался
-	* @param string $login - email пользователя
-	* $identity - уникальный идентификатор полученный от соц. сети
-	* $f_name - имя пользователя
-	* $l_name - фамилия пользователя
-	* $network - название соц. сети
-	* @desc авторизует пользовател через соц. сеть, если такового нету, то создает затем авторизует
-	*/
-
-	static function authSoc($login, $identity, $f_name, $l_name, $network) {
-
-    	$ret = false;
-		//проверяем наличие соц. сети если нету созлаем ее
-		$sel = new ormSelect('soc');
-		$sel->where($sel->val('name', '=', $network));
-		$sel->limit(1);
-		if (!$sel->getObject()){
-			$obj = new ormObject();
-           	$obj->setClass("soc");
-			$obj->active = 1;
-           	$obj->name = $network;
-			$obj->save();
-		}
-
-     	$login = system::checkVar($login, isString);
-
-		//ищем пользователя по email'у
-		$sel = new ormSelect('user');
-	    $sel->where(
-	        $sel->val('active', '=', 1),
-			$sel->val('login', '=', trim($login)),
-			$sel->containedIn('user_group', $sel->val('active', '=', 1))
-		);
-    	$sel->limit(1);
-
-		//нашли пользователя с email
-  		if(self::$obj = $sel->getObject()) {
-
-			  	/*$user_id = self::$obj->id;
-
-			  	//выбираем id соц. сети
-			  	$sel = new ormSelect('soc');
-	    		$sel->where( $sel->val('name', '=', trim($network)) );
-        		$sel->limit(1);
-			  	$obj = $sel->getObject();
-
-			  	$soc_id = $obj->id; */
-
-			  	//смотрим есть ли у пользователя с данный уникальный идентификатор
-			  	$t = db::q("SELECT <<__user>>.email,<<identity>>.value
-			  	FROM <<__user>>,<<identity>>
-			  	WHERE <<__user>>.obj_id = <<identity>>.user_id AND <<identity>>.value ='".$identity."'",records);
-
-
-			  	if ($t){
-				 	$ret = self::authHim(self::$obj);
-									echo ("
-									<script type='text/javascript'>
-				 						window.opener.location.href='/'; window.close();
-									</script>
-									");
-			  	}else{
-				  	//если нету перекидываем на регистрацию
-					$_SESSION["soc_email"] = $login;
-			  		$_SESSION["soc_identity"] = $identity;
-			  		$_SESSION["soc_f_name"] = $f_name;
-			  		$_SESSION["soc_l_name"] = $l_name;
-			  		$_SESSION["soc_network"] = $network;
-
-			  		system::redirect("/users/add_procSoc/");
-				 	//db::q("INSERT INTO <<identity>> (value,user_id,soc_id) VALUES ('".$identity."', '".$user_id."', '".$soc_id."');");
-				 	//$ret = self::authHim(self::$obj);
-			  	}
-
-			//не нашли пользователя
-      		} else {
-
-			  $_SESSION["soc_email"] = $login;
-			  $_SESSION["soc_identity"] = $identity;
-			  $_SESSION["soc_f_name"] = $f_name;
-			  $_SESSION["soc_l_name"] = $l_name;
-			  $_SESSION["soc_network"] = $network;
-
-			  echo ("
-						<script type='text/javascript'>
-				 			window.opener.location.href='/users/add_procSoc/'; window.close();
-						</script>
-					");
-			  die;
-
-			  //system::redirect("/users/add_procSoc/");
-
-            }
-
-
-        return $ret;
     }
 
 
