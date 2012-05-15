@@ -269,7 +269,7 @@ class ui {
 
             include(MODUL_DIR.'/mpanel/template/'.$templ_name.'.tpl');
 
-            if (!empty($file_name) && file_exists(ROOT_DIR.$file_name)) {
+            if (!empty($file_name) && (system::checkVar($file_name, isAbsUrl) || file_exists(ROOT_DIR.$file_name))) {
 
                 page::assign('sh_fileblock', '');
                 page::assign('sh_selblock', 'display:none;');
@@ -286,24 +286,33 @@ class ui {
                 page::assign('link_type', 'href="%value%" target="_target"');
 
 
-            if (!empty($file_name) && file_exists(ROOT_DIR.$file_name) && !is_Dir(ROOT_DIR.$file_name)) {
+            if (!empty($file_name) && (system::checkVar($file_name, isAbsUrl) || (file_exists(ROOT_DIR.$file_name) && !is_Dir(ROOT_DIR.$file_name)))) {
 
-                $info = stat(ROOT_DIR.$file_name);
-                if (system::fileExtIs($file_name, array('png', 'gif', 'jpg', 'jpeg'))){
-                    $size = getimagesize(ROOT_DIR.$file_name);
+                if (system::checkVar($file_name, isAbsUrl)) {
 
-                    if ($templ_name == 'load_file')
-                        $size_img =  lang::get('FILELOAD_SCALE').$size[0].'x'.$size[1].'px';
-                    else
-                        $size_img =  ', '.$size[0].'x'.$size[1].'px';
-
+                    $size_img =  '';
                     $view_text = lang::get('FILELOAD_VIEW');
                     $sh_dmini = '';
 
                 } else {
-                    $size_img =  '';
-                    $view_text = lang::get('FILELOAD_DOWNL');
-                    $sh_dmini = 'display:none;';
+
+                    $info = stat(ROOT_DIR.$file_name);
+                    if (system::fileExtIs($file_name, array('png', 'gif', 'jpg', 'jpeg'))){
+                        $size = getimagesize(ROOT_DIR.$file_name);
+
+                        if ($templ_name == 'load_file')
+                            $size_img =  lang::get('FILELOAD_SCALE').$size[0].'x'.$size[1].'px';
+                        else
+                            $size_img =  ', '.$size[0].'x'.$size[1].'px';
+
+                        $view_text = lang::get('FILELOAD_VIEW');
+                        $sh_dmini = '';
+
+                    } else {
+                        $size_img =  '';
+                        $view_text = lang::get('FILELOAD_DOWNL');
+                        $sh_dmini = 'display:none;';
+                    }
                 }
 
                 page::assign('text.view', $view_text);
@@ -313,20 +322,20 @@ class ui {
                 $extList = array('png', 'fpng', 'gif', 'jpg', 'jpeg', 'doc', 'docx', 'rar', 'pdf', 'xls', 'xlsx');
                 page::assign('file.ext', (in_array($ext, $extList)) ? $ext : 'na');
 
-                if ($templ_name == 'load_file')
+                if (system::checkVar($file_name, isAbsUrl))
+                    page::assign('file.size', lang::get('FILELOAD_REMOTE'));
+                else if ($templ_name == 'load_file')
                     page::assign('file.size', lang::get('FILELOAD_SIZE').round(($info[7]/1024), 0).lang::get('FILELOAD_KB').$size_img);
                 else
                     page::assign('file.size', round(($info[7]/1024), 0).lang::get('FILELOAD_KB').$size_img);
 
+                page::assign('value', $file_name);
+
             } else {
                 page::assign('file.size', '');
                 page::assign('file.ext', 'na');
-            }
-
-            if (!empty($file_name) && !file_exists(ROOT_DIR.$file_name))
                 page::assign('value', '');
-            else
-                page::assign('value', $file_name);  
+            }
 
             page::assign('sname', $field_name);
             page::assign('sid', $field_name);

@@ -21,6 +21,9 @@ class coreMacros {
 
             if (!empty($file_name)) {
 
+                if (system::checkVar($file_name, isAbsUrl))
+                    return $file_name;
+
 	            $scale = (!is_numeric($scale_type)) ? constant($scale_type) : $scale_type;
 
 				$dir = '/cache/img/'.$scale_type.'_'.$width.'x'.$height.'_'.$watermark;

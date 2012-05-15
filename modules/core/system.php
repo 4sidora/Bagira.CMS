@@ -24,6 +24,7 @@ define('isPassword', 115);
 define('isDomain', 116);
 define('isPrice', 117);
 define('isRuDomain', 118);
+define('isAbsUrl', 119);
 
 
 
@@ -1212,9 +1213,14 @@ class system {
                 return preg_match("/^[0-9 -),(+]+$/", trim($var)) ? $var : false;
                 break;
 
-            case isUrl: // Адрес сайта
+            case isUrl: // относительный или абсолютный урл
                 if ($var == '') return ''; else
                     return preg_match("[(((f|ht){1}tp:/)*/[-a-zA-Z0-9@:%_\+.~#?&//=]+)|^\/{1}]", trim($var)) ? $var : false;
+                break;
+
+            case isAbsUrl: // Абсолютный урл
+                if ($var == '') return ''; else
+                    return preg_match("[(((f|ht){1}tp:/)./[-a-zA-Z0-9@:%_\+.~#?&//=]+)|^\/{1}]", trim($var)) ? false : $var ;
                 break;
 
             case isPassword: // Пароль, проверка на длину и кодирование

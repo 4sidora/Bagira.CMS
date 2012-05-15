@@ -378,24 +378,32 @@ class ormObject extends innerErrorList {
     // Проверка корректности ссылки на файл или загрузки файла
     private function checkLoadFile($field, $value, $exe = 0, $text = '', $max_size = 0) {
 
-        // Проверяем загружали файл или нет
-        $file = system::checkLoadFile('file_'.$field, $exe, $max_size);
 
-        if (!empty($file) && $file !== false && $file !== true) {
+        if (system::checkVar($value, isAbsUrl)) {
 
-            $this->newError(30, 'Произошла ошибка при загрузке файла для поля "'.$field.'"!');
+            $file = true;
 
-        } else if ($file === false) {
+        } else {
 
-            // Проверяем была ли указана сслыка на файл
-            $value = str_replace('..', '', $value);
+            // Проверяем загружали файл или нет
+            $file = system::checkLoadFile('file_'.$field, $exe, $max_size);
 
-            if (!empty($value) && $value != $this->empty)
-                $file = system::checkLoadedFile($value, $exe, $max_size);
-            else $file = true;
+            if (!empty($file) && $file !== false && $file !== true) {
 
-            if ($file === false)
-                $this->newError(34, 'Указанный для поля "'.$field.'" файл не найден на сервере!');
+                $this->newError(30, 'Произошла ошибка при загрузке файла для поля "'.$field.'"!');
+
+            } else if ($file === false) {
+
+                // Проверяем была ли указана сслыка на файл
+                $value = str_replace('..', '', $value);
+
+                if (!empty($value) && $value != $this->empty)
+                    $file = system::checkLoadedFile($value, $exe, $max_size);
+                else $file = true;
+
+                if ($file === false)
+                    $this->newError(34, 'Указанный для поля "'.$field.'" файл не найден на сервере!');
+            }
         }
 
         if ($file === 0)
