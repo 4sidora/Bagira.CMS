@@ -36,11 +36,11 @@ $TEMPLATE['frame'] = <<<END
 
                             <div class="photo_wrap">
                                 <label for="avatara">Ваше фото</label>
-                                <input type="hidden" id="avatara2" name="avatara" value="" />
+                                <input type="hidden" id="avatara2" name="avatara" value="%photo%" />
                                 <input type="file" id="avatara" name="file_avatara" onChange="$('#avatara2').val(this.value);"/>
                             </div>
 
-                            %photo%
+                            %photo_block%
 
 
             <br/>
@@ -57,10 +57,10 @@ $TEMPLATE['frame'] = <<<END
 
 END;
 
-$TEMPLATE['photo'] = <<<END
+$TEMPLATE['photo_block'] = <<<END
 <div class="clear"></div>
 <div class="marker" id="photo_preview">
-    <img src="%core.resize(%photo%, stInSquare, 50)%" style="margin-left:150px;float:left;" />
+    <img src="%photo%" style="margin-left:150px;float:left;" />
 
     <a href="/users/edit_proc/del-photo" style="margin-left:20px;padding-top:15px;float:left;">Удалить фотографию</a>
     <div class="clear"></div>

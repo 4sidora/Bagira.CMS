@@ -29,6 +29,13 @@ class __settings {
 		page::assign('vk_id', reg::getKey('/users/vk_id'));
         page::assign('vk_secret', reg::getKey('/users/vk_secret'));
 
+
+        ui::CheckBox('ok_bool', 1, reg::getKey('/users/ok_bool'), lang::get('USERS_FORM_FIELD', 45));
+        page::assign('ok_id', reg::getKey('/users/ok_id'));
+        page::assign('ok_public', reg::getKey('/users/ok_public'));
+        page::assign('ok_secret', reg::getKey('/users/ok_secret'));
+
+
         ui::CheckBox('facebook_bool', 1, reg::getKey('/users/facebook_bool'), lang::get('USERS_FORM_FIELD', 41));
 		page::assign('facebook_id', reg::getKey('/users/facebook_id'));
         page::assign('facebook_secret', reg::getKey('/users/facebook_secret'));
@@ -58,8 +65,13 @@ class __settings {
 		reg::setKey('/users/vk_id', system::POST('vk_id'), isString);
         reg::setKey('/users/vk_secret', system::POST('vk_secret'), isString);
 
+        reg::setKey('/users/ok_bool', system::POST('ok_bool'), isBool);
+        reg::setKey('/users/ok_id', system::POST('ok_id'), isString);
+        reg::setKey('/users/ok_public', system::POST('ok_public'), isString);
+        reg::setKey('/users/ok_secret', system::POST('ok_secret'), isString);
+
         reg::setKey('/users/facebook_bool', system::POST('facebook_bool'), isBool);
-		reg::setKey('/users/facebook_id', system::POST('facebook_id'), isString);
+        reg::setKey('/users/facebook_id', system::POST('facebook_id'), isString);
         reg::setKey('/users/facebook_secret', system::POST('facebook_secret'), isString);
 
 		reg::setKey('/users/yandex_bool', system::POST('yandex_bool'), isBool);

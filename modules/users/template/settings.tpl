@@ -52,6 +52,26 @@ $TEMPLATE['frame'] = <<<END
 
         <div class="social-auth-block sh-social-block">
             <div class="fieldBox first">
+                %facebook_bool%
+                <div class="otstup"></div>
+                <a href="https://developers.facebook.com/apps" class="social-fb" target="_blank">%text.37%</a>
+            </div>
+
+            <div class="fieldBox slide">
+                <label for="facebook_id" class=" chek" title=""><b></b>%text.38%</label>
+                <input class="input" type="text" name="facebook_id" id="facebook_id" value="%facebook_id%">
+            </div>
+
+            <div class="fieldBox slide">
+                <label for="facebook_secret" class=" chek" title=""><b></b>%text.39%</label>
+                <input class="input" type="text" name="facebook_secret" id="facebook_secret" value="%facebook_secret%">
+            </div>
+
+            <div class="clear"></div>
+        </div>
+
+        <div class="social-auth-block sh-social-block">
+            <div class="fieldBox first">
                 %twitter_bool%
                 <div class="otstup"></div>
                 <a href="https://dev.twitter.com/apps/new" class="social-tw" target="_blank">%text.37%</a>
@@ -93,22 +113,26 @@ $TEMPLATE['frame'] = <<<END
         </div>
 
 
-
         <div class="social-auth-block sh-social-block">
-            <div class="fieldBox first">
-                %facebook_bool%
+            <div class="fieldBox first ok">
+                %ok_bool%
                 <div class="otstup"></div>
-                <a href="https://developers.facebook.com/apps" class="social-fb" target="_blank">%text.37%</a>
+                <a href="http://dev.odnoklassniki.ru/wiki/pages/viewpage.action?pageId=13992188" class="social-ok" target="_blank">%text.37%</a>
             </div>
 
             <div class="fieldBox slide">
-                <label for="facebook_id" class=" chek" title=""><b></b>%text.38%</label>
-                <input class="input" type="text" name="facebook_id" id="facebook_id" value="%facebook_id%">
+                <label for="ok_id" class=" chek" title=""><b></b>%text.38%</label>
+                <input class="input" type="text" name="ok_id" id="ok_id" value="%ok_id%">
             </div>
 
             <div class="fieldBox slide">
-                <label for="facebook_secret" class=" chek" title=""><b></b>%text.39%</label>
-                <input class="input" type="text" name="facebook_secret" id="facebook_secret" value="%facebook_secret%">
+                <label for="ok_public" class=" chek" title=""><b></b>%text.46%</label>
+                <input class="input" type="text" name="ok_public" id="ok_public" value="%ok_public%">
+            </div>
+
+            <div class="fieldBox slide">
+                <label for="ok_secret" class=" chek" title=""><b></b>%text.39%</label>
+                <input class="input" type="text" name="ok_secret" id="ok_secret" value="%ok_secret%">
             </div>
 
             <div class="clear"></div>

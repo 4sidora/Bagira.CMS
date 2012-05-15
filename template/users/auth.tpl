@@ -33,13 +33,27 @@ $TEMPLATE['frame_form'] = <<<END
 END;
 
 $TEMPLATE['frame_account'] = <<<END
-<a href="%pre_lang%/users/edit" class="user">%user_name%</a>
-<a onclick="document.auth_form.submit()" class="exit">выход</a>
+
+    %avatara_block%
+
+<span style="float:left;">
+    <a href="%pre_lang%/users/edit" class="user">%user_name% %user_surname%</a>  <br/>
+    <a onclick="document.auth_form.submit()" class="exit">выход</a>
+</span>
 
 <form name="auth_form" action="%pre_lang%/users/logout" method="post">
 	<input name="back_url" type="hidden" value="%current_url_pn%" />
 </form>
 END;
+
+$TEMPLATE['avatara'] = <<<END
+<img src="%user_avatara%" width="40" style="float:left;" />
+END;
+
+$TEMPLATE['avatara_empty'] = <<<END
+<img src="/images/img/nobody.jpg" width="40" style="float:left;" />
+END;
+
 
 
 $TEMPLATE['social_buttons'] = <<<END
@@ -55,6 +69,12 @@ END;
 $TEMPLATE['social_btn_vk'] = <<<END
 <a href="/users/social-auth/vk" onclick="OpenAuthWindow(this); return false;">
     <img src="/css_mpanel/i/social-icons/icon_vk.png">
+</a>
+END;
+
+$TEMPLATE['social_btn_ok'] = <<<END
+<a href="/users/social-auth/ok" onclick="OpenAuthWindow(this); return false;">
+    <img src="/css_mpanel/i/social-icons/icon_ok.png">
 </a>
 END;
 

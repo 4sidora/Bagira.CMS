@@ -18,6 +18,7 @@ define('SOCIAL_TYPE_FACEBOOK', 2);
 define('SOCIAL_TYPE_VK', 3);
 define('SOCIAL_TYPE_GOOGLE', 4);
 define('SOCIAL_TYPE_YANDEX', 5);
+define('SOCIAL_TYPE_OK', 6);
 
 class user {
 
@@ -193,6 +194,10 @@ class user {
                     self::authVK();
                     break;
 
+                case 'ok':
+                    self::authOK();
+                    break;
+
                 case 'yandex':
                     self::authYandex();
                     break;
@@ -221,7 +226,7 @@ class user {
 
                 } elseif($openid->mode == 'cancel') {
 
-                    self::closeWindowAndOpen('/');
+                    self::closeWindow();
                     system::stop();
 
                 } else {
@@ -318,7 +323,11 @@ class user {
             $app_secret = reg::getKey('/users/vk_secret');
             $back_url = "http://".$_SERVER['SERVER_NAME']."/users/social-auth/vk";
 
-            if (isset($_GET['code'])){
+            if (isset($_GET['error'])) {
+
+                self::closeWindow();
+
+            } else if (isset($_GET['code'])){
 
                 $url = "https://api.vkontakte.ru/oauth/access_token?client_id=".$app_id."&client_secret=".$app_secret."&code=".$_GET['code'];
                 $response = json_decode(@file_get_contents($url));
@@ -326,7 +335,7 @@ class user {
                 if (isset($response->error))
                     system::redirect('/');
     
-                $arrResponse = json_decode(@file_get_contents("https://api.vkontakte.ru/method/getProfiles?uid={$response->user_id}&access_token={$response->access_token}&fields=last_name"))->response;
+                $arrResponse = json_decode(@file_get_contents("https://api.vkontakte.ru/method/getProfiles?uid={$response->user_id}&access_token={$response->access_token}&fields=last_name,photo"))->response;
 
                 $user_info = array(
                     'identity' => 'http://vk.com/id'.$arrResponse[0]->uid,
@@ -334,7 +343,8 @@ class user {
                     'first_name' => $arrResponse[0]->first_name,
                     'last_name' => $arrResponse[0]->last_name,
                     'social' => 'vk',
-                    'social_type' => SOCIAL_TYPE_VK
+                    'social_type' => SOCIAL_TYPE_VK,
+                    'photo' => $arrResponse[0]->photo
                 );
 
                 self::checkSocialUser($user_info);
@@ -345,6 +355,63 @@ class user {
         }
  	}
 
+    // авторизация Odnoklassniki
+    private static function authOK() {
+
+        if (reg::getKey('/users/ok_bool')) {
+
+            $app_id = reg::getKey('/users/ok_id');
+            $app_secret = reg::getKey('/users/ok_secret');
+            $app_public = reg::getKey('/users/ok_public');
+            $back_url = "http://".$_SERVER['SERVER_NAME']."/users/social-auth/ok";
+
+
+            if (isset($_GET['error'])) {
+
+                self::closeWindow();
+
+            } else if (isset($_GET['code'])){
+
+                $curl = curl_init('http://api.odnoklassniki.ru/oauth/token.do?');
+                curl_setopt($curl, CURLOPT_POST, 1);
+                curl_setopt($curl, CURLOPT_POSTFIELDS, 'code=' . $_GET['code'] . '&redirect_uri=' . urlencode($back_url) . '&grant_type=authorization_code&client_id=' . $app_id . '&client_secret=' . $app_secret);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-Type: application/x-www-form-urlencoded"));
+                $s = curl_exec($curl);
+                curl_close($curl);
+
+                $auth = json_decode($s, true);
+
+                if (empty($auth['access_token']))
+                    system::redirect('/');
+
+
+                $sig = md5('application_key=' . $app_public . 'method=users.getCurrentUser' . md5($auth['access_token'] . $app_secret));
+                $curl = curl_init('http://api.odnoklassniki.ru/fb.do?access_token=' . $auth['access_token'] . '&application_key=' . $app_public . '&method=users.getCurrentUser&sig=' . $sig);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+                $s = curl_exec($curl);
+                curl_close($curl);
+
+                $user = json_decode($s, true);
+
+                $user_info = array(
+                    'identity' => 'http://www.odnoklassniki.ru/profile/'.$user['uid'],
+                    'login' => 'ok'.$user['uid'],
+                    'first_name' => $user['first_name'],
+                    'last_name' => $user['last_name'],
+                    'social' => 'vk',
+                    'social_type' => SOCIAL_TYPE_OK,
+                    'photo' => $user['pic_1']
+                );
+
+                self::checkSocialUser($user_info);
+
+            } else {
+                system::redirect('http://www.odnoklassniki.ru/oauth/authorize?client_id='.$app_id.'&scope=VALUABLE ACCESS&response_type=code&redirect_uri='.urlencode($back_url));
+            }
+        }
+    }
+
     private static function authFacebook() {
 
         if (reg::getKey('/users/facebook_bool')) {
@@ -354,11 +421,16 @@ class user {
 
             $code = (isset($_REQUEST["code"])) ? $_REQUEST["code"] : 0;
 
-            if(empty($code)) {
+            if (isset($_REQUEST['error'])) {
+
+                self::closeWindow();
+
+            } else if(empty($code)) {
+
                 $_SESSION['state'] = md5(uniqid(rand(), TRUE)); //CSRF protection
                 $dialog_url = "http://www.facebook.com/dialog/oauth?client_id="
                   . $app_id . "&redirect_uri=" . urlencode($back_url) . "&state="
-                  . $_SESSION['state']. "&scope=email";
+                  . $_SESSION['state']. "&scope=email,user_about_me";
 
                 echo("<script> top.location.href='" . $dialog_url . "'</script>");
 
@@ -372,7 +444,7 @@ class user {
                 $params = null;
                 parse_str($response, $params);
 
-                $graph_url = "https://graph.facebook.com/me?access_token=". $params['access_token'];
+                $graph_url = "https://graph.facebook.com/me?access_token=". $params['access_token'].'&fields=id,first_name,last_name,email,picture';
 
                 $user = json_decode(file_get_contents($graph_url));
 
@@ -383,7 +455,8 @@ class user {
                     'first_name' => $user->first_name,
                     'last_name' => $user->last_name,
                     'social' => 'facebook',
-                    'social_type' => SOCIAL_TYPE_FACEBOOK
+                    'social_type' => SOCIAL_TYPE_FACEBOOK,
+                    'photo' => $user->picture
                 );
 
                 self::checkSocialUser($user_info);
@@ -403,13 +476,19 @@ class user {
             $back_url = "http://".$_SERVER['SERVER_NAME']."/users/social-auth/twitter";
 
             if (!isset($_REQUEST['oauth_verifier'])){
+
                 $connection = new TwitterOAuth($app_id, $app_secret);
                 $request_token = $connection->getRequestToken($back_url);
 
                 $_SESSION['oauth_token'] = $token = $request_token['oauth_token'];
                 $_SESSION['oauth_token_secret'] = $request_token['oauth_token_secret'];
 
-                $url = $connection->getAuthorizeURL($token);
+                if($connection->http_code==200){
+                    $url = $connection->getAuthorizeURL($token);
+                    header('Location: '. $url);
+                } else {
+                    self::closeWindowAndOpen('/');
+                }
 
                 header('Location: ' . $url);
 
@@ -430,7 +509,8 @@ class user {
                     'first_name' => strtok($content->name,' '),
                     'last_name' => strtok(' '),
                     'social' => 'twitter',
-                    'social_type' => SOCIAL_TYPE_TWITTER
+                    'social_type' => SOCIAL_TYPE_TWITTER,
+                    'photo' => $content->profile_image_url
                 );
 
                 self::checkSocialUser($user);
@@ -502,6 +582,10 @@ class user {
         echo "<script type='text/javascript'>window.opener.location.href='$url'; window.close();</script>";
     }
 
+    private static function closeWindow(){
+        echo "<script type='text/javascript'>window.close();</script>";
+    }
+
     private static function createUserForSocial($user_info) {
 
         if (!empty($user_info['login']) && !empty($user_info['first_name'])) {
@@ -515,6 +599,10 @@ class user {
             $obj->surname = $user_info['last_name'];
             $obj->social_identity = $user_info['identity'];
             $obj->social_type = $user_info['social_type'];
+
+            if (!empty($user_info['photo']))
+                $obj->avatara = $user_info['photo'];
+
             $obj->password = rand(100000, 999999);
             
             if (!empty($user_info['email']))

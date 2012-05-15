@@ -8,7 +8,7 @@ class usersMacros {
     * @param string $services - Список социальных сервисов разделенных "|", в заданном порядке, через которые доступна авторизация
 	* @desc МАКРОС: Выводит форму авторизации или ссылку на личный кабинет текущего пользователя
 	*/
- 	function authForm($templ_name = 'auth', $services = 'facebook|twitter|vk|google|yandex') {
+ 	function authForm($templ_name = 'auth', $services = 'facebook|twitter|vk|ok|google|yandex') {
 
     	$templ_file = '/users/'.$templ_name.'.tpl';
         $TEMPLATE = page::getTemplate($templ_file);
@@ -38,6 +38,16 @@ class usersMacros {
 
             page::assign('user_id', user::get('id'));
             page::assign('user_name', user::get('name'));
+            page::assign('user_surname', user::get('surname'));
+
+            $avatar = user::get('avatara');
+            if (!empty($avatar)) {
+                page::assign('user_avatara', $avatar);
+                page::fParse('avatara_block', $TEMPLATE['avatara']);
+            } else {
+                page::fParse('avatara_block', $TEMPLATE['avatara_empty']);
+            }
+
             return page::parse($TEMPLATE['frame_account']);
 
 	   	}
@@ -92,10 +102,13 @@ class usersMacros {
 		    	page::assign('obj.'.$name, $user->__get($name));
 
             // Выводим аватару пользователя
-            if ($user->avatara != '' && isset($TEMPLATE['photo'])) {
+            if ($user->avatara != '' && isset($TEMPLATE['photo_block'])) {
                 page::assign('photo', $user->avatara);
-                page::fParse('photo', $TEMPLATE['photo']);
-            } else page::assign('photo', '');
+                page::fParse('photo_block', $TEMPLATE['photo_block']);
+            } else {
+                page::assign('photo', '');
+                page::assign('photo_block', '');
+            }
 
             // Сообщение об ошибках
             page::parseError('edit_user');

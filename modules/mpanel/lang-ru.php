@@ -66,6 +66,7 @@ $LANG['REVUE_RESTORE'] = 'Объект восстановлен.';
 
 
 $LANG['FILELOAD_SIZE'] = 'размер: ';
+$LANG['FILELOAD_REMOTE'] = 'файл размещен на чужом сервере';
 $LANG['FILELOAD_KB'] = ' Кбайт';
 $LANG['FILELOAD_SCALE'] = ', масштаб: ';
 $LANG['FILELOAD_VIEW'] = 'посмотреть фото';

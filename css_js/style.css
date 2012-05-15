@@ -104,7 +104,7 @@ button{cursor:pointer}
 
 #header .user,#header .exit{
 	float:left;
-	margin-top:28px;
+    padding-left:10px;
 	cursor:pointer;
 	}
 
@@ -112,8 +112,7 @@ button{cursor:pointer}
 
 #header .user{
 	margin-right:7px;
-	background: url(../images/tpl/icons.png) 0 -94px no-repeat;
-	padding-left:20px;
+
 	height:16px;
 }
 

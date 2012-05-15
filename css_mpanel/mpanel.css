@@ -652,11 +652,12 @@ a:hover{ text-decoration:none;}
 
 
 .social-auth-block {margin-bottom: 25px;margin-bottom: 18px;clear: both;border-bottom:1px solid #CBD4DA;}
-.social-auth-block .first {width:300px;}
+.social-auth-block .first {width:305px;}
 .social-auth-block .first a, .social-auth-block .first div, .social-auth-block .slide {display:none;}
 a.social-tw { padding-left:20px;margin-left:30px; background: url(/css_mpanel/i/social-icons/icon_twitter.png)  no-repeat;}
 a.social-fb { padding-left:20px;margin-left:30px; background: url(/css_mpanel/i/social-icons/icon_fb.png)  no-repeat;}
 a.social-vk { padding-left:20px;margin-left:30px; background: url(/css_mpanel/i/social-icons/icon_vk.png)  no-repeat;}
+a.social-ok { padding-left:20px;margin-left:30px; background: url(/css_mpanel/i/social-icons/icon_ok.png)  no-repeat;}
 .social-auth-block a {text-decoration:none;}
 .social-auth-block a:hover {text-decoration:underline;}
 .first label {cursor:pointer;}
