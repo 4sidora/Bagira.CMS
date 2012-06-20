@@ -3,7 +3,7 @@
 $TEMPLATE[1]['frame'] = <<<END
 <ul class="menu">
      %list%
-</ul>   
+</ul>
 END;
 
 $TEMPLATE[1]['list_active'] = <<<END
@@ -12,7 +12,7 @@ $TEMPLATE[1]['list_active'] = <<<END
        <b class="newsb1">&nbsp;</b>
        <b class="newsb2">&nbsp;</b>
        <div class="swrap">
-           <a href="%obj.url%" title="%obj.name%">%obj.name%</a>
+           <a href="%obj.url%" title="%obj.name%" %obj.target%>%obj.name%</a>
        </div>
        <b class="newsb2">&nbsp;</b>
        <b class="newsb1">&nbsp;</b>
@@ -22,7 +22,7 @@ $TEMPLATE[1]['list_active'] = <<<END
 END;
 
 $TEMPLATE[1]['list'] = <<<END
-<li><a href="%obj.url%" title="%obj.name%">%obj.name%</a></li>
+<li><a href="%obj.url%" title="%obj.name%" %obj.target%>%obj.name%</a></li>
 END;
 
 
@@ -33,11 +33,11 @@ $TEMPLATE[2]['frame'] = <<<END
 END;
 
 $TEMPLATE[2]['list_active'] = <<<END
-<li class="selected"><a href="%obj.url%" title="%obj.name%">%obj.name%</a></li>        
+<li class="selected"><a href="%obj.url%" title="%obj.name%" %obj.target%>%obj.name%</a></li>
 END;
 
 $TEMPLATE[2]['list'] = <<<END
-<li><a href="%obj.url%" title="%obj.name%">%obj.name%</a></li>
+<li><a href="%obj.url%" title="%obj.name%" %obj.target%>%obj.name%</a></li>
 END;
 
 

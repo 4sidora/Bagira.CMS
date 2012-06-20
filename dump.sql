@@ -1,4 +1,30 @@
+-- phpMyAdmin SQL Dump
+-- version 3.5.1
+-- http://www.phpmyadmin.net
+--
+-- Хост: openserver:3306
+-- Время создания: Июн 20 2012 г., 14:01
+-- Версия сервера: 5.1.63-community-log
+-- Версия PHP: 5.2.17
+
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- База данных: `bagira`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira_classes`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira_classes` (
   `c_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -13,7 +39,11 @@ CREATE TABLE IF NOT EXISTS `bagira_classes` (
   PRIMARY KEY (`c_id`),
   KEY `c_parent_id` (`c_parent_id`),
   KEY `bagira_classes_ibfk_2` (`c_base_class`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=77 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=76 ;
+
+--
+-- Дамп данных таблицы `bagira_classes`
+--
 
 INSERT INTO `bagira_classes` (`c_id`, `c_parent_id`, `c_name`, `c_sname`, `c_text`, `c_base_class`, `c_system`, `c_is_list`, `c_is_page`) VALUES
 (27, NULL, 'Раздел сайта', 'section', 'раздел, раздела', NULL, 1, 0, 1),
@@ -49,6 +79,12 @@ INSERT INTO `bagira_classes` (`c_id`, `c_parent_id`, `c_name`, `c_sname`, `c_tex
 (74, 29, 'Для поля &quot;Страна производитель&quot;', 'list_strana_proizvoditel', '', NULL, 0, 1, 0),
 (75, 29, 'Для поля &quot;Возможные цвета корпуса&quot;', 'list_color', '', NULL, 0, 1, 0);
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira_comments`
+--
+
 CREATE TABLE IF NOT EXISTS `bagira_comments` (
   `c_id` int(11) NOT NULL AUTO_INCREMENT,
   `c_parent_id` int(11) DEFAULT NULL,
@@ -67,6 +103,10 @@ CREATE TABLE IF NOT EXISTS `bagira_comments` (
   KEY `c_parent_id` (`c_parent_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=68 ;
 
+--
+-- Дамп данных таблицы `bagira_comments`
+--
+
 INSERT INTO `bagira_comments` (`c_id`, `c_parent_id`, `c_obj_id`, `c_active`, `c_user_id`, `c_username`, `c_email`, `c_publ_date`, `c_text`, `c_send_email`, `c_rate`, `c_parram`) VALUES
 (51, NULL, 1765, 1, 29, 'Иван', 'test@test.ru', '2011-06-22 09:20:23', 'В «Музыкальном автомате» можно найти первую джазовую звукозапись, на которой Original Dixieland Jazz Band играет «Блюз конюшни» (Livery Stable Blues). ', 0, 0, ''),
 (52, 51, 1765, 1, 29, 'Вася', 'test@test.ru', '2011-06-22 09:20:42', 'Библиотека Конгресса обладает крупнейшей коллекцией исторических звукозаписей в стране. Они хранятся и оцифровываются в отделении библиотеки в Вирджинии. Именно оттуда они поступают в «Музыкальный автомат».', 0, 2, ''),
@@ -74,10 +114,13 @@ INSERT INTO `bagira_comments` (`c_id`, `c_parent_id`, `c_obj_id`, `c_active`, `c
 (54, NULL, 1764, 1, 29, 'Даша', 'test@test.ru', '2011-06-22 09:21:52', 'Ми-ми-ми! В конце церемонии – объятия подруг, друзей, родственников. Слезы расставания. ', 0, 0, ''),
 (55, 54, 1764, 1, 29, 'Мария', 'test@test.ru', '2011-06-22 09:22:25', 'Ага.  И каждая ученица торжественно, с поклоном, подходила к трону и клала свой букет к ногам королевы. ', 0, 0, ''),
 (56, NULL, 1611, 1, 29, 'Иван', 'test@test.ru', '2011-06-22 09:22:50', 'Ребята в Microsoft, конечно же, молодцы.', 0, 1, ''),
-(57, NULL, 1611, 1, 29, 'Вася', 'test@test.ru', '2011-06-22 09:23:22', 'Знаете вы, или нет, WP7 не предполагает, что вам понадобится сделать снимок экрана.', 0, 0, ''),
-(65, 52, 1765, 0, 29, 'Иван', 'test@test.ru', '2011-07-15 13:33:21', 'fdg fsgdffgsdd da dsf ds fd', 0, 2, ''),
-(66, NULL, 1765, 0, 29, 'Иван', 'test@test.ru', '2011-07-15 16:48:07', 'cff fcg fg d', 0, 1, ''),
-(67, NULL, 1764, 0, 29, 'Иван', 'test@test.ru', '2011-07-15 18:10:25', 'sgsfdgfdsgfg', 0, 0, '');
+(57, NULL, 1611, 1, 29, 'Вася', 'test@test.ru', '2011-06-22 09:23:22', 'Знаете вы, или нет, WP7 не предполагает, что вам понадобится сделать снимок экрана.', 0, 0, '');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira_domains`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira_domains` (
   `d_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -94,8 +137,18 @@ CREATE TABLE IF NOT EXISTS `bagira_domains` (
   KEY `d_domain_id` (`d_domain_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=2 ;
 
+--
+-- Дамп данных таблицы `bagira_domains`
+--
+
 INSERT INTO `bagira_domains` (`d_id`, `d_name`, `d_domain_id`, `d_def_lang`, `d_sitename`, `d_email`, `d_online`, `d_offline_msg`, `d_error_msg`) VALUES
 (1, 'bagira-cms.ru', NULL, 1, 'Bagira.CMS', 'test@test.ru', 1, 'На сайте ведутся профилактические работы, пожалуйста зайдите позже!', 'Сайт не исправен, пожалуйста зайдите позже!');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira_fgroup`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira_fgroup` (
   `fg_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -108,7 +161,11 @@ CREATE TABLE IF NOT EXISTS `bagira_fgroup` (
   `fg_is_clone` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`fg_id`),
   KEY `fg_class_id` (`fg_class_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=121 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=120 ;
+
+--
+-- Дамп данных таблицы `bagira_fgroup`
+--
 
 INSERT INTO `bagira_fgroup` (`fg_id`, `fg_class_id`, `fg_position`, `fg_name`, `fg_sname`, `fg_view`, `fg_system`, `fg_is_clone`) VALUES
 (41, 27, 1, 'Основное', 'base', 1, 1, 0),
@@ -171,6 +228,12 @@ INSERT INTO `bagira_fgroup` (`fg_id`, `fg_class_id`, `fg_position`, `fg_name`, `
 (118, 74, 1, 'Основное', 'base', 1, 0, 1),
 (119, 75, 1, 'Основное', 'base', 1, 0, 1);
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira_fields`
+--
+
 CREATE TABLE IF NOT EXISTS `bagira_fields` (
   `f_id` int(11) NOT NULL AUTO_INCREMENT,
   `f_group_id` int(11) NOT NULL,
@@ -195,7 +258,11 @@ CREATE TABLE IF NOT EXISTS `bagira_fields` (
   PRIMARY KEY (`f_id`),
   KEY `f_group_id` (`f_group_id`),
   KEY `f_list_id` (`f_list_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=1686 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=1670 ;
+
+--
+-- Дамп данных таблицы `bagira_fields`
+--
 
 INSERT INTO `bagira_fields` (`f_id`, `f_group_id`, `f_position`, `f_name`, `f_sname`, `f_hint`, `f_type`, `f_list_id`, `f_max_size`, `f_view`, `f_search`, `f_inherit`, `f_filter`, `f_required`, `f_system`, `f_is_clone`, `f_uniqum`, `f_quick_add`, `f_relation`, `f_spec`) VALUES
 (29, 41, 3, 'Заголовок', 'h1', '', 10, NULL, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0),
@@ -212,7 +279,7 @@ INSERT INTO `bagira_fields` (`f_id`, `f_group_id`, `f_position`, `f_name`, `f_sn
 (249, 50, 4, 'Фамилия', 'surname', '', 10, NULL, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0),
 (250, 50, 1, 'Логин', 'login', 'В качестве логина так же можно использовать адрес электронного ящика.', 10, NULL, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0),
 (251, 50, 12, 'Пол', 'sex', '', 90, 35, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0),
-(253, 50, 13, 'День рожденья', 'happy_day', '', 25, NULL, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0),
+(253, 50, 13, 'День рождения', 'happy_day', '', 25, NULL, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0),
 (254, 50, 2, 'Активность', 'active', '', 50, NULL, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0),
 (255, 50, 11, '', '', '', 0, NULL, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0),
 (256, 51, 1, 'Последний вход', 'last_visit', '', 32, NULL, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0),
@@ -682,6 +749,12 @@ INSERT INTO `bagira_fields` (`f_id`, `f_group_id`, `f_position`, `f_name`, `f_sn
 (1668, 98, 9, 'Фотография', 'image', '', 75, NULL, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0),
 (1669, 100, 9, 'Фотография', 'image', '', 75, NULL, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0);
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira_langs`
+--
+
 CREATE TABLE IF NOT EXISTS `bagira_langs` (
   `l_id` int(11) NOT NULL AUTO_INCREMENT,
   `l_name` varchar(30) NOT NULL,
@@ -689,8 +762,18 @@ CREATE TABLE IF NOT EXISTS `bagira_langs` (
   PRIMARY KEY (`l_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=2 ;
 
+--
+-- Дамп данных таблицы `bagira_langs`
+--
+
 INSERT INTO `bagira_langs` (`l_id`, `l_name`, `l_prefix`) VALUES
 (1, 'Русский', 'ru');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira_modules`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira_modules` (
   `m_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -699,6 +782,10 @@ CREATE TABLE IF NOT EXISTS `bagira_modules` (
   `m_sort` int(1) DEFAULT '0',
   PRIMARY KEY (`m_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=13 ;
+
+--
+-- Дамп данных таблицы `bagira_modules`
+--
 
 INSERT INTO `bagira_modules` (`m_id`, `m_name`, `m_active`, `m_sort`) VALUES
 (1, 'core', 1, 21),
@@ -714,6 +801,12 @@ INSERT INTO `bagira_modules` (`m_id`, `m_name`, `m_active`, `m_sort`) VALUES
 (11, 'eshop', 1, 3),
 (12, 'comments', 1, 7);
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira_modules_rgu`
+--
+
 CREATE TABLE IF NOT EXISTS `bagira_modules_rgu` (
   `rgu_right_id` int(11) NOT NULL DEFAULT '0',
   `rgu_obj_id` int(11) NOT NULL DEFAULT '0',
@@ -721,6 +814,10 @@ CREATE TABLE IF NOT EXISTS `bagira_modules_rgu` (
   KEY `rgu_right_id` (`rgu_right_id`),
   KEY `rgu_obj_id` (`rgu_obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
+
+--
+-- Дамп данных таблицы `bagira_modules_rgu`
+--
 
 INSERT INTO `bagira_modules_rgu` (`rgu_right_id`, `rgu_obj_id`, `rgu_value`) VALUES
 (5, 32, 1),
@@ -804,6 +901,12 @@ INSERT INTO `bagira_modules_rgu` (`rgu_right_id`, `rgu_obj_id`, `rgu_value`) VAL
 (156, 32, 1),
 (153, 32, 1);
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira_modules_rights`
+--
+
 CREATE TABLE IF NOT EXISTS `bagira_modules_rights` (
   `mr_id` int(11) NOT NULL AUTO_INCREMENT,
   `mr_mod_id` int(11) DEFAULT '0',
@@ -816,6 +919,10 @@ CREATE TABLE IF NOT EXISTS `bagira_modules_rights` (
   KEY `mr_mod_id` (`mr_mod_id`),
   KEY `mr_parent_id` (`mr_parent_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=158 ;
+
+--
+-- Дамп данных таблицы `bagira_modules_rights`
+--
 
 INSERT INTO `bagira_modules_rights` (`mr_id`, `mr_mod_id`, `mr_name`, `mr_parent_id`, `mr_is_default`, `mr_lang_id`, `mr_domain_id`) VALUES
 (1, 4, 'tree', NULL, 1, 0, 0),
@@ -915,6 +1022,12 @@ INSERT INTO `bagira_modules_rights` (`mr_id`, `mr_mod_id`, `mr_name`, `mr_parent
 (156, 12, 'comment_del', 152, 0, 0, 0),
 (157, 4, 'separator_upd', 2, 0, 0, 0);
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira_objects`
+--
+
 CREATE TABLE IF NOT EXISTS `bagira_objects` (
   `o_id` int(11) NOT NULL AUTO_INCREMENT,
   `o_name` varchar(255) NOT NULL,
@@ -924,10 +1037,14 @@ CREATE TABLE IF NOT EXISTS `bagira_objects` (
   `o_to_trash` tinyint(1) NOT NULL,
   PRIMARY KEY (`o_id`),
   KEY `o_class_id` (`o_class_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=1798 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=1776 ;
+
+--
+-- Дамп данных таблицы `bagira_objects`
+--
 
 INSERT INTO `bagira_objects` (`o_id`, `o_name`, `o_class_id`, `o_create_date`, `o_change_date`, `o_to_trash`) VALUES
-(29, 'Иван', 34, '2010-07-01 14:22:33', '2011-08-31 08:56:51', 0),
+(29, 'Иван', 34, '2010-07-01 14:22:33', '2012-06-20 12:28:16', 0),
 (30, 'мужчина', 35, '2010-07-01 14:29:47', '2011-06-07 08:22:44', 0),
 (31, 'женщина', 35, '2010-07-01 14:29:57', '2011-06-07 08:22:44', 0),
 (32, 'Администраторы', 33, '2010-07-01 14:30:10', '2011-06-21 16:24:58', 0),
@@ -935,9 +1052,9 @@ INSERT INTO `bagira_objects` (`o_id`, `o_name`, `o_class_id`, `o_create_date`, `
 (43, 'Модераторы', 33, '2010-07-07 10:11:52', '2011-06-07 08:20:52', 0),
 (48, 'Гости', 33, '2010-07-23 09:17:56', '2010-10-08 15:19:11', 0),
 (60, 'Главная страница', 45, '2011-02-02 12:15:45', '2011-07-15 18:11:36', 0),
-(72, 'Новости компании', 57, '2011-02-03 08:51:33', '2011-08-17 15:18:20', 0),
+(72, 'Новости компании', 57, '2011-02-03 08:51:33', '2012-06-20 12:37:11', 0),
 (338, 'Адреса и контакты', 45, '2011-02-11 03:52:45', '2011-07-18 12:16:35', 0),
-(339, 'О магазине', 45, '2011-02-11 03:52:50', '2011-03-18 22:49:34', 0),
+(339, 'О магазине', 45, '2011-02-11 03:52:50', '2012-06-20 17:00:04', 0),
 (340, 'Новости', 60, '2011-02-11 14:55:07', '2011-08-25 18:14:56', 0),
 (345, 'Каталог товаров', 46, '2011-02-11 14:57:46', '2011-07-14 19:29:08', 0),
 (346, 'Телевизоры', 46, '2011-02-11 14:58:03', '2011-06-21 15:41:40', 0),
@@ -978,8 +1095,8 @@ INSERT INTO `bagira_objects` (`o_id`, `o_name`, `o_class_id`, `o_create_date`, `
 (1603, 'Фотография 2', 48, '2011-03-17 22:56:14', '2011-03-17 22:56:14', 0),
 (1611, 'Обзор мобильной ОС Windows Phone', 47, '2011-03-17 23:39:50', '2011-06-22 09:24:00', 0),
 (1612, 'Станислав Загорский', 51, '2011-03-17 23:44:26', '2011-06-22 08:48:45', 0),
-(1613, 'Вопрос ответ', 56, '2011-03-18 08:29:37', '2011-06-20 10:41:31', 0),
-(1624, 'Новое', 46, '2011-03-18 12:29:16', '2011-06-21 17:10:07', 0),
+(1613, 'Вопрос ответ', 56, '2011-03-18 08:29:37', '2012-06-20 16:20:49', 0),
+(1624, 'Новое', 46, '2011-03-18 12:29:16', '2012-06-20 12:41:43', 0),
 (1625, 'Суперпредложения', 46, '2011-03-18 12:29:38', '2011-06-21 17:10:15', 0),
 (1626, 'Новинки', 46, '2011-03-18 12:29:45', '2011-03-18 13:04:00', 0),
 (1627, 'Лидеры продаж', 46, '2011-03-18 12:29:53', '2011-03-18 13:03:52', 0),
@@ -1049,7 +1166,7 @@ INSERT INTO `bagira_objects` (`o_id`, `o_name`, `o_class_id`, `o_create_date`, `
 (1742, 'Зеленный', 75, '2011-06-17 11:28:25', '2011-06-17 11:28:28', 0),
 (1743, 'Желтый', 75, '2011-06-17 11:28:25', '2011-06-17 11:28:28', 0),
 (1744, 'Металлик', 75, '2011-06-17 11:28:25', '2011-06-17 11:28:28', 0),
-(1745, 'Отзыв о товаре', 56, '2011-06-20 10:42:22', '2011-06-20 14:43:51', 0),
+(1745, 'Отзыв о товаре', 56, '2011-06-20 10:42:22', '2012-06-20 16:20:57', 0),
 (1749, 'Иванов Иван', 52, '2011-06-20 16:35:06', '2011-06-22 09:25:59', 0),
 (1752, 'Кирилл Наумов', 52, '2011-06-20 17:45:48', '2011-06-22 09:25:37', 0),
 (1753, 'fdsgfdg@sdasd.ru', 59, '2011-06-20 18:23:52', '2011-06-20 18:23:52', 0),
@@ -1067,6 +1184,12 @@ INSERT INTO `bagira_objects` (`o_id`, `o_name`, `o_class_id`, `o_create_date`, `
 (1768, 'sddff@edfsd.ru', 59, '2011-07-15 17:45:24', '2011-07-15 17:54:23', 0),
 (1774, 'вфывыфвф', 75, '2011-08-26 15:38:50', '2011-08-26 15:38:50', 0),
 (1775, 'hghghgh', 74, '2011-08-26 15:47:21', '2011-08-26 15:47:21', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira_pages`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira_pages` (
   `p_obj_id` int(11) NOT NULL,
@@ -1098,6 +1221,10 @@ CREATE TABLE IF NOT EXISTS `bagira_pages` (
   KEY `domain_id` (`domain_id`),
   KEY `bagira_pages_fk4` (`template2_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
+
+--
+-- Дамп данных таблицы `bagira_pages`
+--
 
 INSERT INTO `bagira_pages` (`p_obj_id`, `active`, `is_home_page`, `view_in_menu`, `view_submenu`, `in_search`, `in_index`, `in_new_window`, `title`, `h1`, `pseudo_url`, `keywords`, `description`, `number_of_items`, `order_by`, `img_h1`, `img_act`, `img_no_act`, `other_link`, `lang_id`, `template_id`, `template2_id`, `domain_id`) VALUES
 (60, 1, 1, 0, 1, 1, 1, 0, 'Главная страница', 'Главная страница', 'glavnaya-stranitsa', '', '', 0, '', '', '', '', '', 1, 21, 20, 1),
@@ -1170,6 +1297,12 @@ INSERT INTO `bagira_pages` (`p_obj_id`, `active`, `is_home_page`, `view_in_menu`
 (1766, 1, 0, 1, 1, 1, 1, 0, 'Disney – это Disney, а Pixar – это Pixar', 'Disney – это Disney, а Pixar – это Pixar', '1766', '', '', 0, '', '', '', '', '', 1, 1, 22, 1),
 (1767, 1, 0, 1, 1, 1, 1, 0, 'Иванов Иван', 'Иванов Иван', '1767', NULL, NULL, 0, '', NULL, NULL, NULL, '', 1, 1, NULL, 1);
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira_register`
+--
+
 CREATE TABLE IF NOT EXISTS `bagira_register` (
   `r_id` int(11) NOT NULL AUTO_INCREMENT,
   `r_section_id` int(11) NOT NULL DEFAULT '0',
@@ -1178,6 +1311,10 @@ CREATE TABLE IF NOT EXISTS `bagira_register` (
   PRIMARY KEY (`r_id`),
   KEY `r_section_id` (`r_section_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=1298 ;
+
+--
+-- Дамп данных таблицы `bagira_register`
+--
 
 INSERT INTO `bagira_register` (`r_id`, `r_section_id`, `r_key`, `r_value`) VALUES
 (1, 0, 'core', ''),
@@ -1254,6 +1391,12 @@ INSERT INTO `bagira_register` (`r_id`, `r_section_id`, `r_key`, `r_value`) VALUE
 (1296, 1293, 'name', 'Русский'),
 (1297, 1267, 'text_length', '3000');
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira_rels`
+--
+
 CREATE TABLE IF NOT EXISTS `bagira_rels` (
   `r_field_id` int(11) DEFAULT NULL,
   `r_parent_id` int(11) DEFAULT NULL,
@@ -1263,6 +1406,10 @@ CREATE TABLE IF NOT EXISTS `bagira_rels` (
   KEY `r_parent_id` (`r_parent_id`),
   KEY `r_children_id` (`r_children_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
+
+--
+-- Дамп данных таблицы `bagira_rels`
+--
 
 INSERT INTO `bagira_rels` (`r_field_id`, `r_parent_id`, `r_children_id`, `r_position`) VALUES
 (NULL, NULL, 60, 1),
@@ -1410,7 +1557,6 @@ INSERT INTO `bagira_rels` (`r_field_id`, `r_parent_id`, `r_children_id`, `r_posi
 (1660, 1649, 1739, 0),
 (1660, 1649, 1740, 0),
 (NULL, 346, 1649, 5),
-(1335, 1613, 350, 0),
 (NULL, 1628, 1749, 8),
 (NULL, 1628, 1752, 11),
 (NULL, 72, 1753, 3),
@@ -1479,7 +1625,14 @@ INSERT INTO `bagira_rels` (`r_field_id`, `r_parent_id`, `r_children_id`, `r_posi
 (1660, 1646, 1738, 0),
 (1660, 1646, 1739, 0),
 (1660, 1646, 1744, 0),
-(NULL, 346, 1646, 4);
+(NULL, 346, 1646, 4),
+(1335, 1613, 350, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira_revue`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira_revue` (
   `rev_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1494,7 +1647,11 @@ CREATE TABLE IF NOT EXISTS `bagira_revue` (
   `rev_ip` varchar(15) NOT NULL,
   PRIMARY KEY (`rev_id`),
   KEY `rev_obj_id` (`rev_obj_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=2370 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=2372 ;
+
+--
+-- Дамп данных таблицы `bagira_revue`
+--
 
 INSERT INTO `bagira_revue` (`rev_id`, `rev_state`, `rev_type`, `rev_obj_id`, `rev_class_id`, `rev_user_id`, `rev_user`, `rev_datetime`, `rev_message`, `rev_ip`) VALUES
 (11, 1, 0, 60, 45, 29, 'Иван', '2011-02-02 12:15:45', 'Добавил объект', '127.0.0.1'),
@@ -2020,7 +2177,17 @@ INSERT INTO `bagira_revue` (`rev_id`, `rev_state`, `rev_type`, `rev_obj_id`, `re
 (2364, 1, 0, 1646, 66, 29, 'Иван', '2011-08-30 15:59:09', 'Изменил данные страницы', '127.0.0.1'),
 (2365, 1, 0, 1646, 66, 29, 'Иван', '2011-08-30 15:59:47', 'Изменил данные страницы', '127.0.0.1'),
 (2366, 1, 0, 1646, 66, 29, 'Иван', '2011-08-30 16:02:32', 'Изменил данные страницы', '127.0.0.1'),
-(2367, 1, 0, 1646, 66, 29, 'Иван', '2011-08-30 16:10:50', 'Изменил данные страницы', '127.0.0.1');
+(2367, 1, 0, 1646, 66, 29, 'Иван', '2011-08-30 16:10:50', 'Изменил данные страницы', '127.0.0.1'),
+(2368, 1, 0, 1624, 46, 29, 'Иван', '2012-06-20 12:41:42', 'Изменил данные страницы', '127.0.0.1'),
+(2369, 1, 0, 1624, 46, 29, 'Иван', '2012-06-20 12:41:43', 'Изменил данные страницы', '127.0.0.1'),
+(2370, 1, 0, 339, 45, 29, 'Иван', '2012-06-20 16:45:53', 'Изменил данные страницы', '127.0.0.1'),
+(2371, 1, 0, 339, 45, 29, 'Иван', '2012-06-20 17:00:05', 'Изменил данные страницы', '127.0.0.1');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira_rights`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira_rights` (
   `r_obj_id` int(11) NOT NULL,
@@ -2029,6 +2196,10 @@ CREATE TABLE IF NOT EXISTS `bagira_rights` (
   KEY `r_obj_id` (`r_obj_id`),
   KEY `r_group_id` (`r_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
+
+--
+-- Дамп данных таблицы `bagira_rights`
+--
 
 INSERT INTO `bagira_rights` (`r_obj_id`, `r_state`, `r_group_id`) VALUES
 (1582, 2, NULL),
@@ -2050,7 +2221,6 @@ INSERT INTO `bagira_rights` (`r_obj_id`, `r_state`, `r_group_id`) VALUES
 (1641, 2, NULL),
 (1645, 2, NULL),
 (1647, 2, NULL),
-(339, 2, NULL),
 (1572, 2, NULL),
 (1590, 2, NULL),
 (1581, 2, NULL),
@@ -2099,7 +2269,14 @@ INSERT INTO `bagira_rights` (`r_obj_id`, `r_state`, `r_group_id`) VALUES
 (1569, 2, NULL),
 (1628, 2, NULL),
 (340, 2, NULL),
-(1646, 2, NULL);
+(1646, 2, NULL),
+(339, 2, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira_search_rankings`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira_search_rankings` (
   `sr_word_id` int(11) NOT NULL,
@@ -2113,8 +2290,11 @@ CREATE TABLE IF NOT EXISTS `bagira_search_rankings` (
   KEY `sr_lang_id` (`sr_lang_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira_search_rankings`
+--
+
 INSERT INTO `bagira_search_rankings` (`sr_word_id`, `sr_rank`, `sr_obj_id`, `sr_lang_id`, `sr_domain_id`) VALUES
-(5805, 22, 339, 1, 1),
 (5809, 22, 346, 1, 1),
 (5810, 22, 347, 1, 1),
 (5811, 22, 347, 1, 1),
@@ -2581,7 +2761,6 @@ INSERT INTO `bagira_search_rankings` (`sr_word_id`, `sr_rank`, `sr_obj_id`, `sr_
 (6212, 1, 1612, 1, 1),
 (6213, 1, 1612, 1, 1),
 (6214, 1, 1612, 1, 1),
-(5965, 22, 1624, 1, 1),
 (6215, 22, 1625, 1, 1),
 (6216, 22, 1626, 1, 1),
 (6217, 22, 1627, 1, 1),
@@ -4481,10 +4660,10 @@ INSERT INTO `bagira_search_rankings` (`sr_word_id`, `sr_rank`, `sr_obj_id`, `sr_
 (5834, 2, 1766, 1, 1),
 (7413, 1, 1766, 1, 1),
 (6417, 2, 1766, 1, 1),
-(6844, 1, 1766, 1, 1);
-INSERT INTO `bagira_search_rankings` (`sr_word_id`, `sr_rank`, `sr_obj_id`, `sr_lang_id`, `sr_domain_id`) VALUES
+(6844, 1, 1766, 1, 1),
 (7414, 1, 1766, 1, 1),
-(7415, 1, 1766, 1, 1),
+(7415, 1, 1766, 1, 1);
+INSERT INTO `bagira_search_rankings` (`sr_word_id`, `sr_rank`, `sr_obj_id`, `sr_lang_id`, `sr_domain_id`) VALUES
 (7199, 1, 1766, 1, 1),
 (7279, 1, 1766, 1, 1),
 (7416, 1, 1766, 1, 1),
@@ -4870,13 +5049,309 @@ INSERT INTO `bagira_search_rankings` (`sr_word_id`, `sr_rank`, `sr_obj_id`, `sr_
 (6241, 22, 1646, 1, 1),
 (6242, 22, 1646, 1, 1),
 (6243, 22, 1646, 1, 1),
-(6244, 22, 1646, 1, 1);
+(6244, 22, 1646, 1, 1),
+(5965, 22, 1624, 1, 1),
+(5805, 22, 339, 1, 1),
+(7015, 1, 339, 1, 1),
+(7630, 1, 339, 1, 1),
+(6470, 2, 339, 1, 1),
+(7631, 1, 339, 1, 1),
+(6408, 1, 339, 1, 1),
+(6142, 1, 339, 1, 1),
+(7029, 1, 339, 1, 1),
+(6168, 2, 339, 1, 1),
+(7632, 1, 339, 1, 1),
+(6522, 1, 339, 1, 1),
+(6125, 1, 339, 1, 1),
+(5967, 2, 339, 1, 1),
+(7633, 1, 339, 1, 1),
+(7634, 1, 339, 1, 1),
+(7635, 2, 339, 1, 1),
+(7636, 1, 339, 1, 1),
+(7637, 1, 339, 1, 1),
+(5815, 1, 339, 1, 1),
+(5825, 5, 339, 1, 1),
+(5892, 1, 339, 1, 1),
+(5869, 3, 339, 1, 1),
+(7638, 1, 339, 1, 1),
+(7639, 1, 339, 1, 1),
+(7370, 1, 339, 1, 1),
+(6151, 1, 339, 1, 1),
+(6301, 2, 339, 1, 1),
+(7640, 1, 339, 1, 1),
+(7641, 1, 339, 1, 1),
+(7642, 1, 339, 1, 1),
+(6592, 1, 339, 1, 1),
+(6125, 1, 339, 1, 1),
+(5851, 15, 339, 1, 1),
+(7643, 1, 339, 1, 1),
+(7631, 1, 339, 1, 1),
+(7644, 1, 339, 1, 1),
+(5929, 13, 339, 1, 1),
+(5849, 3, 339, 1, 1),
+(6158, 4, 339, 1, 1),
+(6812, 1, 339, 1, 1),
+(6102, 2, 339, 1, 1),
+(6793, 2, 339, 1, 1),
+(7645, 2, 339, 1, 1),
+(6368, 3, 339, 1, 1),
+(7646, 1, 339, 1, 1),
+(7647, 1, 339, 1, 1),
+(7648, 2, 339, 1, 1),
+(7649, 1, 339, 1, 1),
+(6338, 1, 339, 1, 1),
+(6996, 1, 339, 1, 1),
+(5963, 2, 339, 1, 1),
+(6808, 2, 339, 1, 1),
+(7650, 1, 339, 1, 1),
+(6125, 2, 339, 1, 1),
+(7651, 1, 339, 1, 1),
+(7652, 1, 339, 1, 1),
+(7653, 1, 339, 1, 1),
+(7654, 1, 339, 1, 1),
+(6125, 1, 339, 1, 1),
+(6342, 2, 339, 1, 1),
+(7655, 1, 339, 1, 1),
+(7656, 1, 339, 1, 1),
+(6150, 1, 339, 1, 1),
+(7657, 1, 339, 1, 1),
+(7658, 1, 339, 1, 1),
+(7659, 1, 339, 1, 1),
+(7660, 1, 339, 1, 1),
+(7661, 1, 339, 1, 1),
+(5866, 2, 339, 1, 1),
+(6285, 1, 339, 1, 1),
+(7662, 1, 339, 1, 1),
+(7663, 1, 339, 1, 1),
+(7664, 1, 339, 1, 1),
+(7665, 1, 339, 1, 1),
+(7666, 1, 339, 1, 1),
+(6884, 2, 339, 1, 1),
+(7667, 1, 339, 1, 1),
+(6719, 1, 339, 1, 1),
+(7668, 1, 339, 1, 1),
+(7669, 1, 339, 1, 1),
+(7670, 1, 339, 1, 1),
+(6025, 1, 339, 1, 1),
+(6343, 1, 339, 1, 1),
+(7671, 1, 339, 1, 1),
+(7672, 1, 339, 1, 1),
+(7673, 1, 339, 1, 1),
+(7674, 1, 339, 1, 1),
+(7675, 1, 339, 1, 1),
+(7676, 1, 339, 1, 1),
+(7677, 1, 339, 1, 1),
+(7678, 1, 339, 1, 1),
+(6025, 1, 339, 1, 1),
+(7679, 1, 339, 1, 1),
+(7680, 1, 339, 1, 1),
+(6671, 1, 339, 1, 1),
+(7681, 1, 339, 1, 1),
+(7682, 1, 339, 1, 1),
+(7683, 1, 339, 1, 1),
+(7684, 1, 339, 1, 1),
+(7685, 1, 339, 1, 1),
+(6332, 2, 339, 1, 1),
+(7686, 1, 339, 1, 1),
+(6029, 1, 339, 1, 1),
+(5844, 3, 339, 1, 1),
+(6871, 2, 339, 1, 1),
+(7687, 1, 339, 1, 1),
+(6129, 1, 339, 1, 1),
+(7688, 1, 339, 1, 1),
+(7689, 1, 339, 1, 1),
+(7690, 1, 339, 1, 1),
+(7691, 1, 339, 1, 1),
+(7692, 1, 339, 1, 1),
+(5849, 1, 339, 1, 1),
+(6470, 1, 339, 1, 1),
+(7693, 1, 339, 1, 1),
+(6286, 1, 339, 1, 1),
+(6563, 1, 339, 1, 1),
+(7694, 1, 339, 1, 1),
+(7695, 1, 339, 1, 1),
+(7696, 1, 339, 1, 1),
+(7639, 1, 339, 1, 1),
+(6184, 2, 339, 1, 1),
+(7697, 1, 339, 1, 1),
+(7698, 1, 339, 1, 1),
+(7699, 1, 339, 1, 1),
+(6143, 1, 339, 1, 1),
+(7700, 1, 339, 1, 1),
+(7701, 1, 339, 1, 1),
+(7702, 1, 339, 1, 1),
+(7652, 1, 339, 1, 1),
+(6285, 1, 339, 1, 1),
+(7703, 1, 339, 1, 1),
+(7704, 1, 339, 1, 1),
+(6158, 2, 339, 1, 1),
+(7705, 1, 339, 1, 1),
+(6393, 3, 339, 1, 1),
+(6037, 3, 339, 1, 1),
+(7706, 2, 339, 1, 1),
+(7403, 2, 339, 1, 1),
+(5822, 2, 339, 1, 1),
+(5971, 1, 339, 1, 1),
+(5968, 3, 339, 1, 1),
+(6508, 1, 339, 1, 1),
+(7707, 1, 339, 1, 1),
+(7708, 1, 339, 1, 1),
+(7709, 1, 339, 1, 1),
+(7710, 1, 339, 1, 1),
+(6980, 1, 339, 1, 1),
+(7711, 3, 339, 1, 1),
+(7711, 1, 339, 1, 1),
+(7197, 1, 339, 1, 1),
+(7712, 1, 339, 1, 1),
+(7713, 1, 339, 1, 1),
+(7714, 1, 339, 1, 1),
+(7715, 1, 339, 1, 1),
+(6297, 1, 339, 1, 1),
+(7716, 1, 339, 1, 1),
+(5841, 2, 339, 1, 1),
+(7717, 1, 339, 1, 1),
+(6536, 1, 339, 1, 1),
+(7718, 1, 339, 1, 1),
+(7719, 1, 339, 1, 1),
+(7720, 1, 339, 1, 1),
+(7721, 1, 339, 1, 1),
+(7722, 1, 339, 1, 1),
+(6404, 1, 339, 1, 1),
+(7723, 1, 339, 1, 1),
+(7724, 1, 339, 1, 1),
+(6738, 1, 339, 1, 1),
+(7725, 1, 339, 1, 1),
+(6380, 2, 339, 1, 1),
+(7726, 1, 339, 1, 1),
+(7727, 1, 339, 1, 1),
+(7728, 1, 339, 1, 1),
+(7729, 1, 339, 1, 1),
+(7730, 1, 339, 1, 1),
+(7731, 1, 339, 1, 1),
+(7732, 1, 339, 1, 1),
+(6630, 1, 339, 1, 1),
+(6345, 1, 339, 1, 1),
+(5869, 1, 339, 1, 1),
+(6392, 1, 339, 1, 1),
+(7733, 1, 339, 1, 1),
+(7593, 2, 339, 1, 1),
+(6273, 1, 339, 1, 1),
+(7403, 1, 339, 1, 1),
+(7734, 1, 339, 1, 1),
+(6895, 1, 339, 1, 1),
+(7533, 1, 339, 1, 1),
+(7129, 1, 339, 1, 1),
+(5823, 2, 339, 1, 1),
+(6289, 1, 339, 1, 1),
+(7735, 1, 339, 1, 1),
+(7736, 2, 339, 1, 1),
+(6568, 1, 339, 1, 1),
+(6332, 1, 339, 1, 1),
+(7737, 1, 339, 1, 1),
+(6154, 1, 339, 1, 1),
+(6141, 1, 339, 1, 1),
+(7738, 1, 339, 1, 1),
+(5823, 4, 339, 1, 1),
+(7739, 1, 339, 1, 1),
+(7740, 1, 339, 1, 1),
+(6649, 1, 339, 1, 1),
+(7136, 1, 339, 1, 1),
+(7741, 1, 339, 1, 1),
+(7742, 1, 339, 1, 1),
+(7743, 1, 339, 1, 1),
+(7744, 2, 339, 1, 1),
+(7745, 1, 339, 1, 1),
+(7746, 1, 339, 1, 1),
+(7747, 1, 339, 1, 1),
+(6338, 1, 339, 1, 1),
+(7748, 1, 339, 1, 1),
+(7749, 1, 339, 1, 1),
+(7750, 1, 339, 1, 1),
+(7751, 1, 339, 1, 1),
+(7752, 1, 339, 1, 1),
+(6480, 1, 339, 1, 1),
+(7520, 1, 339, 1, 1),
+(7753, 1, 339, 1, 1),
+(7474, 1, 339, 1, 1),
+(7754, 1, 339, 1, 1),
+(5841, 1, 339, 1, 1),
+(7755, 1, 339, 1, 1),
+(6176, 1, 339, 1, 1),
+(6214, 1, 339, 1, 1),
+(5848, 1, 339, 1, 1),
+(7756, 1, 339, 1, 1),
+(5949, 2, 339, 1, 1),
+(7757, 1, 339, 1, 1),
+(7758, 1, 339, 1, 1),
+(5984, 3, 339, 1, 1),
+(5849, 3, 339, 1, 1),
+(7759, 1, 339, 1, 1),
+(7760, 1, 339, 1, 1),
+(7761, 1, 339, 1, 1),
+(6324, 1, 339, 1, 1),
+(7762, 1, 339, 1, 1),
+(7763, 1, 339, 1, 1),
+(7764, 1, 339, 1, 1),
+(7765, 1, 339, 1, 1),
+(6294, 1, 339, 1, 1),
+(7766, 1, 339, 1, 1),
+(6309, 1, 339, 1, 1),
+(7767, 1, 339, 1, 1),
+(7768, 1, 339, 1, 1),
+(7769, 1, 339, 1, 1),
+(7365, 1, 339, 1, 1),
+(6002, 1, 339, 1, 1),
+(5950, 1, 339, 1, 1),
+(7159, 1, 339, 1, 1),
+(6161, 1, 339, 1, 1),
+(6470, 1, 339, 1, 1),
+(7770, 1, 339, 1, 1),
+(6533, 1, 339, 1, 1),
+(7771, 1, 339, 1, 1),
+(7772, 1, 339, 1, 1),
+(7333, 1, 339, 1, 1),
+(6156, 1, 339, 1, 1),
+(7773, 1, 339, 1, 1),
+(7774, 1, 339, 1, 1),
+(7775, 1, 339, 1, 1),
+(6417, 3, 339, 1, 1),
+(7776, 1, 339, 1, 1),
+(7777, 1, 339, 1, 1),
+(6593, 1, 339, 1, 1),
+(5904, 1, 339, 1, 1),
+(7778, 1, 339, 1, 1),
+(7779, 1, 339, 1, 1),
+(7663, 1, 339, 1, 1),
+(7780, 1, 339, 1, 1),
+(6125, 1, 339, 1, 1),
+(6208, 1, 339, 1, 1),
+(7781, 1, 339, 1, 1),
+(7782, 1, 339, 1, 1),
+(6708, 1, 339, 1, 1),
+(7783, 1, 339, 1, 1),
+(6376, 1, 339, 1, 1),
+(6311, 1, 339, 1, 1),
+(7784, 1, 339, 1, 1),
+(7785, 1, 339, 1, 1),
+(7786, 1, 339, 1, 1),
+(6835, 1, 339, 1, 1),
+(7787, 1, 339, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira_search_words`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira_search_words` (
   `w_id` int(11) NOT NULL AUTO_INCREMENT,
   `w_name` varchar(50) NOT NULL,
   PRIMARY KEY (`w_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=7630 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=7788 ;
+
+--
+-- Дамп данных таблицы `bagira_search_words`
+--
 
 INSERT INTO `bagira_search_words` (`w_id`, `w_name`) VALUES
 (5801, 'Главн'),
@@ -6707,7 +7182,171 @@ INSERT INTO `bagira_search_words` (`w_id`, `w_name`) VALUES
 (7626, 'jhjhjkh'),
 (7627, 'тест'),
 (7628, 'Ssdfd'),
-(7629, 'ааывавыф');
+(7629, 'ааывавыф'),
+(7630, 'всякой'),
+(7631, 'предисл'),
+(7632, 'последня'),
+(7633, 'служит'),
+(7634, 'объяснением'),
+(7635, 'цел'),
+(7636, 'сочинен'),
+(7637, 'оправданием'),
+(7638, 'обыкновен'),
+(7639, 'читател'),
+(7640, 'нравственной'),
+(7641, 'журнальных'),
+(7642, 'напад'),
+(7643, 'читают'),
+(7644, 'жал'),
+(7645, 'публ'),
+(7646, 'молод'),
+(7647, 'простодушн'),
+(7648, 'понимает'),
+(7649, 'басн'),
+(7650, 'нравоучен'),
+(7651, 'угадывает'),
+(7652, 'шут'),
+(7653, 'чувствует'),
+(7654, 'ирон'),
+(7655, 'дур'),
+(7656, 'воспитан'),
+(7657, 'порядочн'),
+(7658, 'обществ'),
+(7659, 'порядочной'),
+(7660, 'явн'),
+(7661, 'бран'),
+(7662, 'мес'),
+(7663, 'современн'),
+(7664, 'образованнос'),
+(7665, 'изобрел'),
+(7666, 'оруд'),
+(7667, 'остр'),
+(7668, 'невидим'),
+(7669, 'мене'),
+(7670, 'смертельн'),
+(7671, 'одеждо'),
+(7672, 'лест'),
+(7673, 'наносит'),
+(7674, 'неотразим'),
+(7675, 'вер'),
+(7676, 'удар'),
+(7677, 'похож'),
+(7678, 'провинциал'),
+(7679, 'подслушав'),
+(7680, 'разговор'),
+(7681, 'дипломат'),
+(7682, 'принадлежащих'),
+(7683, 'враждебным'),
+(7684, 'двор'),
+(7685, 'остал'),
+(7686, 'уверен'),
+(7687, 'обманывает'),
+(7688, 'правительств'),
+(7689, 'польз'),
+(7690, 'взаимной'),
+(7691, 'нежнейш'),
+(7692, 'дружб'),
+(7693, 'испытал'),
+(7694, 'несчастну'),
+(7695, 'доверчивос'),
+(7696, 'некоторых'),
+(7697, 'журнал'),
+(7698, 'буквальном'),
+(7699, 'значен'),
+(7700, 'Ин'),
+(7701, 'ужас'),
+(7702, 'обиделис'),
+(7703, 'ставят'),
+(7704, 'пример'),
+(7705, 'безнравственн'),
+(7706, 'Герой'),
+(7707, 'тонк'),
+(7708, 'замечал'),
+(7709, 'сочинител'),
+(7710, 'нарисовал'),
+(7711, 'портрет'),
+(7712, 'знакомых…'),
+(7713, 'Стар'),
+(7714, 'жалк'),
+(7715, 'шутка!'),
+(7716, 'Рус'),
+(7717, 'сотворен'),
+(7718, 'ней'),
+(7719, 'обновляет'),
+(7720, 'кром'),
+(7721, 'подобных'),
+(7722, 'нелепост'),
+(7723, 'волшебн'),
+(7724, 'волшебных'),
+(7725, 'едв'),
+(7726, 'избегнет'),
+(7727, 'упр'),
+(7728, 'покушен'),
+(7729, 'оскорблен'),
+(7730, 'личности!'),
+(7731, 'милостив'),
+(7732, 'государ'),
+(7733, 'составл'),
+(7734, 'поколен'),
+(7735, 'оп'),
+(7736, 'скажет'),
+(7737, 'дурен'),
+(7738, 'ежел'),
+(7739, 'верил'),
+(7740, 'возможност'),
+(7741, 'трагических'),
+(7742, 'романтических'),
+(7743, 'злоде'),
+(7744, 'отчег'),
+(7745, 'верует'),
+(7746, 'действительнос'),
+(7747, 'Печорин'),
+(7748, 'любовалис'),
+(7749, 'вымысл'),
+(7750, 'горазд'),
+(7751, 'ужасн'),
+(7752, 'уродлив'),
+(7753, 'вымысел'),
+(7754, 'пощад'),
+(7755, 'отт'),
+(7756, 'нежел'),
+(7757, 'желал'),
+(7758, 'нравственнос'),
+(7759, 'выигрывает'),
+(7760, 'Извинит'),
+(7761, 'Довол'),
+(7762, 'кормил'),
+(7763, 'сласт'),
+(7764, 'испортил'),
+(7765, 'желуд'),
+(7766, 'горьк'),
+(7767, 'едк'),
+(7768, 'истин'),
+(7769, 'думайт'),
+(7770, 'имел'),
+(7771, 'нибуд'),
+(7772, 'горду'),
+(7773, 'исправителем'),
+(7774, 'людских'),
+(7775, 'Бож'),
+(7776, 'избав'),
+(7777, 'невежества!'),
+(7778, 'весел'),
+(7779, 'рис'),
+(7780, 'каким'),
+(7781, 'несчасть'),
+(7782, 'слишк'),
+(7783, 'встречал'),
+(7784, 'указан'),
+(7785, 'изле'),
+(7786, '—'),
+(7787, 'знает!');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira_tags`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira_tags` (
   `t_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -6715,6 +7354,10 @@ CREATE TABLE IF NOT EXISTS `bagira_tags` (
   `t_count` int(11) NOT NULL,
   PRIMARY KEY (`t_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=26 ;
+
+--
+-- Дамп данных таблицы `bagira_tags`
+--
 
 INSERT INTO `bagira_tags` (`t_id`, `t_name`, `t_count`) VALUES
 (1, 'Джудда Апатоу', 1),
@@ -6743,12 +7386,22 @@ INSERT INTO `bagira_tags` (`t_id`, `t_name`, `t_count`) VALUES
 (24, 'ыва', 1),
 (25, 'апва', 1);
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira_tags_rels`
+--
+
 CREATE TABLE IF NOT EXISTS `bagira_tags_rels` (
   `tr_tag_id` int(11) NOT NULL,
   `tr_obj_id` int(11) NOT NULL,
   KEY `tr_obj_id` (`tr_obj_id`),
   KEY `tr_tag_id` (`tr_tag_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
+
+--
+-- Дамп данных таблицы `bagira_tags_rels`
+--
 
 INSERT INTO `bagira_tags_rels` (`tr_tag_id`, `tr_obj_id`) VALUES
 (4, 1581),
@@ -6773,6 +7426,12 @@ INSERT INTO `bagira_tags_rels` (`tr_tag_id`, `tr_obj_id`) VALUES
 (15, 1765),
 (16, 1765);
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira_template`
+--
+
 CREATE TABLE IF NOT EXISTS `bagira_template` (
   `t_id` int(11) NOT NULL AUTO_INCREMENT,
   `t_name` varchar(50) NOT NULL,
@@ -6784,6 +7443,10 @@ CREATE TABLE IF NOT EXISTS `bagira_template` (
   KEY `t_domain_id` (`t_domain_id`),
   KEY `t_lang_id` (`t_lang_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=47 ;
+
+--
+-- Дамп данных таблицы `bagira_template`
+--
 
 INSERT INTO `bagira_template` (`t_id`, `t_name`, `t_file`, `t_type`, `t_lang_id`, `t_domain_id`) VALUES
 (1, 'Стандартный', 'default', 0, 1, 1),
@@ -6801,11 +7464,21 @@ INSERT INTO `bagira_template` (`t_id`, `t_name`, `t_file`, `t_type`, `t_lang_id`
 (45, 'Каталог', 'catalog', 0, 1, 1),
 (46, 'Аналитика', 'analitic', 1, 1, 1);
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___answer`
+--
+
 CREATE TABLE IF NOT EXISTS `bagira___answer` (
   `obj_id` int(11) NOT NULL,
   `count` int(11) NOT NULL,
   KEY `bagira___answer_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
+
+--
+-- Дамп данных таблицы `bagira___answer`
+--
 
 INSERT INTO `bagira___answer` (`obj_id`, `count`) VALUES
 (393, 0),
@@ -6816,11 +7489,21 @@ INSERT INTO `bagira___answer` (`obj_id`, `count`) VALUES
 (1576, 6),
 (1577, 15);
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___category`
+--
+
 CREATE TABLE IF NOT EXISTS `bagira___category` (
   `obj_id` int(11) NOT NULL,
   `image` varchar(255) NOT NULL,
   KEY `bagira___category_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
+
+--
+-- Дамп данных таблицы `bagira___category`
+--
 
 INSERT INTO `bagira___category` (`obj_id`, `image`) VALUES
 (345, ''),
@@ -6832,14 +7515,30 @@ INSERT INTO `bagira___category` (`obj_id`, `image`) VALUES
 (1626, ''),
 (1627, '');
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___category_faq`
+--
+
 CREATE TABLE IF NOT EXISTS `bagira___category_faq` (
   `obj_id` int(11) NOT NULL,
   `image` varchar(255) NOT NULL,
   KEY `bagira___category_faq_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira___category_faq`
+--
+
 INSERT INTO `bagira___category_faq` (`obj_id`, `image`) VALUES
 (350, '');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___category_review`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___category_review` (
   `obj_id` int(11) NOT NULL,
@@ -6847,6 +7546,11 @@ CREATE TABLE IF NOT EXISTS `bagira___category_review` (
   KEY `bagira___category_review_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___eshop_delivery_method`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___eshop_delivery_method` (
   `obj_id` int(11) NOT NULL,
@@ -6855,9 +7559,19 @@ CREATE TABLE IF NOT EXISTS `bagira___eshop_delivery_method` (
   KEY `bagira___delivery_method_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira___eshop_delivery_method`
+--
+
 INSERT INTO `bagira___eshop_delivery_method` (`obj_id`, `notice`, `price`) VALUES
 (1670, '', 0.00),
 (1671, '', 800.00);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___eshop_goods`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___eshop_goods` (
   `obj_id` int(11) NOT NULL,
@@ -6866,6 +7580,10 @@ CREATE TABLE IF NOT EXISTS `bagira___eshop_goods` (
   `goods_id` int(11) NOT NULL,
   KEY `bagira___eshop_goods_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
+
+--
+-- Дамп данных таблицы `bagira___eshop_goods`
+--
 
 INSERT INTO `bagira___eshop_goods` (`obj_id`, `count`, `cost`, `goods_id`) VALUES
 (1686, 1, 32100.00, 1629),
@@ -6881,6 +7599,12 @@ INSERT INTO `bagira___eshop_goods` (`obj_id`, `count`, `cost`, `goods_id`) VALUE
 (1708, 1, 7800.00, 1648),
 (1709, 5, 4300.00, 1637),
 (1759, 1, 5430.30, 1628);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___eshop_order`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___eshop_order` (
   `obj_id` int(11) NOT NULL,
@@ -6898,6 +7622,10 @@ CREATE TABLE IF NOT EXISTS `bagira___eshop_order` (
   KEY `bagira___order_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira___eshop_order`
+--
+
 INSERT INTO `bagira___eshop_order` (`obj_id`, `date`, `email`, `notice`, `payment_date`, `delivery_name`, `delivery_surname`, `delivery_phone`, `delivery_address`, `delivery_notice`, `payment_cost`, `is_payment`) VALUES
 (1685, '2011-05-04 03:10:48', 'test@test.ru', '', '0000-00-00 00:00:00', 'Иван', 'Иванов', '3234567', '345678', '5654654b 5yhrh tr ebtbgv4t5f5gv', 0.00, 0),
 (1693, '2011-05-05 07:24:06', 'test@test.ru', '', '0000-00-00 00:00:00', 'Иван', 'Иванов', 'adfadsf', 'sdafds', 'adsfdsafdsf', 0.00, 0),
@@ -6907,17 +7635,33 @@ INSERT INTO `bagira___eshop_order` (`obj_id`, `date`, `email`, `notice`, `paymen
 (1706, '2011-05-05 07:43:34', 'test@test.ru', 'ывффафывав', '0000-00-00 00:00:00', 'Иван5', 'Иванов5', 'ergret5', 'reter352 4мпмпа4', 'erterter5', 0.00, 1),
 (1758, '2011-06-21 16:20:57', 'test@test.ru', '', '0000-00-00 00:00:00', 'Иван', 'Иванов', 'ываыв', 'ыавыа', 'выаыв', 0.00, 0);
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___eshop_payment_method`
+--
+
 CREATE TABLE IF NOT EXISTS `bagira___eshop_payment_method` (
   `obj_id` int(11) NOT NULL,
   `notice` text NOT NULL,
   KEY `bagira___eshop_payment_method_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira___eshop_payment_method`
+--
+
 INSERT INTO `bagira___eshop_payment_method` (`obj_id`, `notice`) VALUES
 (1678, ''),
 (1679, ''),
 (1680, ''),
 (1681, '');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___eshop_status`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___eshop_status` (
   `obj_id` int(11) NOT NULL,
@@ -6930,10 +7674,20 @@ CREATE TABLE IF NOT EXISTS `bagira___eshop_status` (
   KEY `bagira___eshop_status_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira___eshop_status`
+--
+
 INSERT INTO `bagira___eshop_status` (`obj_id`, `email_title`, `email_msg`, `info`, `notice`, `number`, `is_delete`) VALUES
 (1664, 'Информация о заказе', '<p>\r\n	Добрый день, {username}!</p>\r\n<p>\r\n	Вы сделали заказ на нашем сайте следующих товаров:</p>\r\n<p>\r\n	{goods_list}</p>\r\n<p>\r\n	Вашему заказу присвоен номер <a href="/eshop/order-list/{order.id}" target="_blank">{order.number}</a>, общая стоимость заказа {order.cost} рублей.</p>\r\n<p>\r\n	&nbsp;</p>\r\n<p>\r\n	<strong>Информация о доставке:</strong></p>\r\n<p>\r\n	Получатель: {order.surname} {order.name} &nbsp;<br />\r\n	Телефон: {order.phone}&nbsp;<br />\r\n	Адрес: {order.address}<br />\r\n	Способ доставки: {order.delivery}<br />\r\n	Стоимость доставки: {order.delivery_price}&nbsp;</p>\r\n<p>\r\n	--<br />\r\n	Спасибо!</p>\r\n', 1, 'Статус сразу после заказа.', 1, 1),
 (1666, 'Информаци о заказе', '<p>\r\n	Добрый день, {username}!</p>\r\n<p>\r\n	Сообщаем вам что вашему заказу под номером <a href="/eshop/order-list/{order.id}" target="_blank">{order.number}</a>, присвоен статус &quot;Проверка&quot;.</p>\r\n<p>\r\n	&nbsp;</p>\r\n<p>\r\n	Вы сделали заказ на нашем сайте следующих товаров:</p>\r\n<p>\r\n	{goods_list}</p>\r\n<p>\r\n	Общая стоимость заказа {order.cost} рублей.</p>\r\n<p>\r\n	--<br />\r\n	Спасибо!</p>\r\n<br />\r\n', 1, '2', 2, 0),
 (1667, 'Информация о заказе', '<p>\r\n	Добрый день, {username}!</p>\r\n<p>\r\n	Сообщаем вам что вашему заказу под номером <a href="/eshop/order-list/{order.id}" target="_blank">{order.number}</a>, присвоен статус &quot;Отправка&quot;.</p>\r\n<p>\r\n	&nbsp;</p>\r\n<p>\r\n	Вы сделали заказ на нашем сайте следующих товаров:</p>\r\n<p>\r\n	{goods_list}</p>\r\n<p>\r\n	Общая стоимость заказа {order.cost} рублей.</p>\r\n<p>\r\n	--<br />\r\n	Спасибо!</p>\r\n<br />\r\n', 1, 'ывавыаыва', 3, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___faq`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___faq` (
   `obj_id` int(11) NOT NULL,
@@ -6945,12 +7699,22 @@ CREATE TABLE IF NOT EXISTS `bagira___faq` (
   KEY `bagira___faq_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira___faq`
+--
+
 INSERT INTO `bagira___faq` (`obj_id`, `email`, `content`, `answer`, `form_id`, `send_answer_to_user`) VALUES
 (1612, 'mail@mail.ru', 'Я купил телевизор в вашем магазине, скажите пожалуйста сколько можно на нем настроить каналов?', '<p>\r\n	Данный ноутбук создан специально для аудиофилов, которые даже в дороге не хотят расставаться с музыкой. В нем реализована разработанная специалистами ASUS и Bang Olufsen ICEpower технология SonicMaster, представляющая собой комплекс аппаратных и программных средств улучшения качества звука. SonicMaster изменит ваши представления о звучании мобильных компьютеров! Узнать больше...</p>\r\n', 0, 0),
 (1757, 'test@test.ru', 'Какие профессии больше всего сейчас нужны человечеству? ', '<p>\r\n	инженеры(здесь имеется в виду обширное понятие-от инженеров-энергетиков до робототехников),программисты(здесь также имеется в виду обширное понятие-от прикладных программистов до зd-дизайнеров),врачи(они всегда нужны-как только нашли лекарство от одной болезни появляются 3 новых заболевания),экологи( сейчас много вакансий:ООН,Грин Пис,альтернативные источники энергии и т.д-наконец люди вспомнили что они млекопитающие ,а не паразиты).</p>\r\n', 1613, 0),
 (1760, '', 'Какими способами добиться, что бы цветы в вазе стояли дольше?', '<p>\r\n	Цветы будут долго стоять, если они будут получать воду из вазы.<br />\r\n	Если налить просто воду из под крана, то она быстро высосет из цветка содержимое (осмос).<br />\r\n	Клетки черенка разрушатся, и цветок завянет.<br />\r\n	<br />\r\n	Чтобы этого не было, нужно в вазу налить физиологический раствор (0.2% раствор соли в воде).<br />\r\n	Или просто в воду бросить поваренной соли, сколько, зависит от объема вазы.<br />\r\n	Например я в свою большую вазу клал пол чайной ложки соли.<br />\r\n	Цветы стояли пару месяцев.<br />\r\n	<br />\r\n	Еще важный момент.<br />\r\n	Перед тем как ставить цветы в вазу, черенки нужно подрезать, обязательно в воде.<br />\r\n	Иначе на воздухе клетки черенка разрушатся и питания не будет.</p>\r\n', 0, 0),
 (1761, '', 'Существует ли программа для фотографий по типу распознавание лица?', '<p>\r\n	Picasa умеет (пытается) именно распознавать лица, и показывать потом разные фотографии одного и того же человека. так что для поиска просто одинаковых картинок больше подойдет ACDSee, опция Find Duplicates. ну или то что предложил Railgun, правда я сам не знаю что это за программа.</p>\r\n', 0, 0),
 (1762, '', 'Есть ли плюсы в том,чтобы мыться холодной водой?', '<p>\r\n	Холод - это стресс. А стресс, если правильно его создавать и использовать, всегда делает Человека сильнее...<br />\r\n	А если это будет контрастный холод после горячего душа, то усиливается выработка гормонов удовольствия - эндорфинов.<br />\r\n	Так что контрастный душ и счастье ходят где-то рядом))</p>\r\n', 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___feedback`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___feedback` (
   `obj_id` int(11) NOT NULL,
@@ -6962,6 +7726,11 @@ CREATE TABLE IF NOT EXISTS `bagira___feedback` (
   KEY `bagira___feedback_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___feedback_form`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___feedback_form` (
   `obj_id` int(11) NOT NULL,
@@ -6987,9 +7756,19 @@ CREATE TABLE IF NOT EXISTS `bagira___feedback_form` (
   KEY `bagira___feedback_form_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira___feedback_form`
+--
+
 INSERT INTO `bagira___feedback_form` (`obj_id`, `form_class`, `captcha`, `msg`, `mailing_list`, `admin_sender_address`, `admin_sender_name`, `admin_subject`, `admin_template`, `send_notice`, `notice_sender_address`, `notice_sender_name`, `notice_subject`, `notice_template`, `send_answer`, `answer_sender_address`, `answer_sender_name`, `answer_subject`, `answer_template`, `any_sections`) VALUES
-(1613, 51, 1, '<p>\r\n	Спасибо за ваш вопрос! В ближайшее время мы вам ответим!</p>\r\n', '', '{email}', '{name}', 'Сообщение с сайта {site_name}', '<p>\r\n	Сегодня прекрасный день!</p>\r\n<p>\r\n	Посетитель сайта {site_name}, воспользовавшись формой обратной связи, отправил следующее сообщение:</p>\r\n<p>\r\n	<i>{content}</i></p>\r\n<p>\r\n	ФИО посетителя: {name}<br />\r\n	E-mail для связи: {email}</p>\r\n<p>\r\n	С уважением, Bagira.CMS</p>\r\n', 0, '{base_email}', '{site_name}', 'Уведомление с сайта {site_name}', '<p>\r\n	Добрый день, {name}.</p>\r\n<p>\r\n	Это письмо - автоматическое уведомление о том, что отправленное вами сообщение принято к рассмотрению. Мы постараемся ответить вам в кратчайшие сроки.</p>\r\n<p>\r\n	Благодарим за обращение,<br />\r\n	Администрация сайта {sitename}.</p>\r\n', 0, '{base_email}', '{site_name}', 'Ответ на ваше сообщение с сайта {site_name}', '<p>\r\n	Добрый день, {name}.</p>\r\n<p>\r\n	Не так давно, воспользовавшись формой обратной связи, вы отправили нам следующее сообщение:</p>\r\n<p>\r\n	<i>{content}</i></p>\r\n<p>\r\n	Наш ответ:</p>\r\n<p>\r\n	{answer}</p>\r\n<p>\r\n	С уважением,<br />\r\n	Администрация сайта {sitename}.</p>\r\n', 0),
-(1745, 52, 1, '<p>\r\n	После проверки администратором ваш отзыв будет опубликован.</p>\r\n', '', '{email}', '{name}', 'Сообщение с сайта {site_name}', '<p>\r\n	Сегодня прекрасный день!</p>\r\n<p>\r\n	Посетитель сайта {site_name}, воспользовавшись формой обратной связи, отправил следующее сообщение:</p>\r\n<p>\r\n	<i>{content}</i></p>\r\n<p>\r\n	ФИО посетителя: {name}<br />\r\n	E-mail для связи: {email}</p>\r\n<p>\r\n	С уважением, Bagira.CMS</p>\r\n', 0, '{base_email}', '{site_name}', 'Уведомление с сайта {site_name}', '<p>\r\n	Добрый день, {name}.</p>\r\n<p>\r\n	Это письмо - автоматическое уведомление о том, что отправленное вами сообщение принято к рассмотрению. Мы постараемся ответить вам в кратчайшие сроки.</p>\r\n<p>\r\n	Благодарим за обращение,<br />\r\n	Администрация сайта {site_name}.</p>\r\n', 1, '{base_email}', '{site_name}', 'Ответ на ваше сообщение с сайта {site_name}', '<p>\r\n	Добрый день, {name}.</p>\r\n<p>\r\n	Не так давно, воспользовавшись формой обратной связи, вы отправили нам следующее сообщение:</p>\r\n<p>\r\n	<i>{content}</i></p>\r\n<p>\r\n	Наш ответ:</p>\r\n<p>\r\n	{answer}</p>\r\n<p>\r\n	С уважением,<br />\r\n	Администрация сайта {site_name}.</p>\r\n', 1);
+(1613, 51, 1, '<p>Спасибо за ваш вопрос! В ближайшее время мы вам ответим!</p>', '', '{email}', '{name}', 'Сообщение с сайта {site_name}', '<p>Посетитель сайта {site_name}, воспользовавшись формой обратной связи, отправил следующее сообщение:</p><p><i>{content}</i></p><p>ФИО посетителя: {name}<br/>\r\nE-mail для связи: {email}</p><p>С уважением, Bagira.CMS</p>', 0, '{base_email}', '{site_name}', 'Уведомление с сайта {site_name}', '<p>Добрый день, {name}.</p><p>Это письмо — автоматическое уведомление о том, что отправленное вами сообщение принято к рассмотрению. Мы постараемся ответить вам в кратчайшие сроки.</p><p>Благодарим за обращение,<br/>\r\nАдминистрация сайта {sitename}.</p>', 0, '{base_email}', '{site_name}', 'Ответ на ваше сообщение с сайта {site_name}', '<p>Добрый день, {name}.</p><p>Не так давно, воспользовавшись формой обратной связи, вы отправили нам следующее сообщение:</p><p><i>{content}</i></p><p>Наш ответ:</p><p>{answer}</p><p>С уважением,<br/>\r\nАдминистрация сайта {sitename}.</p>', 0),
+(1745, 52, 1, '<p>После проверки администратором ваш отзыв будет опубликован.</p>', '', '{email}', '{name}', 'Сообщение с сайта {site_name}', '<p>Посетитель сайта {site_name}, воспользовавшись формой обратной связи, отправил следующее сообщение:</p><p><i>{content}</i></p><p>ФИО посетителя: {name}<br/>\r\nE-mail для связи: {email}</p><p>С уважением, Bagira.CMS</p>', 0, '{base_email}', '{site_name}', 'Уведомление с сайта {site_name}', '<p>Добрый день, {name}.</p><p>Это письмо — автоматическое уведомление о том, что отправленное вами сообщение принято к рассмотрению. Мы постараемся ответить вам в кратчайшие сроки.</p><p>Благодарим за обращение,<br/>\r\nАдминистрация сайта {site_name}.</p>', 1, '{base_email}', '{site_name}', 'Ответ на ваше сообщение с сайта {site_name}', '<p>Добрый день, {name}.</p><p>Не так давно, воспользовавшись формой обратной связи, вы отправили нам следующее сообщение:</p><p><i>{content}</i></p><p>Наш ответ:</p><p>{answer}</p><p>С уважением,<br/>\r\nАдминистрация сайта {site_name}.</p>', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___file`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___file` (
   `obj_id` int(11) NOT NULL,
@@ -6997,6 +7776,11 @@ CREATE TABLE IF NOT EXISTS `bagira___file` (
   KEY `bagira___file_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___gallery`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___gallery` (
   `obj_id` int(11) NOT NULL,
@@ -7004,10 +7788,20 @@ CREATE TABLE IF NOT EXISTS `bagira___gallery` (
   KEY `bagira___gallery_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira___gallery`
+--
+
 INSERT INTO `bagira___gallery` (`obj_id`, `image`) VALUES
 (1570, ''),
 (1590, '/upload/image/55.jpg'),
 (1601, '/upload/image/turley_060604_9099_layout.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___goods`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___goods` (
   `obj_id` int(11) NOT NULL,
@@ -7025,6 +7819,10 @@ CREATE TABLE IF NOT EXISTS `bagira___goods` (
   KEY `bagira___goods_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira___goods`
+--
+
 INSERT INTO `bagira___goods` (`obj_id`, `image`, `price`, `content`, `count`, `rate`, `ves_netto`, `ves_brutto`, `height`, `width`, `length`, `moshchnost`) VALUES
 (1628, '/upload/image/1125255_resized250.jpg', 5430.30, '<p>Благодаря плазменным телевизорам Samsung серии 7000 с поддержкой 3D изображения, вы полностью измените свое отношение к телевидению, поскольку вы получаете доступ в Интернет без компьютера, возможность общаться с друзьями по Skype, узнавать последние новости, прогнозы погоды и получать другую информацию в реальном времени. Плазменные телевизоры Samsung созданы для того, чтобы расширить возможности для развлечений. Виджеты Internet@TV, обмен контентом с помощью AllShare и взаимосвязь устройств с помощью функции USB 2.0 Movie делают плазменный телевизор Samsung настоящим медиацентром для организации развлечений.</p><p>Благодаря плазменным телевизорам Samsung серии 7000 с поддержкой 3D изображения, вы полностью измените свое отношение к телевидению, поскольку вы получаете доступ в Интернет без компьютера, возможность общаться с друзьями по Skype, узнавать последние новости, прогнозы погоды и получать другую информацию в реальном времени. Плазменные телевизоры Samsung созданы для того, чтобы расширить возможности для развлечений. Виджеты Internet@TV, обмен контентом с помощью AllShare и взаимосвязь устройств с помощью функции USB 2.0 Movie делают плазменный телевизор Samsung настоящим медиацентром для организации развлечений.</p>', 0, 3.86, '543', '544', '344', '666', '540', '544'),
 (1629, '/upload/image/1128336_resized250.jpg', 32100.00, '<p>\r\n	Благодаря плазменным телевизорам Samsung серии 7000 с поддержкой 3D изображения, вы полностью измените свое отношение к телевидению, поскольку вы получаете доступ в Интернет без компьютера, возможность общаться с друзьями по Skype, узнавать последние новости, прогнозы погоды и получать другую информацию в реальном времени. Плазменные телевизоры Samsung созданы для того, чтобы расширить возможности для развлечений. Виджеты Internet@TV, обмен контентом с помощью AllShare и взаимосвязь устройств с помощью функции USB 2.0 Movie делают плазменный телевизор Samsung настоящим медиацентром для организации развлечений.</p>\r\n<p>\r\n	Благодаря плазменным телевизорам Samsung серии 7000 с поддержкой 3D изображения, вы полностью измените свое отношение к телевидению, поскольку вы получаете доступ в Интернет без компьютера, возможность общаться с друзьями по Skype, узнавать последние новости, прогнозы погоды и получать другую информацию в реальном времени. Плазменные телевизоры Samsung созданы для того, чтобы расширить возможности для развлечений. Виджеты Internet@TV, обмен контентом с помощью AllShare и взаимосвязь устройств с помощью функции USB 2.0 Movie делают плазменный телевизор Samsung настоящим медиацентром для организации развлечений.</p>\r\n', 0, 0.00, '324', '234', '56', '56756', '6565', '343'),
@@ -7041,16 +7839,31 @@ INSERT INTO `bagira___goods` (`obj_id`, `image`, `price`, `content`, `count`, `r
 (1648, '/upload/image/1129505_resized250.jpg', 7800.00, '<p>\r\n	Благодаря плазменным телевизорам Samsung серии 7000 с поддержкой 3D изображения, вы полностью измените свое отношение к телевидению, поскольку вы получаете доступ в Интернет без компьютера, возможность общаться с друзьями по Skype, узнавать последние новости, прогнозы погоды и получать другую информацию в реальном времени. Плазменные телевизоры Samsung созданы для того, чтобы расширить возможности для развлечений. Виджеты Internet@TV, обмен контентом с помощью AllShare и взаимосвязь устройств с помощью функции USB 2.0 Movie делают плазменный телевизор Samsung настоящим медиацентром для организации развлечений.</p>\r\n<p>\r\n	Благодаря плазменным телевизорам Samsung серии 7000 с поддержкой 3D изображения, вы полностью измените свое отношение к телевидению, поскольку вы получаете доступ в Интернет без компьютера, возможность общаться с друзьями по Skype, узнавать последние новости, прогнозы погоды и получать другую информацию в реальном времени. Плазменные телевизоры Samsung созданы для того, чтобы расширить возможности для развлечений. Виджеты Internet@TV, обмен контентом с помощью AllShare и взаимосвязь устройств с помощью функции USB 2.0 Movie делают плазменный телевизор Samsung настоящим медиацентром для организации развлечений.</p>\r\n', 0, 4.00, '567', '675', '765', '345', '756', '345'),
 (1649, '/upload/image/1128776_resized250.jpg', 7600.00, '<p>\r\n	Благодаря плазменным телевизорам Samsung серии 7000 с поддержкой 3D изображения, вы полностью измените свое отношение к телевидению, поскольку вы получаете доступ в Интернет без компьютера, возможность общаться с друзьями по Skype, узнавать последние новости, прогнозы погоды и получать другую информацию в реальном времени. Плазменные телевизоры Samsung созданы для того, чтобы расширить возможности для развлечений. Виджеты Internet@TV, обмен контентом с помощью AllShare и взаимосвязь устройств с помощью функции USB 2.0 Movie делают плазменный телевизор Samsung настоящим медиацентром для организации развлечений.</p>\r\n<p>\r\n	Благодаря плазменным телевизорам Samsung серии 7000 с поддержкой 3D изображения, вы полностью измените свое отношение к телевидению, поскольку вы получаете доступ в Интернет без компьютера, возможность общаться с друзьями по Skype, узнавать последние новости, прогнозы погоды и получать другую информацию в реальном времени. Плазменные телевизоры Samsung созданы для того, чтобы расширить возможности для развлечений. Виджеты Internet@TV, обмен контентом с помощью AllShare и взаимосвязь устройств с помощью функции USB 2.0 Movie делают плазменный телевизор Samsung настоящим медиацентром для организации развлечений.</p>\r\n', 0, 4.38, '765', '67', '657', '657', '743', '76');
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___handbook`
+--
+
 CREATE TABLE IF NOT EXISTS `bagira___handbook` (
   `obj_id` int(11) NOT NULL,
   KEY `bagira___handbook_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___list_color`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___list_color` (
   `obj_id` int(11) NOT NULL,
   KEY `bagira___list_color_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
+
+--
+-- Дамп данных таблицы `bagira___list_color`
+--
 
 INSERT INTO `bagira___list_color` (`obj_id`) VALUES
 (1738),
@@ -7062,10 +7875,20 @@ INSERT INTO `bagira___list_color` (`obj_id`) VALUES
 (1744),
 (1774);
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___list_garantiya`
+--
+
 CREATE TABLE IF NOT EXISTS `bagira___list_garantiya` (
   `obj_id` int(11) NOT NULL,
   KEY `bagira___list_garantiya_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
+
+--
+-- Дамп данных таблицы `bagira___list_garantiya`
+--
 
 INSERT INTO `bagira___list_garantiya` (`obj_id`) VALUES
 (1732),
@@ -7073,16 +7896,32 @@ INSERT INTO `bagira___list_garantiya` (`obj_id`) VALUES
 (1736),
 (1737);
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___list_strana_proizvoditel`
+--
+
 CREATE TABLE IF NOT EXISTS `bagira___list_strana_proizvoditel` (
   `obj_id` int(11) NOT NULL,
   KEY `bagira___list_strana_proizvoditel_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
+
+--
+-- Дамп данных таблицы `bagira___list_strana_proizvoditel`
+--
 
 INSERT INTO `bagira___list_strana_proizvoditel` (`obj_id`) VALUES
 (1731),
 (1733),
 (1735),
 (1775);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___news`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___news` (
   `obj_id` int(11) NOT NULL,
@@ -7094,6 +7933,10 @@ CREATE TABLE IF NOT EXISTS `bagira___news` (
   KEY `bagira___news_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira___news`
+--
+
 INSERT INTO `bagira___news` (`obj_id`, `publ_date`, `image`, `notice`, `content`, `author`) VALUES
 (1579, '2011-03-17 00:00:00', '/upload/image/2.jpg', '<p>\r\n	Очередная комедия Джудда Апатоу расскажет об уже знакомых персонажах из фильма &laquo;Немножко беременна&raquo;. Правда, это будут не герои Сета Рогена и Кэтрин Хайгл, а семейная пара в исполнении Пола Радда и Лесли Манн.</p>\r\n', '<p>\r\n	&nbsp;Очередная комедия Джудда Апатоу расскажет об уже знакомых персонажах из фильма &laquo;Немножко беременна&raquo;. Правда, это будут не герои Сета Рогена и Кэтрин Хайгл, а семейная пара в исполнении Пола Радда и Лесли Манн. Кого именно может сыграть Меган Фокс, не разглашается, но актриса ведет переговоры об участии в проекте.</p>\r\n<p>\r\n	Несмотря на свою комедийную сущность, фильм Апатоу ознаменует возвращение Меган Фокс в мир серьезного кино. Последние проекты актрисы постигла плачевная участь: &laquo;Джона Хекс&raquo; не понравился не только критикам, но и большинству зрителей, а лента &laquo;Игры страсти&raquo;, где Меган снялась с Микки Рурком, и вовсе должна была миновать большой экран, но в последний момент студия решила выпустить картину в США 6 мая ограниченным релизом. &laquo;Игры страсти&raquo; были показаны на кинофестивале в Торонто в прошлом сентябре и удостоились крайне негативной реакции.</p>\r\n<p>\r\n	Также стоит помнить, что Меган Фокс вылетела из успешной франшизы Майкла Бэя &laquo;Трансформеры&raquo;, и в третьем фильме место подруги Шайи ЛаБафа заняла английская супермодель Роузи Хантингтон-Уайтли.</p>\r\n<p>\r\n	Поэтому, для того чтобы удержаться на плаву в Голливуде, молодой звезде отчаянно нужен хороший материал. Вполне возможно, что кино Джудда Апатоу придаст ее карьере новый толчок или же вообще направит в другое русло. Меган только что закончила съемки в картине &laquo;Друзья с детьми&raquo;, где ее коллегами стали Джон Хэмм и Кристен Уиг.</p>\r\n<p>\r\n	Спин-офф от &laquo;Немножко беременной&raquo; на сегодняшний день не имеет названия. Супруга режиссера Лесли Манн и актер Пол Радд снова играют Дебби и Пита, но действие развернется уже спустя пять лет после событий, показанных в оригинальном фильме.</p>\r\n<p>\r\n	Съемки начнутся этим летом, а релиз намечен на 1 июня 2012 года.</p>\r\n', 'Айзик Гаримов'),
 (1581, '2011-03-17 00:00:00', '', 'Подходит к завершению отбор работ для проходящего уже в третий раз фестиваля Art of Remake, объявление победителей которого состоится 30 марта.', '\r\n\r\n<p>Подходит к завершению отбор работ для проходящего уже в третий раз фестиваля Art of Remake, объявление победителей которого состоится 30 марта. Каждый год участникам смотра предлагают переснять сцены из легендарных фильмов, таких как «Криминальное чтиво», «Матрица», «Звездные войны».</p>\r\n\r\n<p>В этом году организаторы предлагают фильммейкерам-любителям переснять ленты «Пятый элемент» Люка Бессона, «Брат 2» Алексея Балабанова и «Пилу» Джеймса Вана.</p>\r\n\r\n<p>Победители будут разделены по нескольким категориям. В номинации «Лучший ремейк» (награда здесь составляет 50 000 рублей) призера выберет жюри фестиваля. Призеры в номинациях «Лучший продакт-плейсмент Efes Pilsener» (победитель получит 30 000 рублей) и «Незабываемые впечатления Efes Pilsener» (приз равняется 45 000 рублей) отберет бренд-команда Efes Pilsener. Обладатель приза зрительских симпатий (30 000 рублей) определится при помощи зрительского голосования на сайте http://art-of-remake.ru.</p>\r\n\r\n<p>В этом году главной жертвой кинолюбителей стал «Пятый элемент»: </p>', ''),
@@ -7103,6 +7946,12 @@ INSERT INTO `bagira___news` (`obj_id`, `publ_date`, `image`, `notice`, `content`
 (1765, '2011-06-22 09:09:00', '/upload/image/ALB_Library_Congress_480.jpg', '<p>\r\n	&laquo;Здесь есть ранний джаз, известные речи, поэзия, юмор, опера, танцевальная музыка &ndash; и каждая звукозапись сопровождается информацией о том, когда она была сделана&raquo;, - Джеймс Биллингтон, глава Библиотеки Конгресса США.</p>\r\n', '<p>\r\n	Библиотека Конгресса в Вашингтоне на днях пригласила лауреата премии &laquo;Грэмми&raquo;, музыканта Гарри Конника-младшего для участия в церемонии открытия вебсайта, на котором впервые представлены в цифровом формате 10 тысяч редких и исторических звукозаписей.</p>\r\n<p>\r\n	Здесь собраны произведения популярной музыки, оперы, раннего джаза, а также поэзия и известные политические речи. Композиции в исполнении Артуро Тосканини, Энрико Карузо, Джорджа Гершвина и других великих музыкантов доступны для бесплатного прослушивания и изучения.<br />\r\n	<br />\r\n	&laquo;Национальный музыкальный автомат&raquo; (National Jukebox) &ndash; совместный проект Библиотеки Конгресса и Sony Music Entertainment. Благодаря ему, пользователи Интернета могут получить доступ к огромному собранию музыки и речей, записанных в США между 1901 и 1925 годами.<br />\r\n	<br />\r\n	Глава Библиотеки Конгресса Джеймс Биллингтон представил &laquo;Музыкальный автомат&raquo; на пресс-конференции в Вашингтоне: &laquo;Здесь есть ранний джаз, известные речи, поэзия, юмор, опера, танцевальная музыка &ndash; и каждая звукозапись сопровождается информацией о том, когда она была сделана&raquo;.<br />\r\n	<br />\r\n	Библиотека Конгресса обладает крупнейшей коллекцией исторических звукозаписей в стране. Они хранятся и оцифровываются в отделении библиотеки в Вирджинии. Именно оттуда они поступают в &laquo;Музыкальный автомат&raquo;.<br />\r\n	<br />\r\n	Ричард Стори, президент отделения коммерческой музыки Sony Music Entertainment, говорит: &laquo;В этом каталоге замечательная коллекция музыкальных сокровищ, по которым можно отследить развитие американской музыки и ее корни. Здесь записи самых влиятельных, самых великих артистов всех времен&raquo;.<br />\r\n	<br />\r\n	Один из таких музыкантов &ndash; Юби Блейк. На видеоклипе, размещенном на сайте &laquo;Музыкального автомата&raquo;, он исполняет песню &laquo;Я просто без ума от Гарри&raquo; (I&rsquo;m Just Wild About Harry), написанную в 1921 году. На видео молодой Гарри Конник-младший сидит за пианино и играет вместе с автором песни.<br />\r\n	<br />\r\n	Конник, которому сегодня 43 года, был приглашен на открытие &laquo;Музыкального автомата&raquo;. Он сыграл ту самую песню и поделился воспоминаниями о встрече с Юби Блейком:<br />\r\n	<br />\r\n	&laquo;Тогда мне было девять лет, а ему 95 или 96 и я никогда не забуду, как сидел рядом с ним. Сейчас я оглядываюсь назад и понимаю, что он писал потрясающую музыку. Причем не только в музыкальном смысле, ведь эта песня, фактически, сняла табу на тему любви между чернокожими людьми на экране и в музыке. Но тогда я смотрел на руки этого человека и думал, что никогда не видел таких больших рук. У него были такие длинные пальцы, что невозможно представить. Мне повезло, я видел все это воочию, но сегодня я смотрю на своих детей и понимаю, что, благодаря новым технологиям, они тоже могут услышать эти песни. И это просто замечательно, я аплодирую вам за это!&raquo;<br />\r\n	<br />\r\n	В &laquo;Музыкальном автомате&raquo; можно найти первую джазовую звукозапись, на которой Original Dixieland Jazz Band играет &laquo;Блюз конюшни&raquo; (Livery Stable Blues).&nbsp;<br />\r\n	<br />\r\n	Джин Деанна, глава отделения звукозаписей Библиотеки Конгресса, говорит, что пока в &laquo;Музыкальном автомате&raquo; выложена лишь небольшая часть материалов, которые появятся там в будущем. &laquo;Для нас это динамичный, развивающийся архив исторических звукозаписей и в ближайшие несколько лет там появятся еще десятки тысяч файлов&raquo;, &ndash; говорит он.<br />\r\n	<br />\r\n	В вирджинском отделении библиотеки хранятся около 100 тысяч звуковых материалов. В настоящее время посетители сайта &laquo;Национальный музыкальный автомат&raquo; могут прослушать 10 тысяч из них. Они также могут просмотреть тысячи фотографий конвертов и этикеток для пластинок и биографий исполнителей.</p>\r\n', ''),
 (1766, '2011-06-22 09:10:00', '/upload/image/4844.jpg', '<p>\r\n	23 июня в российский прокат выходит полнометражный анимационный фильм &laquo;Тачки-2&raquo; &ndash; сиквел мультфильма &laquo;Тачки&raquo;, снятого в 2006 году. Его режиссер Джон Лассеттер является одним из основателей студии Pixar, а также ведущим креативным директором студий Pixar и Walt Disney Animation, которые принимали участие в создании &laquo;Тачек-2&raquo;. В послужном списке Лассеттера &ndash; режиссура лент &laquo;Рататуй&raquo;, &laquo;ВАЛЛ-И&raquo; и &laquo;История игрушек: большой побег&raquo;.&nbsp;</p>\r\n', '<p>\r\n	Корреспондент &laquo;Голоса Америки&raquo; Галина Галкина встретилась с Джоном Лассеттером в студии Pixar в Эмеривилле, неподалеку от Сан-Франциско.<br />\r\n	<br />\r\n	Галина Галкина:&nbsp;Расскажите, пожалуйста, о своем детстве.<br />\r\n	<br />\r\n	Джон Лассеттер:&nbsp;Я вырос в Лос-Анджелесе. Мой отец работал менеджером отдела запчастей дилерского центра Chevrolet. В детстве я помогал ему по выходным дням и на летних каникулах. Можно сказать, что я вырос среди машин, и поэтому немудрено, что они сыграли в моей жизни важную роль.&nbsp;<br />\r\n	<br />\r\n	Период моего взросления совпал с периодом расцвета американских автомобилей с мощным двигателем: это были Chevrolet Corvette, Chevrolet Camaro, Chevrolet Chevelle, они считались абсолютно &laquo;крутыми тачками&raquo;, и я был страстно ими увлечен. А моя мама была учителем рисования, и от нее я перенял любовь не только к рисованию, но и вообще к творчеству. Поэтому можно считать, что &laquo;Тачки&raquo; &ndash; это как бы слияние двух увлечений в моей семье.&nbsp;<br />\r\n	<br />\r\n	Г.Г.:&nbsp;А вы любили в детстве смотреть фильмы про машины?<br />\r\n	<br />\r\n	Д.Л.:&nbsp;О, конечно, это и &laquo;Гран-при&raquo;, и еще один, который я смотрел, когда, кажется, был старшеклассником &ndash; &laquo;Исчезающая точка&raquo;. Это был потрясающий фильм, просто замечательный. Да, есть много классных, всеми любимых автомобильных фильмов &ndash; &laquo;Американские граффити&raquo; тоже один из них.&nbsp;<br />\r\n	<br />\r\n	Г.Г.:&nbsp;Где, у кого и с кем вы учились, чтобы реализовать свою мечту стать аниматором?<br />\r\n	<br />\r\n	Д.Л.:&nbsp;Я поступил на только открывшийся тогда факультет мультипликации в калифорнийском Институте искусств, где преподавали мультипликаторы студии Disney. А моими однокурсниками были Брэд Берд и Тим Бартон. За время учебы я дважды выигрывал престижную студенческую награду Student Academy Award, и мой рекорд пока еще никто не побил.<br />\r\n	<br />\r\n	Г.Г.:&nbsp;Вам в свое время пришлось расстаться со студией Disney. Почему?<br />\r\n	<br />\r\n	Д.Л.:&nbsp;Креативными менеджерами в Disney тогда были второсортные аниматоры, которым казалось, что я жажду власти, однако власть меня совсем не привлекала &ndash; мне просто хотелось делать хорошие фильмы. Однажды я попытался обойти менеджера, чтобы пробить перспективный проект, и он сделал все, чтобы меня уволили. Я был в шоке и боялся признаться, что меня уволили &ndash; говорил всем, что сам ушел.&nbsp;<br />\r\n	<br />\r\n	Г.Г.:&nbsp;Когда в 2004-05 году компанией Disney управлял Майкл Эйснер, многим казалось что Disney и ваше детище Pixar разорвут отношения друг с другом. Это как-то отразилось на вашей работе?&nbsp;<br />\r\n	<br />\r\n	Д.Л.:&nbsp;Давайте-ка я начну сначала. В 1991 году мы договорились с Disney о производстве &laquo;Истории игрушек&raquo;. В то время мы были очень заинтересованы в работе с этой легендарной компанией, которая владела не только &laquo;Диснейлендами&raquo;, но и другими тематическими парками, а также была лучшим маркетологом нашего товара. Изначально договор был на 3 картины, но когда Pixar стала общественной компанией, мы решили пересмотреть условия нашего договора.&nbsp;<br />\r\n	<br />\r\n	По условиям второго договора мы все делили с Disney пополам: расходы на производство фильма и доходы от его показа. Шло время, и нашим новым менеджерам просто не терпелось пересмотреть условия второго договора. Мне наше сотрудничество с Disney казалось очень органичным, однако переговоры стали заходить в тупик.. Disney хотела, чтобы мы предоставляли ей персонажи, а они уже занимались всем остальным. Мы же хотели развивать свои персонажи сами.&nbsp;<br />\r\n	<br />\r\n	Мне не хотелось разрыва отношений: наши герои были во всех диснеевских парках, но мне также не хотелось, чтобы Disney развивал наших героев без нас. Когда Боб Игер, который нас очень ценил, заменил Эйснера в совете директоров Disney, то мы еще и подружились с ним. А вскоре договорились о слиянии.<br />\r\n	<br />\r\n	Г.Г.:&nbsp;До того, как Disney приобрела студию Pixar, многие волновались за ее будущее. Зато теперь, когда вы стали креативным директором обеих студий, возникла уверенностью в успехе. Как вам это удалось?&nbsp;<br />\r\n	<br />\r\n	Д.Л.:&nbsp;Чтобы сегодня произвести коммерчески успешный и одновременно развлекательный фильм, киностудии нужно сделать три вещи. Первое: рассказать интересную историю, которая должна приковать зрителей к креслам на время сеанса. Второе: наполнить ее привлекательными и запоминающимися героями, с которыми зрители могут отождествлять себя. Третье: перенести действие в реальный узнаваемый мир. Моя философия очень проста: самое главное &ndash; это качество, а качество всегда начинается с хорошей истории. Все остальное, как говорится, уже дело техники. Что касается продолжения оригинального фильма, то оно должно быть как минимум такого же качества, а зачастую и более высокого, чем оригинал, если вы хотите повторить его успех.<br />\r\n	<br />\r\n	Г.Г.:&nbsp;А как у вас обстоят дела с текучестью кадров? Трудно удерживать людей от перехода из Pixar в Disney и наоборот?<br />\r\n	<br />\r\n	Д.Л.:&nbsp;Вы знаете, Pixar находится под Сан-Франциско, а Disney &ndash; в Лос-Анджелесе. Это час лету на самолете или часов пять-шесть на машине. Существуют также всяческие законодательные установки, связанные, например, с принадлежностью к разным профсоюзам, что люди, которые работают там, не могут работать здесь. Но при этом мы как бы двоюродные братья. Художники Pixar глубоко уважают художников Disney, а те отвечают им взаимностью. Мне было приятно, например, привезти на Pixar &laquo;Рапунцель&raquo; и наблюдать за тем, как мультипликаторы восхищались им. И мы практикуем подобный обмен опытом.&nbsp;<br />\r\n	<br />\r\n	Г.Г.:&nbsp;Не приводит ли такое тесное общение между мультипликаторами к нивелированию разницы между вверенными вам студиями?<br />\r\n	<br />\r\n	Д.Л.:&nbsp;Возможно, это уже происходит &ndash; мне самому кажется, что Disney стал более похожим на Pixar в том смысле, что теперь она стали студией, ведомой кинематографистами. Однако, Disney &ndash; это Disney, а Pixar &ndash; это Pixar, потому что культуру привносят люди, которые делают фильмы. Существуют различные по характеру группы людей. И они на разных студиях не случайно. Диснеевцы, как я уже сказал, привержены наследию Уолта Диснея, а пиксаровцы любят свою студию, которая создавалась практически на их глазах.<br />\r\n	<br />\r\n	Г.Г.:&nbsp;Какую машину вы водите и коллекционируете ли вы машины?<br />\r\n	<br />\r\n	Д.Л.:&nbsp;Вот что я хотел бы сказать: если бы я не был женат на моей красавице жене Нэнси на протяжении двадцати трех лет, то я все еще жил бы в однокомнатной квартире, и у меня был бы склад, полный машин. Это то, на что бы я тратил все свои деньги.&nbsp;<br />\r\n	<br />\r\n	У меня есть пара коллекционных машин. Это Jaguar 1952 года XK120, она необыкновенно изысканна. Мне кажется, что такой прекрасно сконструированной машины больше нет. У меня также есть очень забавная машина &ndash; Messersmith 1964 года. Ее называют машина-пузырь. Это маленький трехколесный автомобиль с таким верхом, почти как у аэроплана.&nbsp;<br />\r\n	<br />\r\n	Что касается машины, которую я вожу, то у меня есть Merсedes-Benz SL55 AMG, такая маленькая спортивная машина, на которой я езжу на работу. Это кабриолет &ndash; ведь мы живем в Калифорнии, в виноградной долине, где так красиво, поэтому мне нравится ездить с открытым верхом. А еще мы ездим на микроавтобусе Chrysler, потому что у нас большая семья &ndash; пятеро мальчиков. Я развожу всех моих детей по школам и кружкам и буду это делать до тех пор, пока каждый из них не получит права и не сядет за руль.<br />\r\n	<br />\r\n	Г.Г.:&nbsp;Ваш фильм открывается автомобильной гонкой в Токио. Вы не планируете провести благотворительную премьеру в Японии?<br />\r\n	<br />\r\n	Д.Л.:&nbsp;В Японии совсем недавно произошла трагедия, поэтому у нас пока нет никаких планов на этот счет, но мы обязательно подумаем об этом.</p>\r\n', '');
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___news_feed`
+--
+
 CREATE TABLE IF NOT EXISTS `bagira___news_feed` (
   `obj_id` int(11) NOT NULL,
   `rss_export` tinyint(1) NOT NULL,
@@ -7110,9 +7959,19 @@ CREATE TABLE IF NOT EXISTS `bagira___news_feed` (
   KEY `bagira___news_feed_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira___news_feed`
+--
+
 INSERT INTO `bagira___news_feed` (`obj_id`, `rss_export`, `image`) VALUES
 (340, 1, ''),
 (1568, 1, '');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___page`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___page` (
   `obj_id` int(11) NOT NULL,
@@ -7120,10 +7979,14 @@ CREATE TABLE IF NOT EXISTS `bagira___page` (
   KEY `bagira___page_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira___page`
+--
+
 INSERT INTO `bagira___page` (`obj_id`, `content`) VALUES
 (60, '<br/>\r\n'),
 (338, '<br/>\r\n'),
-(339, '\r\n\r\n<p>Во всякой книге предисловие есть первая и вместе с тем последняя вещь; оно или служит объяснением цели сочинения, или оправданием и ответом на критики. Но обыкновенно читателям дела нет до нравственной цели и до журнальных нападок, и потому они не читают предисловий. А жаль, что это так, особенно у нас. Наша публика так еще молода и простодушна, что не понимает басни, если в конце ее на находит нравоучения. Она не угадывает шутки, не чувствует иронии; она просто дурно воспитана. Она еще не знает, что в порядочном обществе и в порядочной книге явная брань не может иметь места; что современная образованность изобрела орудие более острое, почти невидимое и тем не менее смертельное, которое, под одеждою лести, наносит неотразимый и верный удар. Наша публика похожа на провинциала, который, подслушав разговор двух дипломатов, принадлежащих к враждебным дворам, остался бы уверен, что каждый из них обманывает свое правительство в пользу взаимной нежнейшей дружбы.</p>\r\n\r\n<p>\r\n<br/></p>\r\n\r\n<p>Эта книга испытала на себе еще недавно несчастную доверчивость некоторых читателей и даже журналов к буквальному значению слов. Иные ужасно обиделись, и не шутя, что им ставят в пример такого безнравственного человека, как Герой Нашего Времени; другие же очень тонко замечали, что сочинитель нарисовал свой портрет и портреты своих знакомых... Старая и жалкая шутка! Но, видно, Русь так уж сотворена, что все в ней обновляется, кроме подобных нелепостей. Самая волшебная из волшебных сказок у нас едва ли избегнет упрека в покушении на оскорбление личности!</p>\r\n\r\n<p>\r\n<br/></p>\r\n\r\n<p>Герой Нашего Времени, милостивые государи мои, точно, портрет, но не одного человека: это портрет, составленный из пороков всего нашего поколения, в полном их развитии. Вы мне опять скажете, что человек не может быть так дурен, а я вам скажу, что ежели вы верили возможности существования всех трагических и романтических злодеев, отчего же вы не веруете в действительность Печорина? Если вы любовались вымыслами гораздо более ужасными и уродливыми, отчего же этот характер, даже как вымысел, не находит у вас пощады? Уж не оттого ли, что в нем больше правды, нежели бы вы того желали?..\r\n<br/></p>\r\n\r\n<p>Вы скажете, что нравственность от этого не выигрывает? Извините. Довольно людей кормили сластями; у них от этого испортился желудок: нужны горькие лекарства, едкие истины. Но не думайте, однако, после этого, чтоб автор этой книги имел когда-нибудь гордую мечту сделаться исправителем людских пороков. Боже его избави от такого невежества! Ему просто было весело рисовать современного человека, каким он его понимает, и к его и вашему несчастью, слишком часто встречал. Будет и того, что болезнь указана, а как ее излечить — это уж бог знает!\r\n<br/></p>'),
+(339, '<p>Во всякой книге предисловие есть первая и вместе с тем последняя вещь; оно или служит объяснением цели сочинения, или оправданием и ответом на критики. Но обыкновенно читателям дела нет до нравственной цели и до журнальных нападок, и потому они не читают предисловий. А жаль, что это так, особенно у нас. Наша публика так еще молода и простодушна, что не понимает басни, если в конце ее на находит нравоучения. Она не угадывает шутки, не чувствует иронии; она просто дурно воспитана. Она еще не знает, что в порядочном обществе и в порядочной книге явная брань не может иметь места; что современная образованность изобрела орудие более острое, почти невидимое и тем не менее смертельное, которое, под одеждою лести, наносит неотразимый и верный удар. Наша публика похожа на провинциала, который, подслушав разговор двух дипломатов, принадлежащих к враждебным дворам, остался бы уверен, что каждый из них обманывает свое правительство в пользу взаимной нежнейшей дружбы.</p><p> </p><p>Эта книга испытала на себе еще недавно несчастную доверчивость некоторых читателей и даже журналов к буквальному значению слов. Иные ужасно обиделись, и не шутя, что им ставят в пример такого безнравственного человека, как Герой Нашего Времени; другие же очень тонко замечали, что сочинитель нарисовал свой портрет и портреты своих знакомых… Старая и жалкая шутка! Но, видно, Русь так уж сотворена, что все в ней обновляется, кроме подобных нелепостей. Самая волшебная из волшебных сказок у нас едва ли избегнет упрека в покушении на оскорбление личности!</p><p> </p><p>Герой Нашего Времени, милостивые государи мои, точно, портрет, но не одного человека: это портрет, составленный из пороков всего нашего поколения, в полном их развитии. Вы мне опять скажете, что человек не может быть так дурен, а я вам скажу, что ежели вы верили возможности существования всех трагических и романтических злодеев, отчего же вы не веруете в действительность Печорина? Если вы любовались вымыслами гораздо более ужасными и уродливыми, отчего же этот характер, даже как вымысел, не находит у вас пощады? Уж не оттого ли, что в нем больше правды, нежели бы вы того желали?..</p><p>Вы скажете, что нравственность от этого не выигрывает? Извините. Довольно людей кормили сластями; у них от этого испортился желудок: нужны горькие лекарства, едкие истины. Но не думайте, однако, после этого, чтоб автор этой книги имел когда-нибудь гордую мечту сделаться исправителем людских пороков. Боже его избави от такого невежества! Ему просто было весело рисовать современного человека, каким он его понимает, и к его и вашему несчастью, слишком часто встречал. Будет и того, что болезнь указана, а как ее излечить — это уж бог знает!</p>'),
 (1569, '<p>Я ехал на перекладных из Тифлиса. Вся поклажа моей тележки состояла из одного небольшого чемодана, который до половины был набит путевыми записками о Грузии. Большая часть из них, к счастию для вас, потеряна, а чемодан с остальными вещами, к счастью для меня, остался цел.Уж солнце начинало прятаться за снеговой хребет, когда я въехал в Койшаурскую долину. Осетин-извозчик неутомимо погонял лошадей, чтоб успеть до ночи взобраться на Койшаурскую гору, и во все горло распевал песни. Славное место эта долина! Со всех сторон горы неприступные, красноватые скалы, обвешанные зеленым плющом и увенчанные купами чинар, желтые обрывы, исчерченные промоинами, а там высоко-высоко золотая бахрома снегов, а внизу Арагва, обнявшись с другой безыменной речкой, шумно вырывающейся из черного, полного мглою ущелья, тянется серебряною нитью и сверкает, как змея своею чешуею. Подъехав к подошве Койшаурской горы, мы остановились возле духана. Тут толпилось шумно десятка два грузин и горцев; поблизости караван верблюдов остановился для ночлега. Я должен был нанять быков, чтоб втащить мою тележку на эту проклятую гору, потому что была уже осень и гололедица, — а эта гора имеет около двух верст длины.Нечего делать, я нанял шесть быков и нескольких осетин. Один из них взвалил себе на плечи мой чемодан, другие стали помогать быкам почти одним криком.За моею тележкою четверка быков тащила другую как ни в чем не бывало, несмотря на то, что она была доверху накладена. Это обстоятельство меня удивило. За нею шел ее хозяин, покуривая из маленькой кабардинской трубочки, обделанной в серебро. На нем был офицерский сюртук без эполет и черкесская мохнатая шапка. Он казался лет пятидесяти; смуглый цвет лица его показывал, что оно давно знакомо с закавказским солнцем, и преждевременно поседевшие усы не соответствовали его твердой походке и бодрому виду. Я подошел к нему и поклонился: он молча отвечал мне на поклон и пустил огромный клуб дыма. — Мы с вами попутчики, кажется? Он молча опять поклонился.<br/>\r\n— Вы, верно, едете в Ставрополь?<br/>\r\n— Так-с точно… с казенными вещами.<br/>\r\n— Скажите, пожалуйста, отчего это вашу тяжелую тележку четыре быка тащат шутя, а мою, пустую, шесть скотов едва подвигают с помощью этих осетин?<br/>\r\nОн лукаво улыбнулся и значительно взглянул на меня.<br/>\r\n— Вы, верно, недавно на Кавказе?<br/>\r\n— С год, — отвечал я.<br/>\r\nОн улыбнулся вторично.<br/>\r\n— А что ж?<br/>\r\n— Да так-с! Ужасные бестии эти азиаты! Вы думаете, они помогают, что кричат? А черт их разберет, что они кричат? Быки-то их понимают; запрягите хоть двадцать, так коли они крикнут по-своему, быки все ни с места… Ужасные плуты! А что с них возьмешь?.. Любят деньги драть с проезжающих… Избаловали мошенников! Увидите, они еще с вас возьмут на водку. Уж я их знаю, меня не проведут!<br/>\r\n— А вы давно здесь служите?<br/>\r\n— Да, я уж здесь служил при Алексее Петровиче 1, — отвечал он, приосанившись. — Когда он приехал на Линию, я был подпоручиком, — прибавил он, — и при нем получил два чина за дела против горцев.<br/>\r\n— А теперь вы?..— Теперь считаюсь в третьем линейном батальоне. А вы, смею спросить?.. Я сказал ему.Разговор этим кончился и мы продолжали молча идти друг подле друга. На вершине горы нашли мы снег. Солнце закатилось, и ночь последовала за днем без промежутка, как это обыкновенно бывает на юге; но благодаря отливу снегов мы легко могли различать дорогу, которая все еще шла в гору, хотя уже не так круто. Я велел положить чемодан свой в тележку, заменить быков лошадьми и в последний раз оглянулся на долину; но густой туман, нахлынувший волнами из ущелий, покрывал ее совершенно, ни единый звук не долетал уже оттуда до нашего слуха. Осетины шумно обступили меня и требовали на водку; но штабс-капитан так грозно на них прикрикнул, что они вмиг разбежались.— Ведь этакий народ! — сказал он, — и хлеба по-русски назвать не умеет, а выучил: «Офицер, дай на водку!» Уж татары по мне лучше: те хоть непьющие... До станции оставалось еще с версту. Кругом было тихо, так тихо, что по жужжанию комара можно было следить за его полетом. Налево чернело глубокое ущелье; за ним и впереди нас темно-синие вершины гор, изрытые морщинами, покрытые слоями снега, рисовались на бледном небосклоне, еще сохранявшем последний отблеск зари. На темном небе начинали мелькать звезды, и странно, мне показалось, что оно гораздо выше, чем у нас на севере. По обеим сторонам дороги торчали голые, черные камни; кой-где из-под снега выглядывали кустарники, но ни один сухой листок не шевелился, и весело было слышать среди этого мертвого сна природы фырканье усталой почтовой тройки и неровное побрякиванье русского колокольчика.— Завтра будет славная погода! — сказал я. Штабс-капитан не отвечал ни слова и указал мне пальцем на высокую гору, поднимавшуюся прямо против нас. — Что ж это? — спросил я.<br/>\r\n— Гуд-гора.<br/>\r\n— Ну так что ж?— Посмотрите, как курится.И в самом деле, Гуд-гора курилась; по бокам ее ползали легкие струйки — облаков, а на вершине лежала черная туча, такая черная, что на темном небе она казалась пятном. Уж мы различали почтовую станцию, кровли окружающих ее саклей, и перед нами мелькали приветные огоньки, когда пахнул сырой, холодный ветер, ущелье загудело и пошел мелкий дождь. Едва успел я накинуть бурку, как повалил снег. Я с благоговением посмотрел на штабс-капитана...— Нам придется здесь ночевать, — сказал он с досадою, — в такую метель через горы не переедешь. Что? были ль обвалы на Крестовой? — спросил он извозчика. — Не было, господин, — отвечал осетин-извозчик, — а висит много, много.За неимением комнаты для проезжающих на станции, нам отвели ночлег в дымной сакле. Я пригласил своего спутника выпить вместе стакан чая, ибо со мной был чугунный чайник — единственная отрада моя в путешествиях по Кавказу. Сакля была прилеплена одним боком к скале; три скользкие, мокрые ступени вели к ее двери. Ощупью вошел я и наткнулся на корову (хлев у этих людей заменяет лакейскую). Я не знал, куда деваться: тут блеют овцы, там ворчит собака. К счастью, в стороне блеснул тусклый свет и помог мне найти другое отверстие наподобие двери. Тут открылась картина довольно занимательная: широкая сакля, которой крыша опиралась на два закопченные столба, была полна народа. Посередине трещал огонек, разложенный на земле, и дым, выталкиваемый обратно ветром из отверстия в крыше, расстилался вокруг такой густой пеленою, что я долго не мог осмотреться; у огня сидели две старухи, множество детей и один худощавый грузин, все в лохмотьях. Нечего было делать, мы приютились у огня, закурили трубки, и скоро чайник зашипел приветливо.— Жалкие люди! — сказал я штабс-капитану, указывая на наших грязных хозяев, которые молча на нас смотрели в каком-то остолбенении. — Преглупый народ! — отвечал он. — Поверите ли? ничего не умеют, не способны ни к какому образованию! Уж по крайней мере наши кабардинцы или чеченцы хотя разбойники, голыши, зато отчаянные башки, а у этих и к оружию никакой охоты нет: порядочного кинжала ни на одном не увидишь. Уж подлинно осетины!— А вы долго были в Чечне? — Да, я лет десять стоял там в крепости с ротою, у Каменного Брода, — знаете?— Слыхал.— Вот, батюшка, надоели нам эти головорезы; нынче, слава богу, смирнее; а бывало, на сто шагов отойдешь за вал, уже где-нибудь косматый дьявол сидит и караулит: чуть зазевался, того и гляди — либо аркан на шее, либо пуля в затылке. А молодцы!.. — А, чай, много с вами бывало приключений? — сказал я, подстрекаемый любопытством.— Как не бывать! бывало… Тут он начал щипать левый ус, повесил голову и призадумался. Мне страх хотелось вытянуть из него какую-нибудь историйку — желание, свойственное всем путешествующим и записывающим людям. Между тем чай поспел; я вытащил из чемодана два походных стаканчика, налил и поставил один перед ним. Он отхлебнул и сказал как будто про себя: «Да, бывало!» Это восклицание подало мне большие надежды. Я знаю, старые кавказцы любят поговорить, порассказать; им так редко это удается: другой лет пять стоит где-нибудь в захолустье с ротой, и целые пять лет ему никто не скажет «здравствуйте» (потому что фельдфебель говорит «здравия желаю»). А поболтать было бы о чем: кругом народ дикий, любопытный; каждый день опасность, случаи бывают чудные, и тут поневоле пожалеешь о том, что у нас так мало записывают. </p>'),
 (1571, '<br />\r\n'),
 (1578, 'В новейшей цифровой фотокамере Samsung ST60 гармонично сочетаются компактность с высокойфункциональностью. Эта стильная камера толщиной всего 16,5мм является самой тонкой в мире камерой в своем классе. Она легко умещается в кармане и ее всегда можно иметь при себе.'),
@@ -7134,11 +7997,21 @@ INSERT INTO `bagira___page` (`obj_id`, `content`) VALUES
 (1586, 'Мы находимся по адресу:\r\n<br/>            Омск,\r\n<br/>улица Фрунзе, дом 52'),
 (1713, '<p><strong>1. Общие положения</strong></p>\r\n\r\n<p>1.1. Настоящее Лицензионное соглашение далее Соглашение является общей офертой и заключается между пользователем программного продукта "Bagira.CMS" далее Пользователь и ООО "Махогани групп" далее Группа.</p>\r\n\r\n<p>1.2. Перед использованием Продукта внимательно ознакомьтесь с условиями данного Соглашения. Если Вы не согласны с условиями данного Соглашения, Вы не можете использовать данный Продукт.</p>\r\n\r\n<p><strong>2. Основные термины настоящего Соглашения</strong></p>\r\n\r\n<p>2.1. Продукт - программа для ЭВМ "Bagira.CMS", предназначенная для управления сайтами.</p>\r\n\r\n<p>2.2. Экземпляр Продукта - копия Продукта "Bagira.CMS", включающая в себя программный код Продукта, а также документацию по использованию Продукта.</p>\r\n\r\n<p>2.4. Модуль Продукта - независимая часть Продукта, созданная Группой, и отвечающая за выполнение определенных функций.</p>\r\n\r\n<p>2.5. Сайт - совокупность одного Экземпляра Продукта, базы данных или любой другой информации.</p>\r\n\r\n<p><strong>3. Предмет Соглашения</strong></p>\r\n\r\n<p>3.1. Предметом настоящего Соглашения является право использования одного Экземпляра Продукта "Bagira.CMS", предоставляемое Пользователю Группой в порядке и на условиях, установленных настоящим Соглашением.</p>\r\n\r\n<p>3.2. Все положения настоящего Соглашения распространяются как на весь продукт в целом, так и на его отдельные Модули. </p>\r\n\r\n<p>3.3. Соглашение не предоставляет право собственности на Продукт и его Модули, а только право использования Экземпляра Продукта и его Модулей в соответствии с условиями настоящего Соглашения.</p>\r\n\r\n<p><strong>4. Авторские права</strong></p>\r\n\r\n<p>4.1. Продукт "Bagira.CMS" является интеллектуальной собственностью ООО "Махогани групп".</p>\r\n\r\n<p>4.2. Всеми правами собственности и авторскими правами на Продукт "Bagira.CMS", включая документацию и исходный текст, обладает ООО "Махогани групп".</p>\r\n\r\n<p>4.3. Продукт защищен законом РФ "О правовой охране программ для электронных вычислительных машин и баз данных", Законом РФ "Об авторском праве и смежных правах", а также международными договорами.</p>\r\n\r\n<p>4.4. В случае нарушения авторских прав предусматривается ответственность в соответствии с действующим законодательством РФ.</p>\r\n\r\n<p><strong>5. Условия использования Продукта и ограничения</strong></p>\r\n\r\n<p>5.1. Настоящее Соглашение предоставляет право установки Экземпляра Продукта.</p>\r\n\r\n<p>5.2. Пользователь не может копировать Продукт, передавать его третьим лицам или распространять Продукт и его Модули с целью получения выгоды без разрешения Группы.</p>\r\n\r\n<p>5.3. Пользователь может изменять, добавлять или удалять любые файлы приобретенного Экземпляра Продукта в соответствии с Российским Законодательством об авторском праве. </p>\r\n\r\n<p>5.4. Запрещается удалять любую информацию об авторских правах.</p>\r\n\r\n<p>5.5. Запрещается любое использование Продукта, противоречащее действующему законодательству РФ.</p>\r\n\r\n<p><strong>6. Ответственность сторон</strong></p>\r\n\r\n<p>6.1. За нарушение условий настоящего Соглашения наступает ответственность, предусмотренная законодательством РФ.</p>\r\n\r\n<p>6.2. Группа&nbsp; и ее поставщики ни при каких обстоятельствах не несут ответственности перед Пользователем Продукта или другими лицами за любые последствия, связанные с использованием или с невозможностью использования продукта, включая любой прямой или косвенный ущерб, любую потерю прибыли, информации или сбережений, штрафные санкции, разглашение или распространение закрытой информации, нарушение неприкосновенности частной жизни, а также прочие убытки имущественного или иного характера даже в случае предварительного уведомления о возможности такого ущерба, или по любому иску третьей стороны.</p>\r\n\r\n<p>6.3. Пользователь соглашается с тем, что использует продукт на свой страх и риск, без каких-либо гарантий со стороны Группы.</p>\r\n\r\n<p><strong>7. Изменение и расторжение Соглашения</strong></p>\r\n\r\n<p>7.1. Группа оставляет за собой право внести изменения в настоящее соглашение в любой момент, опубликовав соответствующие изменения на интернет-сайте по адресу www.bagira-cms.ru за 10 календарных дней до вступления этих изменений в силу.</p>\r\n\r\n<p>7.2. В случае невыполнения пользователем одного из вышеуказанных положений, Группа имеет право в одностороннем порядке расторгнуть настоящее соглашение, уведомив об этом Пользователя.</p>\r\n\r\n<p>7.3. При расторжении соглашения Пользователь обязан прекратить использование Продукта, полностью удалить экземпляр Продукта и уничтожить все копии Продукта и каких-либо его составляющих.</p>\r\n\r\n<p>7.4. Пользователь может расторгнуть данное соглашение в любое время, полностью удалив Экземпляр Продукта, а также все копии Продукта и его компонентов.</p>\r\n\r\n<p>7.5. Настоящее Лицензионное соглашение распространяется также на все новые версии Продукта.</p>\r\n');
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___photo`
+--
+
 CREATE TABLE IF NOT EXISTS `bagira___photo` (
   `obj_id` int(11) NOT NULL,
   `image` varchar(255) NOT NULL,
   KEY `bagira___photo_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
+
+--
+-- Дамп данных таблицы `bagira___photo`
+--
 
 INSERT INTO `bagira___photo` (`obj_id`, `image`) VALUES
 (1597, '/upload/image/52.jpg'),
@@ -7155,6 +8028,12 @@ INSERT INTO `bagira___photo` (`obj_id`, `image`) VALUES
 (1645, '/upload/image/1129505_resized250_1.jpg'),
 (1647, '/upload/image/1129505_resized250_1.jpg');
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___review`
+--
+
 CREATE TABLE IF NOT EXISTS `bagira___review` (
   `obj_id` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -7166,25 +8045,50 @@ CREATE TABLE IF NOT EXISTS `bagira___review` (
   KEY `bagira___user_review_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira___review`
+--
+
 INSERT INTO `bagira___review` (`obj_id`, `email`, `content`, `answer`, `form_id`, `send_answer_to_user`, `user_rate`) VALUES
 (1749, 'test@test.ru', 'В новейшей цифровой фотокамере Samsung ST60 гармонично сочетаются компактность с высокойфункциональностью. Эта стильная камера толщиной всего 16,5мм является самой тонкой в мире камерой в своем классе. Она легко умещается в кармане и ее всегда можно иметь при себе.\r\n', '', 1745, 0, 3),
 (1752, 'test@test.ru', 'А мне нравится. Хорошая мыльница!', '', 1745, 0, 3),
 (1767, 'test@test.ru', 'dfgdfgdfgfgfg', '', 1745, 0, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___section`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___section` (
   `obj_id` int(11) NOT NULL,
   KEY `bagira___section_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___sex`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___sex` (
   `obj_id` int(11) NOT NULL,
   KEY `bagira___sex_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira___sex`
+--
+
 INSERT INTO `bagira___sex` (`obj_id`) VALUES
 (30),
 (31);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___subscribe_msg`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___subscribe_msg` (
   `obj_id` int(11) NOT NULL,
@@ -7198,9 +8102,19 @@ CREATE TABLE IF NOT EXISTS `bagira___subscribe_msg` (
   KEY `bagira___soobshchenie_rassylki_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira___subscribe_msg`
+--
+
 INSERT INTO `bagira___subscribe_msg` (`obj_id`, `file`, `last_subscribe`, `message`, `part_count_awaiting`, `error_part_num`, `error_iteration_num`, `part_count`) VALUES
 (358, '', '2011-02-12 00:00:00', '<br />', 0, 0, 0, 0),
 (1712, '', '2011-08-17 15:18:20', '<pre>\r\n     Ты хочешь знать, что делал я\r\n     На воле? Жил - и жизнь моя\r\n     Без этих трех блаженных дней\r\n     Была б печальней и мрачней\r\n     Бессильной старости твоей.\r\n     Давным-давно задумал я\r\n     Взглянуть на дальние поля,\r\n     Узнать, прекрасна ли земля,\r\n     Узнать, для воли иль тюрьмы\r\n     На этот свет родимся мы.\r\n     И в час ночной, ужасный час,\r\n     Когда гроза пугала вас,\r\n     Когда, столпясь при алтаре,\r\n     Вы ниц лежали на земле,\r\n     Я убежал. О, я как брат\r\n     Обняться с бурей был бы рад!\r\n     Глазами тучи я следил,\r\n     Рукою молнию ловил...\r\n     Скажи мне, что средь этих стен\r\n     Могли бы дать вы мне взамен\r\n     Той дружбы краткой, но живой,\r\n     Меж бурным сердцем и грозой?,.\r\n</pre>\r\n', 0, 0, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___subscribe_user`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___subscribe_user` (
   `obj_id` int(11) NOT NULL,
@@ -7210,11 +8124,21 @@ CREATE TABLE IF NOT EXISTS `bagira___subscribe_user` (
   KEY `bagira___subscribe_user_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira___subscribe_user`
+--
+
 INSERT INTO `bagira___subscribe_user` (`obj_id`, `second_name`, `first_name`, `user_id`) VALUES
 (1537, '', '', 0),
 (1726, '', '', 0),
 (1753, 'Иванов2', 'Иван', 29),
 (1768, 'Иванов', 'Иван', 29);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___subscription`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___subscription` (
   `obj_id` int(11) NOT NULL,
@@ -7231,10 +8155,20 @@ CREATE TABLE IF NOT EXISTS `bagira___subscription` (
   KEY `bagira___subscription_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira___subscription`
+--
+
 INSERT INTO `bagira___subscription` (`obj_id`, `active`, `admin_notice`, `lang`, `domain`, `last_subscribe`, `subject`, `back_email`, `template`, `back_name`, `name_format`) VALUES
 (72, 1, '', 1, 1, '2011-08-17 15:18:20', 'Новости компании', 'test@bagira-cms.ru', 'default', 'Демо-сайт Bagira.CMS', 1),
 (357, 1, '', 2, 1, '0000-00-00 00:00:00', 'news', 'test@test.ru', 'default', '', 0),
 (361, 1, '', 1, 1, '2011-02-20 11:15:58', 'Специальное предложение', 'test@bagira-cms.ru', 'default', 'Демо-сайт Bagira.CMS', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___user`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___user` (
   `obj_id` int(11) NOT NULL,
@@ -7253,9 +8187,19 @@ CREATE TABLE IF NOT EXISTS `bagira___user` (
   KEY `bagira___user_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira___user`
+--
+
 INSERT INTO `bagira___user` (`obj_id`, `email`, `password`, `surname`, `login`, `happy_day`, `active`, `last_visit`, `last_ip`, `avatara`, `error_passw`, `def_modul`, `md5_flag`) VALUES
-(29, 'test@test.ru', '008fcfd9f7404da93192337640c4b081', 'Иванов', 'test@test.ru', '2010-12-30', 1, '2011-08-31 08:56:51', '127.0.0.1', '', 0, 3, ''),
+(29, 'test@test.ru', '008fcfd9f7404da93192337640c4b081', 'Иванов', 'test@test.ru', '2010-12-30', 1, '2012-06-20 12:28:16', '127.0.0.1', '', 0, 3, ''),
 (402, 'asdasd@sdasd.ru', '1cee28c2684abd8d3ccf17f4333bfa3f', 'asfsa', 'asdasd@sdasd.ru', '0000-00-00', 1, '0000-00-00 00:00:00', '', '', 0, 0, '');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___user_group`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___user_group` (
   `obj_id` int(11) NOT NULL,
@@ -7264,11 +8208,21 @@ CREATE TABLE IF NOT EXISTS `bagira___user_group` (
   KEY `bagira___user_group_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira___user_group`
+--
+
 INSERT INTO `bagira___user_group` (`obj_id`, `active`, `notice`) VALUES
 (32, 1, ''),
 (41, 1, ''),
 (43, 1, ''),
 (48, 1, '');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bagira___vote`
+--
 
 CREATE TABLE IF NOT EXISTS `bagira___vote` (
   `obj_id` int(11) NOT NULL,
@@ -7279,40 +8233,74 @@ CREATE TABLE IF NOT EXISTS `bagira___vote` (
   KEY `bagira___vote_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
+--
+-- Дамп данных таблицы `bagira___vote`
+--
+
 INSERT INTO `bagira___vote` (`obj_id`, `publ_date`, `close`, `question`, `multiselect`) VALUES
 (1572, '2011-03-17', 0, 'Сколько времени вы тратите на поиск свободного времени?', 0);
 
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
 
+--
+-- Ограничения внешнего ключа таблицы `bagira_classes`
+--
 ALTER TABLE `bagira_classes`
   ADD CONSTRAINT `bagira_classes_ibfk_1` FOREIGN KEY (`c_parent_id`) REFERENCES `bagira_classes` (`c_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `bagira_classes_ibfk_2` FOREIGN KEY (`c_base_class`) REFERENCES `bagira_classes` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira_comments`
+--
 ALTER TABLE `bagira_comments`
   ADD CONSTRAINT `bagira_comments_fk` FOREIGN KEY (`c_obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `bagira_comments_fk1` FOREIGN KEY (`c_parent_id`) REFERENCES `bagira_comments` (`c_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira_domains`
+--
 ALTER TABLE `bagira_domains`
   ADD CONSTRAINT `bagira_domains_fk` FOREIGN KEY (`d_domain_id`) REFERENCES `bagira_domains` (`d_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `bagira_domains_fk1` FOREIGN KEY (`d_def_lang`) REFERENCES `bagira_langs` (`l_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira_fgroup`
+--
 ALTER TABLE `bagira_fgroup`
   ADD CONSTRAINT `bagira_fgroup_fk1` FOREIGN KEY (`fg_class_id`) REFERENCES `bagira_classes` (`c_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira_fields`
+--
 ALTER TABLE `bagira_fields`
   ADD CONSTRAINT `bagira_fields_fk` FOREIGN KEY (`f_list_id`) REFERENCES `bagira_classes` (`c_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `bagira_fields_fk1` FOREIGN KEY (`f_group_id`) REFERENCES `bagira_fgroup` (`fg_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira_modules_rgu`
+--
 ALTER TABLE `bagira_modules_rgu`
   ADD CONSTRAINT `bagira_modules_rgu_fk` FOREIGN KEY (`rgu_right_id`) REFERENCES `bagira_modules_rights` (`mr_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `bagira_modules_rgu_fk1` FOREIGN KEY (`rgu_obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira_modules_rights`
+--
 ALTER TABLE `bagira_modules_rights`
   ADD CONSTRAINT `bagira_modules_rights_fk` FOREIGN KEY (`mr_mod_id`) REFERENCES `bagira_modules` (`m_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `bagira_modules_rights_fk1` FOREIGN KEY (`mr_parent_id`) REFERENCES `bagira_modules_rights` (`mr_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira_objects`
+--
 ALTER TABLE `bagira_objects`
   ADD CONSTRAINT `bagira_objects_fk1` FOREIGN KEY (`o_class_id`) REFERENCES `bagira_classes` (`c_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira_pages`
+--
 ALTER TABLE `bagira_pages`
   ADD CONSTRAINT `bagira_pages_fk` FOREIGN KEY (`p_obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `bagira_pages_fk1` FOREIGN KEY (`domain_id`) REFERENCES `bagira_domains` (`d_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -7320,124 +8308,242 @@ ALTER TABLE `bagira_pages`
   ADD CONSTRAINT `bagira_pages_fk3` FOREIGN KEY (`lang_id`) REFERENCES `bagira_langs` (`l_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `bagira_pages_fk4` FOREIGN KEY (`template2_id`) REFERENCES `bagira_template` (`t_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira_rels`
+--
 ALTER TABLE `bagira_rels`
   ADD CONSTRAINT `bagira_rels_fk` FOREIGN KEY (`r_parent_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `bagira_rels_fk1` FOREIGN KEY (`r_children_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `bagira_rels_fk2` FOREIGN KEY (`r_field_id`) REFERENCES `bagira_fields` (`f_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira_revue`
+--
 ALTER TABLE `bagira_revue`
   ADD CONSTRAINT `bagira_revue_fk` FOREIGN KEY (`rev_obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira_rights`
+--
 ALTER TABLE `bagira_rights`
   ADD CONSTRAINT `bagira_rights_fk` FOREIGN KEY (`r_obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `bagira_rights_fk1` FOREIGN KEY (`r_group_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira_search_rankings`
+--
 ALTER TABLE `bagira_search_rankings`
   ADD CONSTRAINT `bagira_search_rankings_fk` FOREIGN KEY (`sr_word_id`) REFERENCES `bagira_search_words` (`w_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `bagira_search_rankings_fk1` FOREIGN KEY (`sr_obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `bagira_search_rankings_fk2` FOREIGN KEY (`sr_domain_id`) REFERENCES `bagira_domains` (`d_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `bagira_search_rankings_fk3` FOREIGN KEY (`sr_lang_id`) REFERENCES `bagira_langs` (`l_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira_tags_rels`
+--
 ALTER TABLE `bagira_tags_rels`
   ADD CONSTRAINT `bagira_tags_rels_fk` FOREIGN KEY (`tr_obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `bagira_tags_rels_fk1` FOREIGN KEY (`tr_tag_id`) REFERENCES `bagira_tags` (`t_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira_template`
+--
 ALTER TABLE `bagira_template`
   ADD CONSTRAINT `bagira_template_fk` FOREIGN KEY (`t_lang_id`) REFERENCES `bagira_langs` (`l_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `bagira_template_fk1` FOREIGN KEY (`t_domain_id`) REFERENCES `bagira_domains` (`d_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___answer`
+--
 ALTER TABLE `bagira___answer`
   ADD CONSTRAINT `bagira___answer_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___category`
+--
 ALTER TABLE `bagira___category`
   ADD CONSTRAINT `bagira___category_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___category_faq`
+--
 ALTER TABLE `bagira___category_faq`
   ADD CONSTRAINT `bagira___category_faq_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___category_review`
+--
 ALTER TABLE `bagira___category_review`
   ADD CONSTRAINT `bagira___category_review_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___eshop_delivery_method`
+--
 ALTER TABLE `bagira___eshop_delivery_method`
   ADD CONSTRAINT `bagira___delivery_method_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___eshop_goods`
+--
 ALTER TABLE `bagira___eshop_goods`
   ADD CONSTRAINT `bagira___eshop_goods_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___eshop_order`
+--
 ALTER TABLE `bagira___eshop_order`
   ADD CONSTRAINT `bagira___order_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___eshop_payment_method`
+--
 ALTER TABLE `bagira___eshop_payment_method`
   ADD CONSTRAINT `bagira___eshop_payment_method_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___eshop_status`
+--
 ALTER TABLE `bagira___eshop_status`
   ADD CONSTRAINT `bagira___eshop_status_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___faq`
+--
 ALTER TABLE `bagira___faq`
   ADD CONSTRAINT `bagira___faq_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___feedback`
+--
 ALTER TABLE `bagira___feedback`
   ADD CONSTRAINT `bagira___feedback_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___feedback_form`
+--
 ALTER TABLE `bagira___feedback_form`
   ADD CONSTRAINT `bagira___feedback_form_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___file`
+--
 ALTER TABLE `bagira___file`
   ADD CONSTRAINT `bagira___file_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___gallery`
+--
 ALTER TABLE `bagira___gallery`
   ADD CONSTRAINT `bagira___gallery_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___goods`
+--
 ALTER TABLE `bagira___goods`
   ADD CONSTRAINT `bagira___goods_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___handbook`
+--
 ALTER TABLE `bagira___handbook`
   ADD CONSTRAINT `bagira___handbook_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___list_color`
+--
 ALTER TABLE `bagira___list_color`
   ADD CONSTRAINT `bagira___list_color_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___list_garantiya`
+--
 ALTER TABLE `bagira___list_garantiya`
   ADD CONSTRAINT `bagira___list_garantiya_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___list_strana_proizvoditel`
+--
 ALTER TABLE `bagira___list_strana_proizvoditel`
   ADD CONSTRAINT `bagira___list_strana_proizvoditel_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___news`
+--
 ALTER TABLE `bagira___news`
   ADD CONSTRAINT `bagira___news_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___news_feed`
+--
 ALTER TABLE `bagira___news_feed`
   ADD CONSTRAINT `bagira___news_feed_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___page`
+--
 ALTER TABLE `bagira___page`
   ADD CONSTRAINT `bagira___page_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___photo`
+--
 ALTER TABLE `bagira___photo`
   ADD CONSTRAINT `bagira___photo_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___review`
+--
 ALTER TABLE `bagira___review`
   ADD CONSTRAINT `bagira___user_review_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___section`
+--
 ALTER TABLE `bagira___section`
   ADD CONSTRAINT `bagira___section_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___sex`
+--
 ALTER TABLE `bagira___sex`
   ADD CONSTRAINT `bagira___sex_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___subscribe_msg`
+--
 ALTER TABLE `bagira___subscribe_msg`
   ADD CONSTRAINT `bagira___soobshchenie_rassylki_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___subscribe_user`
+--
 ALTER TABLE `bagira___subscribe_user`
   ADD CONSTRAINT `bagira___subscribe_user_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___subscription`
+--
 ALTER TABLE `bagira___subscription`
   ADD CONSTRAINT `bagira___subscription_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___user`
+--
 ALTER TABLE `bagira___user`
   ADD CONSTRAINT `bagira___user_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___user_group`
+--
 ALTER TABLE `bagira___user_group`
   ADD CONSTRAINT `bagira___user_group_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `bagira___vote`
+--
 ALTER TABLE `bagira___vote`
   ADD CONSTRAINT `bagira___vote_fk_obj_id` FOREIGN KEY (`obj_id`) REFERENCES `bagira_objects` (`o_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

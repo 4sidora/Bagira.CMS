@@ -32,9 +32,7 @@ class __form {
             $obj->admin_sender_address = '{email}';
             $obj->admin_subject = 'Сообщение с сайта {site_name}';
             $obj->admin_template = '
-<p>
-	 Сегодня прекрасный день!
-</p>
+
 <p>
 	 Посетитель сайта {site_name}, воспользовавшись формой обратной связи, отправил следующее сообщение:
 </p>

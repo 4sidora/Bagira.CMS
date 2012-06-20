@@ -12,11 +12,11 @@ $TEMPLATE[1]['frame'] = <<<END
 END;
 
 $TEMPLATE[1]['list_active'] = <<<END
-<td class="selected"><div><a href="%obj.url%" title="%obj.name%">%obj.name%</a><b>&nbsp;</b></div></td>
+<td class="selected"><div><a href="%obj.url%" title="%obj.name%" %obj.target%>%obj.name%</a><b>&nbsp;</b></div></td>
 END;
 
 $TEMPLATE[1]['list'] = <<<END
-<td><a href="%obj.url%" title="%obj.name%">%obj.name%</a><b>&nbsp;</b></td>
+<td><a href="%obj.url%" title="%obj.name%" %obj.target%>%obj.name%</a><b>&nbsp;</b></td>
 END;
 
 
