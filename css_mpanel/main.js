@@ -29,6 +29,17 @@ function onSelectldObjectLinks() {
 
 jQuery(document).ready(function() {
 
+    $("input#file_image, input#file_file").change(function() {
+        if (!$("input#name").val()){
+            var str = $(this).val();
+            str = str.replace(/^.*\\/, '');
+            $("input#name").val(str);
+            $("input#h1").val(str);
+            $("input#title").val(str);
+            $("input#pseudo_url").val(translite(str));
+        }
+    });
+
     if (typeof textlist != "undefined")
         $('#mainlist_change textarea').each(function(){
             $(this).text(textlist[$(this).attr('id') + '_vvv']);
