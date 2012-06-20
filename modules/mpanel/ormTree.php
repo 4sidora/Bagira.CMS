@@ -213,6 +213,7 @@ class ormTree {
 
             } else page::assign('item.active', 1);
             page::assign('obj.ico', $pach.$ico);
+            page::assign('obj.sname', $obj->getClass()->getSName());
 
 
             page::assign('item.name', $obj->name);
