@@ -46,6 +46,18 @@ class coreMacros {
             }
  	}
 
+	/**
+	 * @return stirng - отформатированное число.
+	 * @param float $number - исходное число
+	 * @param int $dec - количество знаков после запятой
+	 * @param string $point - вид разделителя
+	 * @param string $sep - разделитель только для тысячного разряда
+	 * @desc МАКРОС: Форматирует число по разрядности, аналог PHP-функции number_format()
+	 */
+	function capacity($number, $dec = 0, $point = ',', $sep = ' ') {
+
+		return number_format($number, $dec, $point, $sep);
+	}
 
     /**
 	* @return stirng - дата и время в указанном формате.
