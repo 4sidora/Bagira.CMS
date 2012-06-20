@@ -10,18 +10,29 @@ CKEDITOR.editorConfig = function( config )
 
     config.toolbar = 'Bagira';
 
-    config.toolbar_Bagira =
-    [
-        ['Source','-','Undo','Redo'],
-        ['Cut','Copy','Paste','PasteText','PasteFromWord','-','SelectAll','RemoveFormat'],
-        ['Maximize', 'ShowBlocks','Preview','-','About'],
+    config.extraPlugins = 'youtube,MediaEmbed';
+
+    config.skin = 'chris';
+    config.coreStyles_bold = { element : 'b', overrides : 'strong' };
+    config.coreStyles_italic = { element : 'i', overrides : 'em' };
+
+    config.pasteFromWordRemoveFontStyles = true;
+    config.forceEnterMode = true;
+
+    config.toolbar = [
+        { name: 'document', items : [ 'Source','ShowBlocks','Print'] },
+        { name: 'clipboard', items : [ 'Cut','Copy','PasteText','-','Undo','Redo' ] },
+        { name: 'editing', items : [ 'Find','Replace','-','SelectAll' ] },
+        { name: 'links', items : [ 'Link','Unlink' ] },
+        { name: 'insert', items : [ '-','Image','MediaEmbed','Iframe','Flash','Table','Smiley','SpecialChar'] },
+        { name: 'insert', items : ['-','About'] },
+
         '/',
-         ['Format'],
-        ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
-        ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
-        ['JustifyLeft','JustifyCenter','JustifyRight'],
-        ['BidiLtr', 'BidiRtl' ],
-        ['Link','Unlink','Anchor'],
-        ['Image','Table']
+        { name: 'styles', items : [ 'FontSize','Format' ] },    /* ,'Font' */
+        { name: 'paragraph', items : [ '-','Bold','Italic','Underline','Strike'] },
+        { name: 'paragraph', items : [ '-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ] },
+        { name: 'colors', items : [ 'TextColor','BGColor' ] },
+        { name: 'basicstyles', items : [ '-','NumberedList','BulletedList','Subscript','Superscript'] },
+        { name: 'basicstyles', items : [ '-','RemoveFormat'] }
     ];
 }
