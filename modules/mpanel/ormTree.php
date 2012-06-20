@@ -302,7 +302,7 @@ class ormTree {
             page::assign('item.active', 1);
             page::assign('item.name', $this->root_title);
             page::assign('item.notice', '');
-            page::assign('obj.ico', '/css_mpanel/tree/images/file1.gif');
+            page::assign('obj.ico', '/css_mpanel/tree/images/classes/core.png');
             page::assign('obj.url', '');
             page::assign('close', (empty($subm)) ? '' : ' open');
             page::fParse('items', $TEMPLATE['items']);
