@@ -90,6 +90,9 @@ class user {
     	system::log(lang::get('EXIT_USER'), info);
      	session_unset();
 
+		//удаляем куки
+		SetCookie("remember-me","",time() - 3600, "/");
+
      	self::guestCreate();
 
         if ($redirect)
@@ -119,6 +122,9 @@ class user {
                                 self::$obj->email);
 
             system::log(lang::get('ENTER_USER'), info);
+
+			//запоминаем в куки
+			SetCookie("remember-me", system::cookie(), time() + 3600*24*7, "/");
 
             return true;
         }

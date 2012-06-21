@@ -17,6 +17,25 @@ class controller {
             else
                 header("Location: ".$_SERVER["HTTP_REFERER"]);
 
+		//проверяем наличие кукисов если есть авторизуем и делаем редирект
+		if (!empty($_COOKIE["remember-me"]) && user::isGuest()){
+
+			$params = explode('-',$_COOKIE["remember-me"]); //разбиваем строку на 2 параметра
+			if ($params[1] == system::user_ip()) {
+				$user = new ormSelect("user");
+				$user->where(
+					$user->val('active', '=', 1),
+					$user->val('id', '=', $params[0])
+				);
+				$user->limit(1);
+
+				$user = $user->getObject();
+
+				if (user::authHim($user))
+					system::redirect('/');
+			}
+		}
+
         // Если пользователь не админ, показываем форму авторизации
         if (!user::isAdmin())
             $this->showAuthForm();
