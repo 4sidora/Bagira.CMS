@@ -17,7 +17,8 @@ class __change {
 		ui::CheckBox('gzip', 1, reg::getKey('/core/gzip'), lang::get('CONFIG_FORM_FIELD', 9));
         ui::CheckBox('delToTrash', 1, reg::getKey('/core/delToTrash'), lang::get('CONFIG_FORM_FIELD', 12));
         ui::CheckBox('noIE6', 1, reg::getKey('/core/noIE6'), lang::get('CONFIG_FORM_FIELD', 34));
-        
+        ui::CheckBox('noIE7', 1, reg::getKey('/core/noIE7'), lang::get('CONFIG_FORM_FIELD', 35));
+
         ui::loadFile('watermark', reg::getKey('/core/watermark'));
 
         ui::CheckBox('scaleBigJpeg', 1, reg::getKey('/core/scaleBigJpeg'), lang::get('CONFIG_FORM_FIELD', 33));
@@ -75,6 +76,7 @@ class __change {
         reg::setKey('/core/scaleBigJpeg', system::POST('scaleBigJpeg', isBool));
         reg::setKey('/core/sizeBigJpeg', system::POST('sizeBigJpeg', isInt));
         reg::setKey('/core/noIE6', system::POST('noIE6', isBool));
+        reg::setKey('/core/noIE7', system::POST('noIE7', isBool));
 
 
         // Загрузка ватермарка
