@@ -594,16 +594,31 @@ class ormPage extends ormObject {
 
                 if (!$isUpd || empty($val['position'])) {
 
-                    // Определяем позицию при добавлении объекта
-                    $sql = 'SELECT MAX(r_position)
-	                    		FROM <<rels>>, <<pages>>
-			        			WHERE '.$parent_sql.'
-			        				  r_field_id is NULL and
-			        				  r_children_id = p_obj_id and
-			        				  lang_id = "'.languages::curId().'" and
-		       		   				  domain_id = "'.domains::curId().'";';
+					// Определяем позицию при добавлении объекта
+					$parent = new ormSelect('section');
+					$parent->fields('addto');
+					$parent->where('id', '=', $val['parent_id']);
+					$parent->limit(1);
 
-                    $val['position'] = db::q($sql, value) + 1;
+					$parent = $parent->getObject();
+
+					if (!empty($val['parent_id']) && $parent->addto) {
+						$minmax = 'MIN';
+						$pos = -1;
+					} else {
+						$minmax = 'MAX';
+						$pos = 1;
+					}
+
+					$sql = 'SELECT '.$minmax.'(r_position)
+	                	    		FROM <<rels>>, <<pages>>
+			        				WHERE '.$parent_sql.'
+			        					  r_field_id is NULL and
+			        					  r_children_id = p_obj_id and
+			        					  lang_id = "'.languages::curId().'" and
+		       			   				  domain_id = "'.domains::curId().'";';
+
+					$val['position'] = db::q($sql, value) + $pos;
 
                 } else if ($isUpd && !empty($val['position'])) {
 
