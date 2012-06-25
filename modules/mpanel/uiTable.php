@@ -262,11 +262,17 @@ class uiTable extends uiTableFunctions {
 			        $_SESSION['table_'.$this->prefix]['page_num'] = $_POST['page_num'];
 
 			    // Поиск по таблице
-	            if (isset($_POST['table_search']))
+	            if (isset($_POST['table_search'])){
+					$_SESSION['table_'.$this->prefix]['page_num_temp'] = $_SESSION['table_'.$this->prefix]['page_num'];
+					$_SESSION['table_'.$this->prefix]['page_num'] = 1;
+					if ($_POST['table_search'] == '')
+						$_SESSION['table_'.$this->prefix]['page_num'] = $_SESSION['table_'.$this->prefix]['page_num_temp'];
 			        $_SESSION['table_'.$this->prefix]['table_search'] = $_POST['table_search'];
+				}
 
                 // Очистка результатов поиска
                 if (isset($_POST['clear_search'])) {
+					$_SESSION['table_'.$this->prefix]['page_num'] = $_SESSION['table_'.$this->prefix]['page_num_temp'];
 			        $_SESSION['table_'.$this->prefix]['table_search'] = '';
 			        if ($this->isSelection)
 			        	$this->filter->clear();
