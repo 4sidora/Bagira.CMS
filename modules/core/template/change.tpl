@@ -24,9 +24,15 @@ $TEMPLATE['frame'] = <<<END
 	    %delToTrash%
 
 	    <div class="otstup"></div>
+
+		%noDelMiniTexts%
+
+	 	<div class="otstup"></div>
 	 	<div class="otstup"></div>
 
 	   	%noIE6%
+		<div class="otstup"></div>
+	   	%noIE7%
 
 
 	    <div class="otstup"></div>

@@ -18,6 +18,7 @@ class __change {
         ui::CheckBox('delToTrash', 1, reg::getKey('/core/delToTrash'), lang::get('CONFIG_FORM_FIELD', 12));
         ui::CheckBox('noIE6', 1, reg::getKey('/core/noIE6'), lang::get('CONFIG_FORM_FIELD', 34));
         ui::CheckBox('noIE7', 1, reg::getKey('/core/noIE7'), lang::get('CONFIG_FORM_FIELD', 35));
+        ui::CheckBox('noDelMiniTexts', 1, reg::getKey('/core/noDelMiniTexts'), lang::get('CONFIG_FORM_FIELD', 36));
 
         ui::loadFile('watermark', reg::getKey('/core/watermark'));
 
@@ -77,6 +78,7 @@ class __change {
         reg::setKey('/core/sizeBigJpeg', system::POST('sizeBigJpeg', isInt));
         reg::setKey('/core/noIE6', system::POST('noIE6', isBool));
         reg::setKey('/core/noIE7', system::POST('noIE7', isBool));
+        reg::setKey('/core/noDelMiniTexts', system::POST('noDelMiniTexts', isBool));
 
 
         // Загрузка ватермарка
