@@ -234,7 +234,7 @@ class uiTable extends uiTableFunctions {
      		include(MODUL_DIR.'/mpanel/template/'.$templ_name.'.tpl');
 
             // Устанавливаем настройки по умолчанию
-         	$this->prefix = md5(system::url(0).system::url(1));
+         	$this->prefix = md5(system::url(0).system::url(1).((system::url(2) != '') ? system::url(2) : ''));
 
             if (!isset($_SESSION['table_'.$this->prefix])) {
                 $_SESSION['table_'.$this->prefix]['max_count'] = 20;
