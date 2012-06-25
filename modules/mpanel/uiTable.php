@@ -438,6 +438,8 @@ class uiTable extends uiTableFunctions {
 
             $this->count = ($this->isSelection) ? $this->select->getObjectCount() : count($this->data);
 
+			if ($this->count == 0 && $_SESSION['table_'.$this->prefix]['page_num'] != 1)
+				$_SESSION['table_'.$this->prefix]['page_num'] -= 1;
 
             page::assign('table_parent_id', 0);
             
