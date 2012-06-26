@@ -34,6 +34,8 @@ class __minitext {
 
         // Форма редактирования
         $form = new uiMultiForm('change');
+		if (reg::getKey('/core/noDelMiniTexts'))
+			$form->withoutRemoving();
         $form->setRight('minitext_proc');
         $form->setData($texts);
         $form->addColumn('text', lang::get('STRUCTURE_TABLE_FIELD_9'), 700, lang::get('STRUCTURE_TABLE_FIELD_10'));
