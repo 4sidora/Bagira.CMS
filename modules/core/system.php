@@ -98,7 +98,13 @@ class system {
         // Заглушка для IE6
         if(reg::getKey('/core/noIE6') && preg_match( '/msie/i', $_SERVER['HTTP_USER_AGENT']) && !preg_match( '/opera/i', $_SERVER['HTTP_USER_AGENT'])){
         	$val = explode(" ", stristr($_SERVER['HTTP_USER_AGENT'], 'msie'));
-			if ($val[1] == '6.0;') { page::parseIt('/ie6.tpl', false, true); system::stop(); }
+			if ($val[1] == '6.0;') { page::parseIt('/ieDie.tpl', false, true); system::stop(); }
+		}
+
+		// Заглушка для IE7
+		if(reg::getKey('/core/noIE7') && preg_match( '/msie/i', $_SERVER['HTTP_USER_AGENT']) && !preg_match( '/opera/i', $_SERVER['HTTP_USER_AGENT'])){
+			$val = explode(" ", stristr($_SERVER['HTTP_USER_AGENT'], 'msie'));
+			if ($val[1] == '7.0;') { page::parseIt('/ieDie.tpl', false, true); system::stop(); }
 		}
 
         // Оффлайн сообщение
