@@ -595,16 +595,20 @@ class ormPage extends ormObject {
                 if (!$isUpd || empty($val['position'])) {
 
 					// Определяем позицию при добавлении объекта
-					$parent = new ormSelect('section');
-					$parent->fields('addto');
-					$parent->where('id', '=', $val['parent_id']);
-					$parent->limit(1);
-
-					$parent = $parent->getObject();
+					$parent = ormPages::get($val['parent_id']);
 
 					if (!empty($val['parent_id']) && $parent->addto) {
 						$minmax = 'MIN';
 						$pos = -1;
+
+						// Избавляемся от отрицательных позиций
+						db::q('UPDATE <<rels>> r, <<pages>> p
+		             			   SET r.r_position = r.r_position + 1
+		                           WHERE '.$parent_sql.'
+			        				  	 r.r_field_id is NULL and
+			        				  r.r_children_id = p.p_obj_id and
+			        				  p.lang_id = "'.languages::curId().'" and
+		       		   				  p.domain_id = "'.domains::curId().'";');
 					} else {
 						$minmax = 'MAX';
 						$pos = 1;
