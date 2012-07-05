@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: openserver:3306
--- Время создания: Июн 22 2012 г., 12:34
+-- Время создания: Июл 05 2012 г., 15:16
 -- Версия сервера: 5.1.63-community-log
 -- Версия PHP: 5.2.17
 
@@ -258,7 +258,7 @@ CREATE TABLE IF NOT EXISTS `bagira_fields` (
   PRIMARY KEY (`f_id`),
   KEY `f_group_id` (`f_group_id`),
   KEY `f_list_id` (`f_list_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=1685 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=1686 ;
 
 --
 -- Дамп данных таблицы `bagira_fields`
@@ -762,7 +762,8 @@ INSERT INTO `bagira_fields` (`f_id`, `f_group_id`, `f_position`, `f_name`, `f_sn
 (1681, 79, 1, 'Опция прикрепления страниц вниз/вверх', 'addto', 'addto', 50, NULL, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0),
 (1682, 82, 1, 'Опция прикрепления страниц вниз/вверх', 'addto', 'addto', 50, NULL, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0),
 (1683, 84, 1, 'Опция прикрепления страниц вниз/вверх', 'addto', 'addto', 50, NULL, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0),
-(1684, 106, 1, 'Опция прикрепления страниц вниз/вверх', 'addto', 'addto', 50, NULL, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0);
+(1684, 106, 1, 'Опция прикрепления страниц вниз/вверх', 'addto', 'addto', 50, NULL, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0),
+(1685, 51, 5, 'Уникальный хэш пользователя', 'remember_me', '', 10, NULL, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1052,14 +1053,14 @@ CREATE TABLE IF NOT EXISTS `bagira_objects` (
   `o_to_trash` tinyint(1) NOT NULL,
   PRIMARY KEY (`o_id`),
   KEY `o_class_id` (`o_class_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=1796 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=1783 ;
 
 --
 -- Дамп данных таблицы `bagira_objects`
 --
 
 INSERT INTO `bagira_objects` (`o_id`, `o_name`, `o_class_id`, `o_create_date`, `o_change_date`, `o_to_trash`) VALUES
-(29, 'Иван', 34, '2010-07-01 14:22:33', '2012-06-21 18:54:50', 0),
+(29, 'Иван', 34, '2010-07-01 14:22:33', '2012-07-05 18:03:35', 0),
 (30, 'мужчина', 35, '2010-07-01 14:29:47', '2011-06-07 08:22:44', 0),
 (31, 'женщина', 35, '2010-07-01 14:29:57', '2011-06-07 08:22:44', 0),
 (32, 'Администраторы', 33, '2010-07-01 14:30:10', '2012-06-21 10:32:14', 0),
@@ -1328,7 +1329,7 @@ CREATE TABLE IF NOT EXISTS `bagira_register` (
   `r_value` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`r_id`),
   KEY `r_section_id` (`r_section_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=1299 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=1300 ;
 
 --
 -- Дамп данных таблицы `bagira_register`
@@ -1408,7 +1409,8 @@ INSERT INTO `bagira_register` (`r_id`, `r_section_id`, `r_key`, `r_value`) VALUE
 (1295, 1293, 'prefix', 'ru'),
 (1296, 1293, 'name', 'Русский'),
 (1297, 1267, 'text_length', '3000'),
-(1298, 1, 'noIE7', '');
+(1298, 1, 'noIE7', ''),
+(1299, 1, 'noDelMiniTexts', '1');
 
 -- --------------------------------------------------------
 
@@ -1464,7 +1466,7 @@ INSERT INTO `bagira_rels` (`r_field_id`, `r_parent_id`, `r_children_id`, `r_posi
 (NULL, 1570, 1601, 2),
 (NULL, 1601, 1602, 1),
 (NULL, 1601, 1603, 2),
-(NULL, 1568, 1611, 1),
+(NULL, 1568, 1611, 3),
 (NULL, 350, 1612, 4),
 (NULL, NULL, 1624, 13),
 (NULL, 1624, 1625, 1),
@@ -1601,8 +1603,8 @@ INSERT INTO `bagira_rels` (`r_field_id`, `r_parent_id`, `r_children_id`, `r_posi
 (NULL, 1626, 1634, 2),
 (NULL, 340, 1764, 19),
 (NULL, 340, 1765, 20),
-(NULL, 1568, 1766, 2),
-(NULL, 1568, 1763, 3),
+(NULL, 1568, 1766, 4),
+(NULL, 1568, 1763, 5),
 (1654, 1630, 1731, 0),
 (1656, 1630, 1736, 0),
 (1660, 1630, 1738, 0),
@@ -1666,7 +1668,7 @@ CREATE TABLE IF NOT EXISTS `bagira_revue` (
   `rev_ip` varchar(15) NOT NULL,
   PRIMARY KEY (`rev_id`),
   KEY `rev_obj_id` (`rev_obj_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=2490 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=2477 ;
 
 --
 -- Дамп данных таблицы `bagira_revue`
@@ -6278,7 +6280,7 @@ CREATE TABLE IF NOT EXISTS `bagira_search_words` (
   `w_id` int(11) NOT NULL AUTO_INCREMENT,
   `w_name` varchar(50) NOT NULL,
   PRIMARY KEY (`w_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=8308 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=8365 ;
 
 --
 -- Дамп данных таблицы `bagira_search_words`
@@ -8792,7 +8794,64 @@ INSERT INTO `bagira_search_words` (`w_id`, `w_name`) VALUES
 (8304, 'пожалееш'),
 (8305, 'записывают'),
 (8306, 'iop2'),
-(8307, '12313');
+(8307, '12313'),
+(8308, 'asdfasdfasdf'),
+(8309, 'asdfasdf'),
+(8310, 'iasdjfpioajsdfklhasdlkf'),
+(8311, 'asodf'),
+(8312, 'jasdif'),
+(8313, 'jals'),
+(8314, 'dkf'),
+(8315, 'djflkashdiadso'),
+(8316, 'fjaew'),
+(8317, 'ldkfjlaks'),
+(8318, 'djfoiqwe'),
+(8319, 'asd'),
+(8320, 'jkf'),
+(8321, 'asdijfp'),
+(8322, 'oqiwje'),
+(8323, 'rqw'),
+(8324, 'ads'),
+(8325, 'fhiudshp'),
+(8326, 'ifqwej'),
+(8327, 'lksadf'),
+(8328, 'fkjhaslkdj'),
+(8329, 'fas'),
+(8330, 'fasd'),
+(8331, 'fqew'),
+(8332, 'rqwef'),
+(8333, '123123123'),
+(8334, 'dsfqw'),
+(8335, '234'),
+(8336, 'oooooooooooooppppppppaaaaaaa'),
+(8337, '231'),
+(8338, 'фыолв'),
+(8339, 'радлфыв'),
+(8340, 'фыщшв'),
+(8341, 'ощшфыв'),
+(8342, 'флыоврал'),
+(8343, 'фыв'),
+(8344, 'флывоад'),
+(8345, 'лфыв'),
+(8346, 'фывла'),
+(8347, 'лдфыв'),
+(8348, 'фывл'),
+(8349, 'фылв'),
+(8350, 'ролфыв'),
+(8351, 'офлырваол'),
+(8352, 'фоырв'),
+(8353, 'алорфолыв'),
+(8354, 'аы'),
+(8355, 'флоывр'),
+(8356, 'алофыв'),
+(8357, 'алдофыв'),
+(8358, 'алолфыв'),
+(8359, 'флоыв'),
+(8360, 'рлофыв'),
+(8361, '123'),
+(8362, 'ывфаыв'),
+(8363, 'првиет'),
+(8364, 'ысывапыв');
 
 -- --------------------------------------------------------
 
@@ -9653,6 +9712,7 @@ CREATE TABLE IF NOT EXISTS `bagira___user` (
   `error_passw` int(11) NOT NULL,
   `def_modul` int(11) NOT NULL,
   `md5_flag` varchar(255) NOT NULL,
+  `remember_me` varchar(255) NOT NULL,
   KEY `bagira___user_fk_obj_id` (`obj_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
 
@@ -9660,9 +9720,9 @@ CREATE TABLE IF NOT EXISTS `bagira___user` (
 -- Дамп данных таблицы `bagira___user`
 --
 
-INSERT INTO `bagira___user` (`obj_id`, `email`, `password`, `surname`, `login`, `happy_day`, `active`, `last_visit`, `last_ip`, `avatara`, `error_passw`, `def_modul`, `md5_flag`) VALUES
-(29, 'test@test.ru', '008fcfd9f7404da93192337640c4b081', 'Иванов', 'test@test.ru', '2010-12-30', 1, '2012-06-21 18:54:50', '127.0.0.1', '', 0, 3, ''),
-(402, 'asdasd@sdasd.ru', '1cee28c2684abd8d3ccf17f4333bfa3f', 'asfsa', 'asdasd@sdasd.ru', '0000-00-00', 1, '0000-00-00 00:00:00', '', '', 0, 0, '');
+INSERT INTO `bagira___user` (`obj_id`, `email`, `password`, `surname`, `login`, `happy_day`, `active`, `last_visit`, `last_ip`, `avatara`, `error_passw`, `def_modul`, `md5_flag`, `remember_me`) VALUES
+(29, 'test@test.ru', '008fcfd9f7404da93192337640c4b081', 'Иванов', 'test@test.ru', '2010-12-30', 1, '2012-07-05 18:03:35', '127.0.0.1', '', 0, 3, '', '65ae696a7eaa74949cc3e5dc8b28e670'),
+(402, 'asdasd@sdasd.ru', '1cee28c2684abd8d3ccf17f4333bfa3f', 'asfsa', 'asdasd@sdasd.ru', '0000-00-00', 1, '0000-00-00 00:00:00', '', '', 0, 0, '', '');
 
 -- --------------------------------------------------------
 

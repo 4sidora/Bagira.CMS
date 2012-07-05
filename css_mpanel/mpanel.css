@@ -16,8 +16,10 @@ form{ margin:0px; padding:0px;}
 .width_auth b{bottom:-1px; left:-1px; background-position: 0px -5px;}
 .width_auth code{bottom:-1px; right:-1px; background-position:-5px -5px;}
 .width_auth .logo{background:url("../css_mpanel/i/i1.png") left top no-repeat; width:122px; height:43px; margin-bottom:29px; display:block; cursor:pointer; }
-.width_auth input{ width:280px; padding-top:5px; padding-bottom:5px;margin-bottom:24px;}
+.width_auth input[type="text"], .width_auth input[type="password"]{ width:280px; padding-top:5px; padding-bottom:5px;margin-bottom:20px;}
 .width_auth label{ margin-bottom:5px; display:block; }
+.width_auth .remember label, .width_auth .remember input{float: left;}
+.width_auth .remember label{margin-left: 7px; margin-top: -1px;}
 .width_auth a{ color:#376cd7; font:12px Arial, Helvetica, sans-serif;}
 .width_auth a:hover{text-decoration:none;}
 .width_auth strong{font:normal 12px Arial, Helvetica, sans-serif;}

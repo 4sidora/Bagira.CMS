@@ -329,27 +329,6 @@ class system {
     	die;
     }
 
-
-	// Вернет ip пользователя
-	static function user_ip() {
-
-		if (!empty($_SERVER['HTTP_CLIENT_IP']))
-			$ip = $_SERVER['HTTP_CLIENT_IP'];
-		elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
-			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-		else
-			$ip = $_SERVER['REMOTE_ADDR'];
-
-		return $ip;
-	}
-
-	// Вернет идентификатор для кукисов
-	static function cookie() {
-		return user::get('id').'-'.self::user_ip();
-	}
-
-
-
     // +++	Функции для работы с URL`ом	+++
 
     // Возвращает строку псевдо-адреса

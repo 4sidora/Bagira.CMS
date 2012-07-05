@@ -912,7 +912,7 @@ margin-right:25px;
 	*line-height:24px
 	}	
 	
-#autorisation input{
+#autorisation input[type='text'], #autorisation input[type='password']{
 	width:188px;
 	height:28px;
 	margin-bottom:4px;
@@ -931,7 +931,11 @@ margin-right:25px;
 	margin-right:36px;
 	*margin-top:-10px;
 	*width:298px
-	}	
+	}
+
+#autorisation .remember{margin-left: 85px;}
+#autorisation .remember label{float: none; margin-left: 7px;}
+#autorisation .cross{margin-top: -37px;}
 
 #feedback input,#question input{
 	width:188px;

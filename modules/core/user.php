@@ -55,7 +55,29 @@ class user {
             self::$obj->last_ip = $_SERVER['REMOTE_ADDR'];
 
             self::$obj->save();    */
-      	}
+
+		//проверяем наличие кукисов если есть авторизуем и делаем редирект
+      	} else if (isset($_COOKIE['remember_me']) && $_COOKIE['remember_me'] != '') {
+
+			 $params = explode('-',$_COOKIE["remember_me"]); //разбиваем строку по параметрам
+			 /*
+			  * 1 - id
+			  * 2 - ip
+			  * 3 - browser hash
+			  * 4 - random hash
+			  */
+			 $user = ormObjects::get($params[0], 'user');
+				 if ($params[1] == self::getIP(3) && $params[2] == self::browserHash() && $params[3] == $user->remember_me) {
+
+					 self::$obj = $user;
+					 self::getRights();
+					 self::$isAdmin = (count(self::$right) == 0) ? false : true;
+					 self::$isGuest = false;
+
+ 					 self::updateSession($user->id, $user->login, $user->name, $user->email);
+				 }
+
+		}
 
        if (!isset($_SESSION['curUser']['name']))
        		self::guestCreate();
@@ -91,7 +113,7 @@ class user {
      	session_unset();
 
 		//удаляем куки
-		SetCookie("remember-me","",time() - 3600, "/");
+		SetCookie("remember_me","",time() - 3600, "/");
 
      	self::guestCreate();
 
@@ -124,13 +146,53 @@ class user {
             system::log(lang::get('ENTER_USER'), info);
 
 			//запоминаем в куки
-			SetCookie("remember-me", system::cookie(), time() + 3600*24*7, "/");
+			if (!empty($_POST['remember_me'])) {
+				SetCookie("remember_me", user::createCookie(), time() + 3600*24*7, "/","",0,true);
+			}
+
+			//echo "<pre>"; print_r($_COOKIE);
 
             return true;
         }
 
         return false;
     }
+
+	// Вернет ip пользователя
+	// $count - вернет указанное количество байт
+	static function getIP($count = 0) {
+
+		if (!empty($_SERVER['HTTP_CLIENT_IP']))
+			$ip = $_SERVER['HTTP_CLIENT_IP'];
+		elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		else
+			$ip = $_SERVER['REMOTE_ADDR'];
+
+		if (!empty($count)) {
+			$arr = explode('.', $ip);
+			$arr = array_splice($arr,0,$count);
+			$ip = implode('.',$arr);
+		}
+
+		return $ip;
+	}
+
+	// Вернет хэш операционной системы и браузера
+	static function browserHash() {
+		$hash = md5($_SERVER['HTTP_USER_AGENT']);
+		return $hash;
+	}
+
+	// Создает идентификатор кукисов для пользователя
+	static function createCookie() {
+		$remeber_me = md5(self::get('id') + rand(1000, 10000000));
+		$user = ormObjects::get(self::get('id'), 'user');
+		$user->remember_me = $remeber_me;
+		$user->save();
+
+		return self::get('id').'-'.self::getIP(3).'-'.self::browserHash().'-'.$remeber_me;
+	}
 
     // Авторизация
     static function auth($login, $password) {

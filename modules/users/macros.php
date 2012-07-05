@@ -18,25 +18,6 @@ class usersMacros {
 
 	   	if (user::isGuest()) {
 
-		   //проверяем наличие кукисов если есть авторизуем и делаем редирект
-		   if (!empty($_COOKIE["remember-me"])){
-
-			   $params = explode('-',$_COOKIE["remember-me"]); //разбиваем строку на 2 параметра
-			   if ($params[1] == system::user_ip()) {
-				   $user = new ormSelect("user");
-				   $user->where(
-					   $user->val('active', '=', 1),
-					   $user->val('id', '=', $params[0])
-				   );
-				   $user->limit(1);
-
-				   $user = $user->getObject();
-
-				   if (user::authHim($user))
-					   system::redirect(system::getCurrentUrlPN());
-			   }
-		   }
-
             // Формируем список социальных кнопок
             $services = explode('|', $services);
 			$list = '';

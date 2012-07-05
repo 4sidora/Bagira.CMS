@@ -31,6 +31,13 @@ $TEMPLATE['frame'] = <<<END
 
 	<input type="hidden" name="enter"  value="1" />
     <input type="submit" name="tt" style="display:none;"/>
+
+	<div class="remember">
+		<input type="checkbox" checked name="remember_me" value="1" id="remember_me"><label for="remember_me">Запомнить меня</label>
+	</div>
+
+	<div class="clear"></div>
+
 	<button id="send_" tabindex="3" onclick="return enter_auth();" >Вход</button>
 </form>
 

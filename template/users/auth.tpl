@@ -4,7 +4,7 @@ $TEMPLATE['frame_form'] = <<<END
 <div class="enter whiteshader"><span>Войти в личный кабинет</span></div>
 
 <div id="autorisation">
-	<h2>Войти на сайт %social_buttons%</h2><br/>
+	<h2>Войти на сайт %social_buttons%</h2>
 	<a href="#" title="" class="cross"></a>
 
     <form id="authForm" action="%pre_lang%/users/auth" method="post">
@@ -17,6 +17,9 @@ $TEMPLATE['frame_form'] = <<<END
             <label for="auth_password">Пароль</label>
             <input type="password" id="auth_password"  name="passw"/>
              <div class="clear"></div>
+			<div class="remember">
+				<input type="checkbox" checked name="remember_me" value="1" id="remember_me"><label for="remember_me">Запомнить меня</label>
+			</div>
 
     		<button>Войти</button>
 
