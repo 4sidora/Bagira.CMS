@@ -63,7 +63,8 @@ class user {
 			 $params = explode('-',$_COOKIE["remember_me"]);
 
 			 $user = ormObjects::get($params[0], 'user');
-				 if ($params[1] == self::getIP(2) && $params[2] == self::browserHash() && $params[3] == $user->remember_me) {
+			 $confirmIP = (strpos($user->last_ip, self::getIP(2)) === false);
+				 if (!$confirmIP && $params[2] == self::browserHash() && $params[3] == $user->remember_me) {
 
 					 self::$obj = $user;
 					 self::getRights();
