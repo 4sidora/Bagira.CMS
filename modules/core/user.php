@@ -59,12 +59,12 @@ class user {
 		//проверяем наличие кукисов если есть авторизуем
       	} else if (isset($_COOKIE['remember_me']) && $_COOKIE['remember_me'] != '') {
 
-			 //разбиваем строку по параметрам: 0 - id, 1 - ip, 2 - browser hash, 3 - random hash
+			 //разбиваем строку по параметрам: 0 - id, 1 - browser hash, 2 - random hash
 			 $params = explode('-',$_COOKIE["remember_me"]);
 
 			 $user = ormObjects::get($params[0], 'user');
 			 $confirmIP = (strpos($user->last_ip, self::getIP(2)) === false);
-				 if (!$confirmIP && $params[2] == self::browserHash() && $params[3] == $user->remember_me) {
+				 if (!$confirmIP && $params[1] == self::browserHash() && $params[2] == $user->remember_me) {
 
 					 self::$obj = $user;
 					 self::getRights();
@@ -189,7 +189,7 @@ class user {
 		$user->remember_me = $remeber_me;
 		$user->save();
 
-		return self::get('id').'-'.self::getIP(2).'-'.self::browserHash().'-'.$remeber_me;
+		return self::get('id').'-'.self::browserHash().'-'.$remeber_me;
 	}
 
     // Авторизация
