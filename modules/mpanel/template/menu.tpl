@@ -14,7 +14,7 @@ $TEMPLATE['item_no_act'] = <<<END
 END;
 
 $TEMPLATE['item_act'] = <<<END
-<li><span id="selected"><a href="%url%">%name%</a><ins></ins></span></li>
+<li><span id="selected"><a href="%url%">%name%</a></span></li>
 END;
 
 $TEMPLATE['sub_menu'] = <<<END

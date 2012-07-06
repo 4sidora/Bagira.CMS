@@ -108,16 +108,10 @@ form{ margin:0px; padding:0px;}
 .menu a:hover{color: #FBC860}
 
 
-.menu #selected, .menu #selected ins{background:url("../css_mpanel/i/i15.png");overflow:hidden; margin-right:0px;  }
-.menu #selected{position:relative;float:left;height:22px;padding-right:6px;background-position:24px -111px;cursor:pointer;}
-.menu #selected ins{display:block;position:absolute;width:5px;height:100%;right:-1px;margin-left:100%;top:0;background-position:-363px -111px;}
-.menu #selected a{border:0px solid red; text-decoration:none; position:relative;top:11px;margin-top:-0.65em;padding:0 .5em 0 .8em;line-height:1.3;   font:normal 12px/1.2 Arial,sans-serif;color:#232323; text-align:center;}
-
-.menu #selected:hover{  position:relative;float:left;height:22px;padding-right:6px;background-position:24px -133px;cursor:pointer; }
-.menu #selected:hover ins{display:block;position:absolute;width:5px;height:100%;right:-1px;margin-left:100%;top:0;background-position:-363px -133px;}
-
-
-
+.menu #selected{background:#FBC860;overflow:hidden; margin-right:0px; -webkit-border-radius: 2px; -moz-border-radius: 2px;border-radius: 2px; behavior: url(/css_mpanel/pie/PIE.php);}
+.menu #selected{position:relative;float:left;height:22px; background-position:24px -111px;cursor:pointer; padding-right: 1px;}
+.menu #selected a{border:0px solid red; text-decoration:none; padding:4px 8px; line-height:1.3;   font:normal 12px/1.2 Arial,sans-serif;color:#232323; text-align:center;}
+.menu #selected:hover{  position:relative;float:left;height:22px; background-position:24px -133px;cursor:pointer; background:#FDDE86;}
 
 
 .menu .selected{background-color: #fbc860; color:#232323;}
