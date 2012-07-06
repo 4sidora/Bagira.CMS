@@ -239,7 +239,13 @@ function getOffsetRect(elem) {
     var top  = box.top +  scrollTop - clientTop
     var left = box.left + scrollLeft - clientLeft
 
-    return { top: Math.round(top), left: Math.round(left) }
+    var top2=0;
+    while(elem) {
+        top2 = top2 + parseFloat(elem.offsetTop);
+        elem = elem.offsetParent;
+    }
+
+    return { top: Math.round(top2), left: Math.round(left) }
 }
 
 // Перевод русских символов в транслит

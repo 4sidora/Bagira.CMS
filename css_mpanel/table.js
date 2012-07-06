@@ -118,11 +118,11 @@ function setTableEvents(){
 
     	var cur_id = $(this).attr("name");
         var cord = getOffsetRect(this);
-		var addit = ($.browser.version == "7.0") ? 0 : 0;
+		var addit = ($.browser.version == "7.0") ? 2 : 1;
         if ($.browser.version == "8.0") addit = 2;
 
         $("#table_edits").show();
-        $("#table_edits").css("top", cord.top - (129) + addit);
+        $("#table_edits").css("top", cord.top - 129 + addit);
         $("#table_edits").height($(".table_swich").height()-($(".table_swich").height()/4));
         $("#table_edits").css({paddingTop: +($(".table_swich").height()/4)+"px"});
         $("#table_edits").attr("name", cur_id);

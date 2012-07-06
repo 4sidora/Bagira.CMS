@@ -90,13 +90,14 @@ function setTreeEvents(node, tree_obj){
 
                     var cord = getOffsetRect(this);
 
-                    var addit = ($.browser.version == "7.0") ? 1 : 0;
-                    if ($.browser.version == "8.0") addit = 2;
+                    var addit = ($.browser.version == "7.0") ? 2 : 1;
+                    if ($.browser.version == "8.0") addit = 1;
 
 
 
                     $("#edits").show();
                     $("#edits").css("top", cord.top - 122 + addit);
+
                     $("#edits").attr("name", cur_id);
                     $("#edits").attr("rel", parent_id);
                     //    $("#hint").text($.browser.version);

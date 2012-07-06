@@ -8,7 +8,7 @@ $TEMPLATE['account'] = <<<END
 END;
 
 $TEMPLATE['to_site'] = <<<END
-<a href="http://%url_site%">%text.to_site%</a>
+<a href="http://%url_site%" target="_blank">%text.to_site%</a>
 END;
 
 
