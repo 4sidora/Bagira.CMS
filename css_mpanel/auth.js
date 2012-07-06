@@ -39,6 +39,6 @@ function testpass(){
 
 function hideLogin(){  $("#login").css({ color: "#CC6666"});  $("#logintext").css({ color: "#CC6666"} );   }
 function hidePassw(){  $("#passw").css({ color: "#CC6666"});  $("#passwtext").css({ color: "#CC6666"} );  }
-function enter_auth(){  if (wrongL) $('#auth_form').submit(); }
+function enter_auth(){ testlogin(); testpass(); if (wrongL) $('#auth_form').submit(); }
 
 

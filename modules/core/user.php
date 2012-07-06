@@ -56,18 +56,14 @@ class user {
 
             self::$obj->save();    */
 
-		//проверяем наличие кукисов если есть авторизуем и делаем редирект
+		//проверяем наличие кукисов если есть авторизуем
       	} else if (isset($_COOKIE['remember_me']) && $_COOKIE['remember_me'] != '') {
 
-			 $params = explode('-',$_COOKIE["remember_me"]); //разбиваем строку по параметрам
-			 /*
-			  * 1 - id
-			  * 2 - ip
-			  * 3 - browser hash
-			  * 4 - random hash
-			  */
+			 //разбиваем строку по параметрам: 0 - id, 1 - ip, 2 - browser hash, 3 - random hash
+			 $params = explode('-',$_COOKIE["remember_me"]);
+
 			 $user = ormObjects::get($params[0], 'user');
-				 if ($params[1] == self::getIP(3) && $params[2] == self::browserHash() && $params[3] == $user->remember_me) {
+				 if ($params[1] == self::getIP(2) && $params[2] == self::browserHash() && $params[3] == $user->remember_me) {
 
 					 self::$obj = $user;
 					 self::getRights();
@@ -150,16 +146,17 @@ class user {
 				SetCookie("remember_me", user::createCookie(), time() + 3600*24*7, "/","",0,true);
 			}
 
-			//echo "<pre>"; print_r($_COOKIE);
-
             return true;
         }
 
         return false;
     }
 
-	// Вернет ip пользователя
-	// $count - вернет указанное количество байт
+	/**
+	 * @return string
+	 * @param string $count - указываем какое количество байт из IP адреса вернуть
+	 * @desc Возвращает IP адрес пользователя
+	 */
 	static function getIP($count = 0) {
 
 		if (!empty($_SERVER['HTTP_CLIENT_IP']))
@@ -180,18 +177,18 @@ class user {
 
 	// Вернет хэш операционной системы и браузера
 	static function browserHash() {
-		$hash = md5($_SERVER['HTTP_USER_AGENT']);
-		return $hash;
+		return md5($_SERVER['HTTP_USER_AGENT']);
 	}
 
 	// Создает идентификатор кукисов для пользователя
 	static function createCookie() {
 		$remeber_me = md5(self::get('id') + rand(1000, 10000000));
+
 		$user = ormObjects::get(self::get('id'), 'user');
 		$user->remember_me = $remeber_me;
 		$user->save();
 
-		return self::get('id').'-'.self::getIP(3).'-'.self::browserHash().'-'.$remeber_me;
+		return self::get('id').'-'.self::getIP(2).'-'.self::browserHash().'-'.$remeber_me;
 	}
 
     // Авторизация
