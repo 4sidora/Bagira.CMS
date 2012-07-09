@@ -179,7 +179,7 @@ END;
 
 // Не кликабельная ячейка
 $TEMPLATE['item_val_no_click'] = <<<END
-<td class="cell_gamename%first%">%value%</td>
+<td class="cell_gamename%first%" onClick="if ($('#label-%id%').is(':checked')) $('#label-%id%').removeAttr('checked'); else $('#label-%id%').attr('checked','checked');">%value%</td>
 END;
 
 
@@ -238,7 +238,7 @@ END;
 // Выделить объект
 $TEMPLATE['checkbox'] = <<<END
 <td width="25">
-	<i class="pointer2"><input type="checkbox" value="%id%" name="objects[%id%]"></i>
+	<i class="pointer2"><input type="checkbox" value="%id%" id="label-%id%" name="objects[%id%]"></i>
 </td>
 END;
 
