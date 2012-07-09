@@ -153,7 +153,7 @@ END;
 
 // Ячейка со значением объекта    %first%
 $TEMPLATE['item_val'] = <<<END
-<td style="cursor: pointer;" onmousedown="document.location.replace('%url%%parram%');">%value%</td>
+<td style="cursor: pointer;" onClick="document.location.href = '%url%%parram%';">%value%</td>
 END;
 
 // Не кликабельная ячейка
