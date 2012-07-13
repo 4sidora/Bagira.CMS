@@ -182,7 +182,7 @@ function setTableEvents(){
         $(".pointer2 > input:checkbox").attr("checked", checked);
     });
 
-    $("body").on("click", "#table", function() {
+    $("body").on("click", ".pointer2 > input:checkbox", function() {
         var check = true;
         $(".pointer2 > input:checkbox").each(function() {
             if (!$(this).attr("checked")) check = false;

@@ -9,6 +9,9 @@ function addSepar(group_id) {
 		        if (data.error == '0') {
 
 		        	$("#fgroup_"+group_id).append(data.data);
+
+                    doSort();
+
                     $(".fieldsSortable").sortable( "refreshPositions" );
 		        	//setEvents();
 
@@ -217,8 +220,11 @@ function smFieldRVS(f, errorInfo) {
 		        	if (currField == 'new') {
                     	$("#fgroup_"+currGroup).append(data.data);
 
+                        doSort();
+
 		        	} else {
                         $("#field_"+currField).html(data.data);
+
 		        	}
 		        //	$(".fieldsSortable").sortable( "enable" );
                     $(".fieldsSortable").sortable( "refreshPositions" );
@@ -359,6 +365,32 @@ function delGroup(group_id) {
 
 }
 
+function doSort() {
+    // Сортировака списка полей
+    $(".fieldsSortable").sortable({
+        connectWith: '.fieldsSortable',
+        handle: $('.fieldsSortable > li > .titl > a, .fieldsSortable > li > .titl > div'),
+        placeholder: '.fieldsSortable li',
+        stop: function(event, ui) {
+
+            var field_id = $(ui.item).attr("name");
+            var group_id = $(ui.item).parent().attr("name");
+
+            var num = curr_pos = 0;
+            $("#fgroup_"+group_id+" > li").each(function(){
+                num++;
+                if ("field_" + field_id == this.id)
+                    curr_pos = num;
+            });
+
+            $.get($('#admin_url').val()+'/constructor/field_moveto/'+field_id+'/'+curr_pos+'/'+group_id, function(data){
+                if (data != 'ok') alert(LangArray['CONSTR_FIELD_MOVETO_ERROR']);
+                //alert(data);
+            });
+        }
+    });
+}
+
 $(function () {
 
     // Сортировака списка групп
@@ -383,29 +415,7 @@ $(function () {
 			}
 	});
 
-    // Сортировака списка полей
-	$(".fieldsSortable").sortable({
-			connectWith: '.fieldsSortable',
-			handle: $('.fieldsSortable > li > .titl > a, .fieldsSortable > li > .titl > div'),
-			placeholder: '.fieldsSortable li',
-			stop: function(event, ui) {
-
-			    var field_id = $(ui.item).attr("name");
-                var group_id = $(ui.item).parent().attr("name");
-
-                var num = curr_pos = 0;
-                $("#fgroup_"+group_id+" > li").each(function(){
-                	num++;
-                 	if ("field_" + field_id == this.id)
-                 		curr_pos = num;
-                });
-
-			    $.get($('#admin_url').val()+'/constructor/field_moveto/'+field_id+'/'+curr_pos+'/'+group_id, function(data){
-			    	if (data != 'ok') alert(LangArray['CONSTR_FIELD_MOVETO_ERROR']);
-			    	//alert(data);
-			    });
-			}
-	});
+    doSort();
 
 	//setEvents();
 
