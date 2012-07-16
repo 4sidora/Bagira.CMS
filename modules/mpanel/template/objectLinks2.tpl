@@ -35,7 +35,7 @@ $TEMPLATE['tree_frame'] = <<<END
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 	<link href="/css_mpanel/style.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="/css_mpanel/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="/css_mpanel/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="/css_mpanel/jquery.cookie.js"></script>
 	<link type="text/css" href="/css_mpanel/ui-lightness/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
 <script type="text/javascript" src="/css_mpanel/jquery-ui-1.8.13.custom.min.js"></script>
