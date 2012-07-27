@@ -250,11 +250,11 @@ class ormPage extends ormObject {
 
                     if ($link == '/first_subsection'){
 
-
                         $sel = new ormSelect();
                         /// $sel->fields('id');
                         $sel->findInPages();
                         $sel->where('parents', '=', $this->id);
+                        $sel->orderBy('position');
                         $sel->limit(1);
 
                         if ($subsection = $sel->getObject()) {
