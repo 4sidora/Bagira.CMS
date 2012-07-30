@@ -51,7 +51,7 @@ $TEMPLATE['items'] = <<<END
 
     <input type="hidden" id="get_url_%item.id%_%item.parent_id%" value="%obj.url%">
     <div class="active_div">
-         <img name="%item.active%" class="activate" src="%obj.ico%" border=0 data-ico="%obj.sname%">
+         <img name="%item.active%" class="activate" src="%obj.ico%" border=0 data-ico="%obj.active_ico%">
     </div>
     <a href="%main_url%%item.url%" id="aline_%item.id%%item.parent_id%" class="main_link">%item.name% <i>%item.notice%</i></a>
     <div id="aline2_%item.id%%item.parent_id%" class="addit_line%plus_table%"></div>

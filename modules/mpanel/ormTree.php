@@ -215,6 +215,12 @@ class ormTree {
             page::assign('obj.ico', $pach.$ico);
             page::assign('obj.sname', $obj->getClass()->getSName());
 
+			//определяем иконку класса, если нету присваем пустой листик
+			$active_ico = 'classes/'.$obj->getClass()->getSName().'.png';
+			if (!file_exists(ROOT_DIR.$pach.$active_ico))
+				$active_ico = 'file1.gif';
+            page::assign('obj.active_ico', $active_ico);
+
 
             page::assign('item.name', $obj->name);
 

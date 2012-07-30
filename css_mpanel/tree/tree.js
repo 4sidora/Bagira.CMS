@@ -52,10 +52,11 @@ function setTreeEvents(node, tree_obj){
                          	  if (data == 'active' || data == 'no_active') {
 
                          	  	  active = (data == 'active') ? '1' : '0';
-                                  if (active == 0)
+                                  if (active == 0) {
                                       img.src = '/css_mpanel/tree/images/file0.gif';
-                                  else
-                                      img.src = '/css_mpanel/tree/images/classes/' + $(img).attr("data-ico") + '.png';
+                                  } else {
+                                      img.src = '/css_mpanel/tree/images/' + $(img).attr("data-ico");
+                                  }
 
                                   $(img).attr("name", active);
 
