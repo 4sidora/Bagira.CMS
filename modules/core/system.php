@@ -963,10 +963,10 @@ class system {
             // 1. Устанавливаем разрешённые теги. (Все не разрешенные теги считаются запрещенными.)
             $jevix->cfgAllowTags(array('table', 'tr', 'td', 'th', 'p', 'a', 'img', 'i', 'b', 'u', 'em', 'strong', 'nobr',
                                       'li', 'ol', 'ul', 'sup', 'abbr', 'pre', 'acronym', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-                                      'adabracut', 'br', 'code', 'div', 'span', 'object', 'param', 'embed', 'video', 'code', 'iframe'));
+                                      'adabracut', 'br', 'code', 'div', 'span', 'object', 'param', 'embed', 'video', 'code', 'iframe', 'hr'));
 
             // 2. Устанавливаем коротие теги. (не имеющие закрывающего тега)
-            $jevix->cfgSetTagShort(array('br','img', 'param', 'embed'));
+            $jevix->cfgSetTagShort(array('br','img', 'param', 'embed', 'hr'));
 
             // 3. Устанавливаем преформатированные теги. (в них все будет заменятся на HTML сущности)
             $jevix->cfgSetTagPreformatted(array('pre'));
@@ -986,10 +986,10 @@ class system {
             $jevix->cfgAllowTagParams('span', array('class', 'id', 'style'));
             $jevix->cfgAllowTagParams('a', array('title', 'href', 'target', 'class', 'id', 'rel', 'style'));
             $jevix->cfgAllowTagParams('img', array('style', 'src', 'alt' => '#text', 'title', 'align' => array('right', 'left', 'center'), 'width' => '#int', 'height' => '#int', 'hspace' => '#int', 'vspace' => '#int'));
-            $jevix->cfgAllowTagParams('table', array('border', 'class', 'width', 'align', 'valign', 'style'));
-            $jevix->cfgAllowTagParams('tr', array('height', 'class'));
-            $jevix->cfgAllowTagParams('td', array('colspan', 'rowspan', 'class', 'width', 'height', 'align', 'valign'));
-            $jevix->cfgAllowTagParams('th', array('colspan', 'rowspan', 'class', 'width', 'height', 'align', 'valign'));
+            $jevix->cfgAllowTagParams('table', array('border', 'class', 'width', 'align', 'valign', 'style', 'id'));
+            $jevix->cfgAllowTagParams('tr', array('height', 'class', 'style'));
+            $jevix->cfgAllowTagParams('td', array('colspan', 'rowspan', 'class', 'width', 'height', 'align', 'valign', 'style'));
+            $jevix->cfgAllowTagParams('th', array('colspan', 'rowspan', 'class', 'width', 'height', 'align', 'valign', 'style'));
             $jevix->cfgAllowTagParams('object', array('width', 'height'));
             $jevix->cfgAllowTagParams('param', array('name', 'value'));
             $jevix->cfgAllowTagParams('embed', array('src', 'type', 'allowscriptaccess', 'allowfullscreen', 'width', 'height', 'wmode'));
