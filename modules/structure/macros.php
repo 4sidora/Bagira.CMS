@@ -1301,7 +1301,8 @@ class structureMacros {
                 $obj_id = $info['section']->id;
         }
 
-		return ormPages::getPageUrlById($obj_id);
+		$page = new ormPage($obj_id);
+		return $page->__get('_url');
  	}
 
 
