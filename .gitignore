@@ -1,2 +1,5 @@
 /.idea/
 /cache/img/*
+/upload/file/*
+!/cache/img/*.gitignore
+!/upload/file/*.gitignore
