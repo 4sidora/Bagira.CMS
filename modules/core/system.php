@@ -819,6 +819,18 @@ class system {
             ',' => '_',
             '(' => '_',
             ')' => '_',
+            ';' => '_',
+            '#' => '_',
+            '№' => '_',
+            '!' => '_',
+            '$' => '_',
+            '^' => '_',
+            '{' => '_',
+            '}' => '_',
+            '[' => '_',
+            ']' => '_',
+            '`' => '_',
+            '~' => '_',
             '+' => '_');
 
 	    $str = strtr($str, $transtable);
@@ -985,15 +997,15 @@ class system {
             $jevix->cfgAllowTagParams('h6', array('style'));
             $jevix->cfgAllowTagParams('span', array('class', 'id', 'style'));
             $jevix->cfgAllowTagParams('a', array('title', 'href', 'target', 'class', 'id', 'rel', 'style'));
-            $jevix->cfgAllowTagParams('img', array('style', 'src', 'alt' => '#text', 'title', 'align' => array('right', 'left', 'center'), 'width' => '#int', 'height' => '#int', 'hspace' => '#int', 'vspace' => '#int'));
+            $jevix->cfgAllowTagParams('img', array('style', 'src', 'alt' => '#text', 'title', 'align' => array('right', 'left', 'center'), 'width' => '#text', 'height' => '#int', 'hspace' => '#int', 'vspace' => '#int'));
             $jevix->cfgAllowTagParams('table', array('border', 'class', 'width', 'align', 'valign', 'style', 'id'));
             $jevix->cfgAllowTagParams('tr', array('height', 'class', 'style'));
             $jevix->cfgAllowTagParams('td', array('colspan', 'rowspan', 'class', 'width', 'height', 'align', 'valign', 'style'));
             $jevix->cfgAllowTagParams('th', array('colspan', 'rowspan', 'class', 'width', 'height', 'align', 'valign', 'style'));
-            $jevix->cfgAllowTagParams('object', array('width', 'height'));
+            $jevix->cfgAllowTagParams('object', array('width' => '#text', 'height'));
             $jevix->cfgAllowTagParams('param', array('name', 'value'));
-            $jevix->cfgAllowTagParams('embed', array('src', 'type', 'allowscriptaccess', 'allowfullscreen', 'width', 'height', 'wmode'));
-            $jevix->cfgAllowTagParams('iframe', array('src', 'type', 'allowscriptaccess', 'allowfullscreen', 'width', 'height', 'wmode', 'frameborder'));
+            $jevix->cfgAllowTagParams('embed', array('src', 'type', 'allowscriptaccess', 'allowfullscreen', 'width' => '#text', 'height', 'wmode'));
+            $jevix->cfgAllowTagParams('iframe', array('src', 'type', 'allowscriptaccess', 'allowfullscreen', 'width' => '#text', 'height', 'wmode', 'frameborder'));
 
             // 6. Устанавливаем параметры тегов являющиеся обязательными. Без них вырезает тег оставляя содержимое.
             $jevix->cfgSetTagParamsRequired('img', 'src');
