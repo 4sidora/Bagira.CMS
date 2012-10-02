@@ -752,6 +752,8 @@ class ormPage extends ormObject {
 
             if (empty($copyTo)) {
                 $copy->__set('name', $this->__get('name') . lang::get('copy'));
+                $copy->__set('h1', $this->__get('h1') . lang::get('copy'));
+                $copy->__set('title', $this->__get('title') . lang::get('copy'));
                 $copy->__set('pseudo_url', $this->__get('pseudo_url') . rand(1000, 9999));
             } else
                 $copy->__set('pseudo_url', $this->__get('pseudo_url'));
