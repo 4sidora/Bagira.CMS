@@ -623,6 +623,9 @@ class ormPage extends ormObject {
 		       			   				  domain_id = "'.domains::curId().'";';
 
 					$val['position'] = db::q($sql, value) + $pos;
+                    if ($val['position'] < 0) {
+                        $val['position'] = 0;
+                    }
 
                 } else if ($isUpd && !empty($val['position'])) {
 
