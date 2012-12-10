@@ -211,7 +211,7 @@ class page {
         }
 
         if (self::$macros == 1){
-            preg_match_all("/".self::$delimiters[0]."([A-Z]*[a-z]*[0-9]*[_]*)+[.]([A-Z]*[a-z]*[0-9]*[_]*)+[(]([A-Z]*[a-z]*[0-9]*[%@':\-.|<,>*#\/_ ]*)+([%]..+[%])*[)]".self::$delimiters[1]."/", $data, $mass);
+			preg_match_all("/".self::$delimiters[0]."([A-Z]*[a-z]*[0-9]*[_]*)+[.]([A-Z]*[a-z]*[0-9]*[_]*)+[(]([A-Z]*[А-я]*[a-z]*[0-9]*[%@':\-.|<,>*#\/_ ]*)+([%]..+[%])*[)]".self::$delimiters[1]."/u", $data, $mass);
             while (list($key, $val) = each ($mass[0])) {
 
                 $pos = strpos($val, '(');
