@@ -47,6 +47,19 @@ class coreMacros {
  	}
 
 	/**
+	 * @return HTML
+	 * @param int $count - количество
+	 * @param string $one - склонение слова при количестве 1
+	 * @param string $two - склонение слова при количестве 2
+	 * @param string $five - склонение слова при количестве 5
+	 * @desc МАКРОС: Вернет слово в правильном склонении взависимости от количества
+	 */
+	public function decl($count = 0, $one, $two, $five) {
+		$mas = array(1 => $one, 2 => $two, 5 => $five);
+		return $mas[ruNumbers::getDeclNum($count)];
+	}
+
+	/**
 	 * @return stirng - отформатированное число.
 	 * @param float $number - исходное число
 	 * @param int $dec - количество знаков после запятой
