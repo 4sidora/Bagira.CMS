@@ -90,12 +90,12 @@ class coreMacros {
     * @param Int $type - Формат вывода названия месяца от 1 до 3
 	* @desc МАКРОС: Вернет название месяца на русском языке
 	*/
-	function rus_mounth($time = 0, $type = 3) {
+	function rus_month($time = 0, $type = 3) {
 
 		if (is_string($time) && !is_numeric($time))
 	  		$time = strtotime($time);
 
-        $months = lang::get('MOUNTH', $type);
+        $months = lang::get('MONTH', $type);
 
 	  	return $months[date("m", $time)];
 	}
