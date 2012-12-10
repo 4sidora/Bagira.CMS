@@ -637,7 +637,7 @@ ul.objectsLink li a.new {    float:left;    display:block;    margin-left:10px;}
 
 .selectbox_filter{font-size:11px;  color:#000;font-family:Arial, Helvetica, sans-serif;height: 24px; }
 .ui-dialog .ui-dialog-buttonpane button{ padding:3px 10px; }
-.ui-widget-content .ui-icon { display:none !important}
+.ui-widget-content .ui-icon {}
 .ui-dialog .ui-dialog-content { padding-left:20px !important; }
 .redactor textarea { font-family: Arial, Helvetica, sans-serif; padding:3px; }
 a { color: #005AD3 ; text-decoration:underline; font-family: Arial, Helvetica, sans-serif; }
