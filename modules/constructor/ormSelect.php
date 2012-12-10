@@ -25,7 +25,7 @@ class ormSelect {
     private $tables = array();
     private $limit, $orderBy, $orderField, $orderParram, $where;
     private $psevdo = array('id', 'name', 'class_id', 'create_date', 'change_date', 'parents', 'children', 'position');
-    private $deistvo = array('=', '<>', '<', '>', '<=', '>=', 'LIKE', 'BETWEEN', '!=');
+    private $action = array('=', '<>', '<', '>', '<=', '>=', 'LIKE', 'BETWEEN', '!=');
 
     private $cache = array();
     private $classesList = array();
@@ -386,9 +386,9 @@ class ormSelect {
     function where(){
         $arg = func_get_args();
 
-        if (count($arg) == 3 && in_array($arg[1], $this->deistvo))
+        if (count($arg) == 3 && in_array($arg[1], $this->action))
             $tmp = $this->val($arg[0], $arg[1], $arg[2]);
-        else if (count($arg) == 4 && in_array($arg[1], $this->deistvo))
+        else if (count($arg) == 4 && in_array($arg[1], $this->action))
             $tmp = $this->val($arg[0], $arg[1], $arg[2], $arg[3]);
         else if (count($arg) == 4 && ($arg[3] == 'OR' || $arg[3] == 'AND'))
             $tmp = $this->val($arg[0], $arg[1], $arg[2], $arg[3]);
@@ -411,7 +411,7 @@ class ormSelect {
 
         if ($znak == '!=') $znak = '<>';
 
-        if (in_array($znak, $this->deistvo))
+        if (in_array($znak, $this->action))
             if (in_array($field, $this->psevdo)) {
 
                 if ($field == 'parents') {
@@ -620,7 +620,7 @@ class ormSelect {
 
     public function val2($field, $znak, $val, $val2 = ''){
 
-        if (in_array($znak, $this->deistvo))
+        if (in_array($znak, $this->action))
             if (in_array($field, $this->psevdo)) {
 
                 if ($field == 'parents') {
