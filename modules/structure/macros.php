@@ -597,9 +597,15 @@ class structureMacros {
         $sel->where('active', '=', 1);
         //$sel->where('view_in_menu', '=', 1);
 
-        // Дополнительное пользовательское условие
-        if (!empty($field))
-            $sel->where($field, '=', $value);
+		// Дополнительное пользовательское условие
+		if (!empty($field)) {
+			$field = explode(' ', trim($field));
+			$value = explode(' ', trim($value));
+			
+			foreach ($field as $key => $val) {
+				$sel->where($field[$key], '=', $value[$key]);
+			}
+		}
 
         $ind = (is_array($section)) ? $section : $section_id;
 
