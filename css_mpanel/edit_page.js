@@ -33,11 +33,16 @@ jQuery(document).ready(function() {
             if ($("#h1").val() == $("#old_name_val").val())
                 $("#h1").val($(this).val());
 
-            if ($("#pseudo_url").val() == translite($("#old_name_val").val()))
+            if ($("#pseudo_url").val() == translite($("#old_name_val").val()) || $("#pseudo_url").val() == '')
                 $("#pseudo_url").val(translite($(this).val()));
 
             $("#old_name_val").val($(this).val());
 
+	});
+
+	$("body").on("change", "#pseudo_url", function (){
+		if ($("#pseudo_url").val() == '')
+			$("#pseudo_url").val(translite($("#name").val()));
 	});
 
 	$("#showLink, #hideLink").click(function (){
