@@ -99,8 +99,25 @@ class structureMacros {
     	}
  	}
 
+	/**
+	 * @return int $num
+	 * @param int $id - id элемента
+	 * @desc МАКРОС: Вернет какой по счету элемент с учетом удаленных и неактивных элементов
+	 */
 
-
+	public function position($id) {
+		if ($obj = ormPages::get($id)) {
+			$sel = new ormSelect();
+			$sel->findInPages();
+			$sel->where('active', '=', 1);
+			$sel->where('parents', '=', $obj->parent_id);
+			$sel->where('position', '<', $obj->getPosition());
+			$sel->orderBy('position', asc);
+			return $sel->getCount() + 1;
+		} else {
+			return 0;
+		}
+	}
 
     /**
 	* @return HTML
