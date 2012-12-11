@@ -7,6 +7,7 @@ class __db {
 
 		ui::addLeftButton('Системный журнал', 'system_view');
         ui::addLeftButton('Журнал БД', 'db_view');
+        ui::addLeftButton('Очистка журналов', 'delete');
 
         function getState($val) {
         	if ($val == info)
