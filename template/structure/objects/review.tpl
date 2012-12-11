@@ -30,7 +30,7 @@ $TEMPLATE['list_review'] = <<<END
             <p>— оценка покупки</p>
             <div class="datepubl">
                 %core.fdate(d, %obj.create_date%)%
-                %core.rus_mounth(%obj.create_date%, 3)%
+                %core.rus_month(%obj.create_date%, 3)%
                 %core.fdate(Y, %obj.create_date%)%
             </div>
             <div class="clear"></div>

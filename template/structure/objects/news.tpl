@@ -32,7 +32,7 @@ $TEMPLATE['list_news'] = <<<END
      </h4>
      <span>
          %core.fdate(d, %obj.publ_date%)%
-         %core.rus_mounth(%obj.publ_date%)%
+         %core.rus_month(%obj.publ_date%)%
          %core.fdate(Y, %obj.publ_date%)%
      </span>
      <div class="text">
@@ -79,7 +79,7 @@ $TEMPLATE['frame_news'] = <<<END
 
     <div class="date">
         %core.fdate(d, %obj.publ_date%)%
-        %core.rus_mounth(%obj.publ_date%)%
+        %core.rus_month(%obj.publ_date%)%
         %core.fdate(Y, %obj.publ_date%)%
     </div>
 
