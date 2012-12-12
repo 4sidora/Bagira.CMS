@@ -1113,11 +1113,15 @@ class Jevix{
 	}
 
 	protected function punctuation(&$punctuation){
+		
 		if(!($this->curChClass & self::PUNCTUATUON)) return false;
 		$this->saveState();
+		
 		$punctuation = $this->curCh;
 		$this->getCh();
-
+		
+		return true;
+		
 		// Проверяем ... и !!! и ?.. и !..
 		if($punctuation == '.' && $this->curCh == '.'){
 			while($this->curCh == '.') $this->getCh();
