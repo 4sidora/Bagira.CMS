@@ -119,6 +119,37 @@ class structureMacros {
 		}
 	}
 
+	/**
+	 * @return HTML список значений справочника
+	 * @param int $list_id - ID справочника.
+	 * @param string $templ_name - шаблон
+	 * @desc МАКРОС: Возвращает список значений справочника
+	 */
+	public function getList($list_id, $templ_name = 'default') {
+		$templ_file = '/structure/objects/'.$templ_name.'.tpl';
+		$TEMPLATE = page::getTemplate($templ_file);
+
+		if (!is_array($TEMPLATE))
+			return page::errorNotFound('structure.getList', $templ_file);
+
+		$list = '';
+
+		$sel = new ormSelect($list_id);
+		while ($obj = $sel->getObject()) {
+			page::assign('obj.id', $obj->id);
+			page::assign('obj.name', $obj->name);
+			$list .= page::parse($TEMPLATE['list']);
+		}
+
+		page::assign('list', $list);
+		if ($list != '') {
+			$ret = page::parse($TEMPLATE['frame_list']);
+		} else {
+			$ret = page::parse($TEMPLATE['empty']);
+		}
+		return $ret;
+	}
+	
     /**
 	* @return HTML
 	* @param int $section_id - ID страницы сайта, подразделы которой будут выводиться в списке
