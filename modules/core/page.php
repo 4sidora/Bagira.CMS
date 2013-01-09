@@ -31,7 +31,8 @@ class page {
         '/structure',
         '/subscription',
         '/users',
-        '/voting'
+        '/voting',
+		'/booking'
     );
 
 
@@ -44,7 +45,9 @@ class page {
             /\/structure\/[0-9]+\z/i        Точное совпадение, второй параметр число /structure/(число)
      */
     static private $cacheExcludePages =  array(
-        '/\/structure\/map\z/'     
+        '/\/structure\/map\z/',
+		'/\/booking\/schedule/',
+		'/\/booking\/[0-9]+\z/i'
     );
 
 
@@ -70,7 +73,10 @@ class page {
     // Список запрещенных для вызова через Ajax макросов
     // Если список пустой, запрещены все макросы
     static private $tabuMacroses =  array(
-        'core.resize'
+        'core.resize',
+		'booking.bookingList',
+		'booking.form',
+		'booking.printBooking'
     );
 
 

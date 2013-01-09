@@ -12,7 +12,7 @@ class __settings {
         page::assignArray(lang::get('ESHOP_TEXT_SETTINGS'));
 
         ui::CheckBox('only_reg', 1, reg::getKey('/comments/only_reg'), lang::get('COMMENT_ONLY_REG'));
-        ui::CheckBox('show_noactive', 1, reg::getKey('/comments/show_noactive'), lang::get('COMMENT_SHOW_NOACTIVE'));
+        ui::CheckBox('com_moderation', 1, reg::getKey('/comments/com_moderation'), lang::get('COMMENT_COM_MODERATION'));
 
         page::assign('text_length', reg::getKey('/comments/text_length'));
         
@@ -22,7 +22,7 @@ class __settings {
     public function proc() {
 
         reg::setKey('/comments/only_reg', system::POST('only_reg', isBool));
-        reg::setKey('/comments/show_noactive', system::POST('show_noactive', isBool));
+        reg::setKey('/comments/com_moderation', system::POST('com_moderation', isBool));
         reg::setKey('/comments/text_length', system::POST('text_length', isInt));
    
 

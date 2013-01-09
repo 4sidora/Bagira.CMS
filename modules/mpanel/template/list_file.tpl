@@ -6,10 +6,12 @@ $TEMPLATE['frame_add'] = <<<END
 
 jQuery(document).ready(function() {
 
-	$("#addNewFile%sname%").click(function(){
+	$("#addNewFile%sname%").click(function(){
+
 		$("#fileList%sname%").append('<div class="fileListBlockAdd"><input name="file_list_%sname%[]" type="file"><a href="#" onClick="$(this).parent().remove();return false;">удалить</a></div>');
 
-		return false;	});
+		return false;
+	});
 
 });
 

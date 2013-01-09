@@ -63,6 +63,9 @@
     require(MODUL_DIR.'/core/system.php');
 
 
+	
+
+
     // Добавляем основные классы в список автозагрузки
 
     // Базовые классы системы
@@ -124,7 +127,6 @@
     system::addClass('searchRanking', MODUL_DIR.'/search/searchRanking.php');
     system::addClass('tags', MODUL_DIR.'/search/tags.php');
 
-
     // Модуль "Рассылка"
     system::addClass('mailingProcess', MODUL_DIR.'/subscription/mailingProcess.php');
 
@@ -133,15 +135,15 @@
     system::addClass('comments', MODUL_DIR.'/comments/commentsCollection.php');
 
     // Модуль "Интернет-магазин"
-    system::addClass('basket', MODUL_DIR.'/eshop/basket.php');
-    system::addClass('eShopOrder', MODUL_DIR.'/eshop/eShopOrder.php');
+    //system::addClass('basket', MODUL_DIR.'/eshop/basket.php');
+    //system::addClass('eShopOrder', MODUL_DIR.'/eshop/eShopOrder.php');
 
     // Разное
     system::addClass('phpmailer', MODUL_DIR.'/core/phpmailer/class.phpmailer.php');
     system::addClass('SMTP', MODUL_DIR.'/core/phpmailer/class.smtp.php');
     system::addClass('resizer', MODUL_DIR.'/core/resizer.php');
     system::addClass('Jevix', MODUL_DIR.'/core/jevix/jevix.class.php');
-
+	system::addClass('XML', MODUL_DIR.'/core/xml.class.php');
 
 
 

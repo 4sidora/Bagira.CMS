@@ -1,6 +1,6 @@
 Bagira.CMS Copyright 2011-2012
 
-Cистема управления сайтом Bagira.CMS v1.1.8 beta от 19.02.2012
+Cистема управления сайтом Bagira.CMS v1.1.9 beta от 13.12.2012
 
 Инструкция по установке
 http://www.help-dev.bagira-cms.ru/setup

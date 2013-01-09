@@ -223,6 +223,45 @@ class ormClass extends innerErrorList {
         $this->base_class = system::checkVar($value, isInt);
     }
 
+	/**
+	 * @return void
+	 * @param int $value - id шаблона, который нужно установить
+	 * @param int $type - Тип шаблона. 0 - шаблон страницы, 1 - шаблон содержимого
+	 * @desc Устанавливает шаблоны по умолчанию для класса с учетом текущего домена и языка
+	 */
+	public function setDefTemplate($value, $type = 0){
+		if (system::checkVar($value, isInt) || $value == 0) {
+			$tpl = db::q('SELECT t_id
+				   FROM <<template>>, <<template_def>> 
+				   WHERE t_id = td_template_id AND td_class_id = '.$this->id.' AND t_type = '.$type.' AND t_lang_id = '.languages::curId().' AND t_domain_id = '.domains::curId().' 
+				   LIMIT 1', record);
+			
+			if ($tpl['t_id'] != '') {
+				db::q('DELETE FROM <<template_def>> 
+					   WHERE td_template_id = '.$tpl['t_id'].' AND td_class_id = '.$this->id);
+			}
+			
+			if ($value != 0) {
+				db::q('INSERT INTO <<template_def>> (td_class_id, td_template_id) VALUES ('.$this->id.', '.$value.')');	
+			}
+		}
+	}
+
+	/**
+	 * @return int ID шаблона
+	 * @param int $type - Тип шаблона. 0 - шаблон страницы, 1 - шаблон содержимого
+	 * @desc Возвращает id стандартного шаблона для класса с учетом текущего домена и языка, 0 - шаблон не выбран
+	 */
+	public function getDefTemplate($type = 0){
+
+		$id = db::q('SELECT t_id
+			   FROM <<template>>, <<template_def>> 
+			   WHERE t_id = td_template_id AND td_class_id = '.$this->id.' AND t_type = '.$type.' AND t_lang_id = '.languages::curId().' AND t_domain_id = '.domains::curId().' 
+			   LIMIT 1', value);
+
+		return $id != '' ? $id : 0;
+	}
+
     /**
      * @return string Название объекта
      * @param integer $num - Номер словоформы. Если не указывать вернет все склонения сразу.

@@ -8,8 +8,9 @@ class __delete {
 		@fclose ($file);
 
 		db::q('DELETE FROM <<revue>>');
-		
-		system::redirect('/jornal');
+
+		echo 'delete';
+		system::stop();
 	}
 	
 }

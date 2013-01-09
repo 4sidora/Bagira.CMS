@@ -26,7 +26,7 @@ class commentsMacros {
                 return page::errorNotFound('comments.count', $templ_file);
 
             // Получаем список комментариев
-            $count = comments::getAllCount($page_id, !reg::getKey('/comments/show_noactive'));
+            $count = comments::getAllCount($page_id);
 
             page::assign('obj_id', $page_id);
             page::assign('count', $count);

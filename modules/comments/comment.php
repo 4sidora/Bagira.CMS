@@ -229,7 +229,7 @@ class comment extends innerErrorList  {
                 return $this->changeObject();
 
             } else {
-                
+                $this->setActive(!reg::getKey('/comments/com_moderation'));
                 return $this->createObject();    
             }
         }

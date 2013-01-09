@@ -53,7 +53,8 @@ class __subscribe {
  	}
 
 
- 	private function templList($name, $value, $size = 420) {
+ 	private function templList($name, $value, $size = 420) {
+
  		$array = ARRAY();
         $old_file = '';
         $patch = TEMPL_DIR.'/subscription/mails';

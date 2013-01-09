@@ -434,3 +434,21 @@ function str_replace(search, replace, subject) {
 	return subject.split(search).join(replace);
 }
 
+function clearJornal() {
+
+	ShowMessage(
+		'Вы уверенны что хотите очистить журналы?',
+		'<b>Внимание!</b> после удаления, возможности восстановления журналов у вас не будет!',
+		{
+			'Отмена': function() {
+				$(this).dialog('close');
+			},
+			'Очистить корзину': function() {
+				$.get($('#admin_url').val()+'/jornal/delete', function(data){
+					if (data == 'delete') reloadTable();
+				});
+				$(this).dialog('close');
+			}
+		}
+	);
+}

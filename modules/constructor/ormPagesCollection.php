@@ -703,6 +703,9 @@ class ormPages {
             if (!$page['in_index'])
             	$text .= 'Disallow: '.self::getPageUrlById($page['o_id']).'/'.Chr(13);
 
+		$text .= 'Disallow: /booking'.Chr(13);
+		$text .= 'Allow: /booking/schedule'.Chr(13);
+
         $text .= 'Host: www.'.domains::curDomain()->getName().Chr(13);
         $text .= 'Sitemap: http://'.domains::curDomain()->getName().'/sitemap.xml'.Chr(13);
 

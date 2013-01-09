@@ -39,8 +39,8 @@ $TEMPLATE['frame_account'] = <<<END
 
     %avatara_block%
 
-<span style="float:left;">
-    <a href="%pre_lang%/users/edit" class="user">%user_name% %user_surname%</a>  <br/>
+<span style="float:left; max-width: 120px;">
+    <a href="%pre_lang%/users/edit" class="user">%user_name% %user_surname%</a>  <br/> <br/>
     <a onclick="document.auth_form.submit()" class="exit">выход</a>
 </span>
 

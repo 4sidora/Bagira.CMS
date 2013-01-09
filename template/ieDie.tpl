@@ -1,12 +1,12 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<title>Internet Explorer 6</title>
+<title>Internet Explorer</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="description" content="Internet Explorer 6">
-<meta name="keywords" content="Internet Explorer 6">
-<link rel="stylesheet" type="text/css" href="/css_js/styleIE6.css">
-<link rel="SHORTCUT ICON" href="img/favicon.ico">
+<meta name="description" content="Internet Explorer">
+<meta name="keywords" content="Internet Explorer">
+<link rel="stylesheet" type="text/css" href="/css_mpanel/styleIEDie.css">
+<link rel="SHORTCUT ICON" href="/favicon.ico">
 </head>
 <body>
 <div id="header">
@@ -14,8 +14,8 @@
 </div>
 <div id="main">
   <div class="content">
-    <h1>ВНИМАНИЕ! Вы используете устаревший браузер Internet Explorer 6</h1>
-    <p>Данный сайт построен на передовых, современных технологиях и не поддерживает Internet Explorer 6-ой версии.</p>
+    <h1>ВНИМАНИЕ! Вы используете устаревший браузер Internet Explorer</h1>
+    <p>Данный сайт построен на передовых, современных технологиях и не поддерживает Internet Explorer старых версий.</p>
 
 	<p>Настоятельно Вам рекомендуем выбрать и установить любой из современных браузеров. Это бесплатно и займет всего несколько минут.</p>
 
@@ -42,19 +42,19 @@
     </table>
     <br>
     <br>
-    <h2>Почему нужно поменять браузер IE6 на другой?</h2>
-    <p>Браузер Internet Explorer 6 является не просто браузером старой версии, а устаревшим браузером, браузером старого поколения. Он не может предоставить все возможности, которые могут предоставить современные браузеры, а скорость его работы в несколько раз ниже! Internet Explorer 6 не способен корректно отображать большинство сайтов.</p>
+    <h2>Почему нужно поменять устаревший браузер Internet Explorer на другой?</h2>
+    <p>Устаревшие версии бразуера Internet Explorer являются браузерами старого поколения. Они не могут предоставить все возможности, которые могут предоставить современные браузеры, а скорость их работы в несколько раз ниже! Internet Explorer старых версий не способен корректно отображать большинство сайтов.</p>
     <p>Если по каким либо причинам Вы не имеете доступа к возможности установки программ, то рекомендуем воспользоваться "portable" версиями браузеров. Они не требуют инсталляции на компьютер и работают с любого диска или вашей флешки: <a href="http://portableapps.com/apps/internet/firefox_portable" target="_blank">Mozilla Firefox</a> или <a href="http://portableapps.com/apps/internet/google_chrome_portable" target="_blank">Google Chrome</a>.</p>
     <br>
     <table width="100%" border="0" cellpadding="0" cellspacing="0">
       <tr>
         <td id="td1"><h3>Безопасность </h3>
-          Использование IE6 потенциально опасно, так как именно через него доступ в Ваш компьютер имеют вирусы и мошенники.</td>
+          Использование старых версий Internet Explorer потенциально опасно, так как именно через него доступ в Ваш компьютер имеют вирусы и мошенники.</td>
         <td>&nbsp;</td>
         <td id="td2"><h3>Только факты</h3>
           IE6 был выпущен в 2001 году!<br>
           Позже были созданы версии<br>
-          7 и 8, вскоре ожидается следующая версия Internet Explorer.</td>
+          7 и 8, на данный момент новыми являются 9 и 10 версии Internet Explorer.</td>
         <td>&nbsp;</td>
         <td id="td3"><h3>Microsoft</h3>
           Microsoft, разработчик

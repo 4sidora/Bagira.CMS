@@ -87,6 +87,20 @@ $TEMPLATE['page_fields'] = <<<END
  		<label for="class_list" class="dotted" title="%text.11%"><b></b>%text.9%</label>
    		%class_list%
  	</div>
+
+	<div class="fieldBox">
+		<label for="template_list1" class="dotted" title="%text.13%"><b></b>%text.12%</label>
+		%template_list1%
+	</div>
+
+	<div class="fieldBox">
+		<label for="template_list2" class="dotted" title="%text.15%"><b></b>%text.14%</label>
+		%template_list2%
+	</div>
+
+		
+
+		
 END;
 
 $TEMPLATE['user_fields'] = <<<END

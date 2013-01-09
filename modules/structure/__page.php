@@ -21,7 +21,7 @@ class __page {
 	public function upd() {
 
         // Проверяем наличие шаблонов
-        $templs = templates::getByDestination();
+        $templs = templates::getByDestination(0, true);
         if (empty($templs)) {
         	ui::MessageBox(lang::get('STRUCTURE_TEMPL_NOT_FOUND'), lang::get('STRUCTURE_TEMPL_NOT_FOUND2'));
         	system::redirect('/structure/settings#tabs-page_tpl');
@@ -81,8 +81,12 @@ class __page {
             // Шаблоны
             $parent_id = ($obj->issetParents()) ? $obj->getParentId() : 0;
             $templ = templates::getPopularForSection($parent_id);
-            $obj->template_id = $templ[0];
-            $obj->template2_id = $templ[1];
+			
+			$def_templ_1 = $obj->getClass()->getDefTemplate(0);
+			$def_templ_2 = $obj->getClass()->getDefTemplate(1);
+
+			$obj->template_id = $def_templ_1 != 0 ? $def_templ_1 : $templ[0];
+			$obj->template2_id = $def_templ_2 != 0 ? $def_templ_2 : $templ[1];
 
             $parent_id = system::url(2);
 
@@ -150,7 +154,7 @@ class __page {
         $form->addField('param', 9, '', lang::get('STRUCTURE_TEMPLATE'), $this->getTemplateBox('template_id', $templs, $obj->template_id));
 
         // Выбор шаблона оформления объектов
-        $form->addField('param', 10, '', lang::get('STRUCTURE_TEMPLATE2'), $this->getTemplateBox('template2_id', templates::getByDestination(1), $obj->template2_id, 1));
+        $form->addField('param', 10, '', lang::get('STRUCTURE_TEMPLATE2'), $this->getTemplateBox('template2_id', templates::getByDestination(1, true), $obj->template2_id, 1));
 
         // Выводим ID и URL страницы
         $this->getPageInfo($obj, $form);

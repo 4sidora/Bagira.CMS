@@ -18,7 +18,7 @@ class reg {
 
             if (!(self::$keys = cache::get('global-settings'))) {
 
-                $sql = 'SELECT SQL_CACHE r_id id, r_section_id section, r_key name, r_value value FROM <<register>>;';
+                $sql = 'SELECT SQL_CACHE r_id id, r_section_id section, r_key name, r_value value, r_description description FROM <<register>>;';
                 self::$keys = db::q($sql, records);
 
                 if (db::issetError()) die;
@@ -36,21 +36,29 @@ class reg {
     }
 
     // Изменяем существующий ключ
-    private static function updKey($id, $value) {
+    private static function updKey($id, $value, $desc = '') {
 
-       db::q('UPDATE <<register>> SET r_value="'.$value.'" WHERE r_id="'.$id.'"');
+//		if ($desc != '') {
+			db::q('UPDATE <<register>> SET r_value="'.$value.'", r_description="'.$desc.'" WHERE r_id="'.$id.'"');
+//		} else {
+//			db::q('UPDATE <<register>> SET r_value="'.$value.'" WHERE r_id="'.$id.'"');
+//		}
 
        $num = self::findInMas($id);
-       if ($num !== false)
-       	self::$keys[$num]['value'] = $value;
+       if ($num !== false) {
+		   self::$keys[$num]['value'] = $value;
+		   self::$keys[$num]['description'] = $desc;
+	   }
+       	
 
     }
 
     // Добавляем новый ключ
-    private static function newKey($name, $value, $section) {
-
+    private static function newKey($name, $value, $section, $desc = '') {
+		
        $sql = 'INSERT INTO <<register>>
        	   		 SET r_section_id="'.$section.'",
+       	   	   		 r_description="'.$desc.'",
        	   	   		 r_key="'.$name.'",
        	   	   		 r_value="'.$value.'";';
 
@@ -65,6 +73,7 @@ class reg {
 
 	       $elem['id'] = $id;
 	       $elem['section'] = $section;
+	       $elem['description'] = $desc;
 	       $elem['name'] = $name;
 	       $elem['value'] = $value;
 	       self::$keys[] = $elem;
@@ -188,7 +197,7 @@ class reg {
 	* @param string $value - Записываемое значение
 	* @desc Изменение значения ключа. Если ключ не существует, он будет создан.
 	*/
-    static function setKey($key, $value = '') {
+    static function setKey($key, $value = '', $desc = '') {
 
         self::init();
 
@@ -202,7 +211,7 @@ class reg {
         if ($keyID['state'] === true) {
 
         	// Изменяем ключ
-        	self::updKey($keyID['id'], $value);
+        	self::updKey($keyID['id'], $value, $desc);
         	return true;
 
         } else {
@@ -214,7 +223,7 @@ class reg {
              if ($sect !== false) {
               // echo $way[$i].'|'.$val.'|'.$sect.'<br>';
               	$val = (count($way)-1 == $i) ? $value : '';
-              	$sect = self::newKey($way[$i], $val, $sect);
+              	$sect = self::newKey($way[$i], $val, $sect, $desc);
              }
 
         	return true;
@@ -243,7 +252,7 @@ class reg {
 		 )
 
 	*/
-    static function addToList($key, $value = '') {
+    static function addToList($key, $value = '', $desc = '') {
 
         self::init();
 
@@ -259,7 +268,8 @@ class reg {
              if ($sect !== false) {
              	$w = (count($way) == $i) ? $way[$i] : 'auto_id';
               	$val = (count($way)-1 == $i) ? $value : '';
-              	$sect = self::newKey($w, $val, $sect);
+				$desc = (count($way)-1 == $i) ? $desc : '';
+              	$sect = self::newKey($w, $val, $sect, $desc);
              }
 
         	return true;
@@ -324,6 +334,7 @@ class reg {
                     if ($with_id)
                     	$list[] = array(
 	                    	'id' => self::$keys[$i]['id'],
+	                    	'description' => self::$keys[$i]['description'],
 	                    	'name' => self::$keys[$i]['name'],
 	                    	'value' => self::$keys[$i]['value']
                     	);

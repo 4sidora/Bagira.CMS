@@ -9,7 +9,7 @@ $TEMPLATE['frame'] = <<<END
         %only_reg%
            <br /><br />
 
-        %show_noactive%
+        %com_moderation%
 
         <br /><br />
         Максимальная длинна комментария <input class="input" type="text" name="text_length" id="text_length" value="%text_length%" style="width:50px;"> символов.

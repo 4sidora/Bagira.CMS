@@ -2,7 +2,8 @@
 
 class __list {
 
-    public function __construct() {    	ui::checkClasses('feedback', 'feedback_form');
+    public function __construct() {
+    	ui::checkClasses('feedback', 'feedback_form');
     }
 
     // вывод списка

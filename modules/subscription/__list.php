@@ -9,7 +9,8 @@ class __list {
     // Основная страница модуля
 	public function defAction() {
 
-        function getSubscribersCount($id, $obj) {        	$sel = new ormSelect('subscribe_user');
+        function getSubscribersCount($id, $obj) {
+        	$sel = new ormSelect('subscribe_user');
        	 	$sel->where('parents', '=', $id);
        	 	return $sel->getCount();
         }

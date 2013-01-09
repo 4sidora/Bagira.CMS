@@ -666,6 +666,9 @@ class user {
             $obj->social_identity = $user_info['identity'];
             $obj->social_type = $user_info['social_type'];
 
+			$max_tickets = reg::getKey('/booking/max_tickets');
+			$obj->place_limit = ($max_tickets == '' || $max_tickets == 0) ? 6 : $max_tickets;
+
             if (!empty($user_info['photo']))
                 $obj->avatara = $user_info['photo'];
 

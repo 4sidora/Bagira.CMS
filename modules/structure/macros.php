@@ -100,6 +100,44 @@ class structureMacros {
  	}
 
 	/**
+	 * @return HTML
+	 * @param int $page_id - ID страницы, из которой будет браться ссылка на видео
+	 * @param string $field - Системное имя поля в котором лежит ссылка на видео
+	 * @param string $templ_name - шаблон оформления в котором лежит оформление для встраиваемого видео
+	 * @desc МАКРОС: Вернет IFrame с видео, взависимости от видеохостинга
+	 */
+	
+	function video($page_id, $field = 'video', $templ_name = '_video_iframes') {
+		$templ_file = '/structure/objects/'.$templ_name.'.tpl';
+		$TEMPLATE = page::getTemplate($templ_file);
+
+		if (!is_array($TEMPLATE))
+			return page::errorNotFound(__CLASS__.'.'.__FUNCTION__, $templ_file);
+		
+		if ($obj = ormPages::get($page_id)) {
+			if ($obj->$field != '') {
+				$domen = parse_url( $obj->$field, PHP_URL_HOST );
+				
+				if (strpos($domen, 'youtube')) {
+					parse_str( parse_url( $obj->$field, PHP_URL_QUERY ), $my_array_of_vars );
+					if (isset($my_array_of_vars['v'])) {
+						$hash = parse_url( $obj->$field, PHP_URL_FRAGMENT );
+						$hash = ($hash != '') ? '#'.$hash : '';
+						page::assign('video.hash', $hash);
+						page::assign('video.id', $my_array_of_vars['v']);
+						return page::parse($TEMPLATE['youtube']);
+					}
+				} else if (strpos($domen, 'vimeo')) {
+					$path = explode('/',parse_url( $obj->$field, PHP_URL_PATH ));
+					page::assign('video.id', $path[1]);
+					return page::parse($TEMPLATE['vimeo']);
+				}
+			}
+		}
+		return page::parse($TEMPLATE['empty']);
+	}
+
+	/**
 	 * @return int $num
 	 * @param int $id - id элемента
 	 * @desc МАКРОС: Вернет какой по счету элемент с учетом удаленных и неактивных элементов

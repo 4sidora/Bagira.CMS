@@ -66,6 +66,8 @@ class __class {
 
         if ($is_page) {
 			ui::SelectBox('class_list', ormClasses::getPagesClassList(), $base_class, 400, '&nbsp;');
+			ui::SelectBox('template_list1', templates::getByDestination(0, true), $class->getDefTemplate(0), 400, '&nbsp;');
+			ui::SelectBox('template_list2', templates::getByDestination(1, true), $class->getDefTemplate(1), 400, '&nbsp;');
 			page::fParse('page_fields', $TEMPLATE['page_fields']);
 		} else if ($is_user) {
 			page::fParse('page_fields', $TEMPLATE['user_fields']);
@@ -118,13 +120,21 @@ class __class {
         if (isset($_POST['class_list']))
 	    	$class->setBaseClass($_POST['class_list']);
 
+		if (isset($_POST['template_list1']))
+			$class->setDefTemplate($_POST['template_list1'], 0);
+		 
+		if (isset($_POST['template_list2']))
+			$class->setDefTemplate($_POST['template_list2'], 1);
+			
+			
 	    $class_id = $class->save();
 
 	    if ($class_id === false) {
 
             $listError = '';
 	    	$errors = $class->getErrorList();
-	    	while(list($key, $text) = each($errors))            	$listError .= $text.'<br />';
+	    	while(list($key, $text) = each($errors))
+            	$listError .= $text.'<br />';
 
             system::savePostToSession();
 	    	ui::MessageBox(lang::get('TEXT_MESSAGE_ERROR'), $listError);

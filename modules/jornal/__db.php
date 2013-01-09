@@ -4,10 +4,11 @@ class __db {
 
 	public function view() {
 
+		if (user::issetRight('delete'))
+			ui::newButton(lang::get('BTN_CLEAR_JORNAL'), 'javascript:clearJornal();');
 
 		ui::addLeftButton('Системный журнал', 'system_view');
         ui::addLeftButton('Журнал БД', 'db_view');
-        ui::addLeftButton('Очистка журналов', 'delete');
 
         function getState($val) {
         	if ($val == info)

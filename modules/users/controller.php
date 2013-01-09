@@ -238,6 +238,9 @@ class controller {
             $obj->loadFromPost();
             $obj->active = 1;
             $obj->email = $obj->newVal('login');
+			
+			$max_tickets = reg::getKey('/booking/max_tickets');
+			$obj->place_limit = ($max_tickets == '' || $max_tickets == 0) ? 6 : $max_tickets;
 
             if ($obj->save()) {
 

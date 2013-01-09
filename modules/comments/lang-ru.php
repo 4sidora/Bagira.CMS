@@ -14,7 +14,7 @@ $RIGHT['comments']['settings'] = 'Настройки модуля';
 
 
 $LANG['COMMENT_ONLY_REG'] = 'Только зарегистрированные пользователи могут комментировать';
-$LANG['COMMENT_SHOW_NOACTIVE'] = 'Отображать непроверенные комментарии';
+$LANG['COMMENT_COM_MODERATION'] = 'Включить модерацию комментариев';
 
 
 

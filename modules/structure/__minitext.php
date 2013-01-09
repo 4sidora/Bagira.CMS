@@ -26,6 +26,7 @@ class __minitext {
         foreach($list as $val) {
         	$texts[] = array(
         		'id' => $val['id'],
+        		'description' => $val['description'],
         		'num' => '<center>%text_'.$val['id'].'%</center>',
         		'text' => $val['value']
         	);
@@ -38,7 +39,8 @@ class __minitext {
 			$form->withoutRemoving();
         $form->setRight('minitext_proc');
         $form->setData($texts);
-        $form->addColumn('text', lang::get('STRUCTURE_TABLE_FIELD_9'), 700, lang::get('STRUCTURE_TABLE_FIELD_10'));
+        $form->addColumn('description', lang::get('STRUCTURE_TABLE_FIELD_12'), 200, lang::get('STRUCTURE_TABLE_FIELD_13'));
+        $form->addColumn('text', lang::get('STRUCTURE_TABLE_FIELD_9'), 500, lang::get('STRUCTURE_TABLE_FIELD_10'));
         $form->addColumn('num', lang::get('STRUCTURE_TABLE_FIELD_8'), 150, lang::get('STRUCTURE_TABLE_FIELD_11'), false);
 
         $js = '<script language="javascript"> var textlist = '.json_encode($js).';</script>';
@@ -55,9 +57,9 @@ class __minitext {
         function changeText($id, $obj){
 
             if (!empty($id))
-            	reg::setKey($id, $obj['text']);
+            	reg::setKey($id, $obj['text'], $obj['description']);
             else if (!empty($obj['text']))
-            	reg::addToList(ormPages::getPrefix().'/minitext', $obj['text']);
+            	reg::addToList(ormPages::getPrefix().'/minitext', $obj['text'], $obj['description']);
 
 			return true;
         }
