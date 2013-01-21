@@ -12,7 +12,6 @@ class __minitext {
 
 	public function defAction() {
 
-
         ui::newButton(lang::get('BTN_SAVE'), "javascript:sendForm('save');");
 	    ui::newButton(lang::get('BTN_APPLY'), "javascript:sendForm('apply');");
 
@@ -47,8 +46,22 @@ class __minitext {
 
 		return $js.$form->getHTML('multi_form_memo');
  	}
+	
+	public function proc_edit() {
+		$text = system::checkVar(system::POST('minitext'), isText);
+		$id = system::checkVar(system::POST('minitext_id'), isInt);
+		$key = ormPages::getPrefix().'/minitext/'.$id;
 
+		if ($text && $id && reg::existKey($key)) {
+			if (reg::setKey($key, $text)) {
+				system::json(array('error' => 0));
+				system::stop();
+			}
+		}
 
+		system::json(array('error' => 1, 'errorInfo' => lang::get('STRUCTURE_MINITEXT_ERROR')));
+		system::stop();
+	}
 
   	public function proc() {
 
@@ -65,7 +78,6 @@ class __minitext {
         }
 
         function delText($id) { reg::delKey($id); }
-
 
 
         $form = new uiMultiForm('change');

@@ -4,7 +4,8 @@ $MODNAME['structure'] = 'Структура';
 
 $RIGHT['structure']['tree'] = 'Дерево сайта';
 $RIGHT['structure']['list'] = 'Подразделы страницы';
-$RIGHT['structure']['minitext'] = 'Редактирование мини-текстов';
+$RIGHT['structure']['minitext'] = 'Добавление/изменение мини-текстов';
+$RIGHT['structure']['minitext_edit'] = 'Инлайн редактирование мини-текстов';
 $RIGHT['structure']['settings'] = 'Настройки модуля';
 
 $RIGHT['structure']['page_upd'] = 'Изменение страницы';
@@ -77,6 +78,7 @@ $LANG['STRUCTURE_PAGE_URL'] = 'ID страницы:';
 
 $LANG['STRUCTURE_SETTINGS'] = 'Настройки';
 $LANG['STRUCTURE_MINITEXT'] = 'Мини-тексты';
+$LANG['STRUCTURE_MINITEXT_ERROR'] = 'Сохранить минитекст не удалось. Попробуйте снова!';
 
 $LANG['CONSTR_BASE_FIELD'] = 'Название';
 $LANG['CONSTR_BASE_FIELD_E'] = 'Введите имя!';

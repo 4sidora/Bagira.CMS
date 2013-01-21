@@ -1,0 +1,138 @@
+.-bag-minitext-wr{
+	position: relative;
+	display: block;
+}
+.-bag-minitext-edit-btn{
+	position: absolute; 
+	right: -16px; 
+	top: -8px; 
+	width: 16px; 
+	height: 16px; 
+	cursor: pointer; 
+	background: url(/images/img/minitext_edit.png);
+}
+.-bag-minitext-edit-btn-ok{
+	background: url(/images/img/minitext_edit_ok.png);
+}
+
+.-bag-minitext-loader{
+	width:22px;
+	position: absolute;
+	right: -18px;
+	top: -9px;
+	display: none;
+}
+
+.facebook_blockG{
+	background-color:#FFFFFF;
+	border:1px solid #dede24;
+	float:left;
+	height:15px;
+	margin-left:1px;
+	width:4px;
+	opacity:0.1;
+	-moz-animation-name:bounceG;
+	-moz-animation-duration:0.9s;
+	-moz-animation-iteration-count:infinite;
+	-moz-animation-direction:linear;
+	-moz-transform:scale(0.7);
+	-webkit-animation-name:bounceG;
+	-webkit-animation-duration:0.9s;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-direction:linear;
+	-webkit-transform:scale(0.7);
+	-ms-animation-name:bounceG;
+	-ms-animation-duration:0.9s;
+	-ms-animation-iteration-count:infinite;
+	-ms-animation-direction:linear;
+	-ms-transform:scale(0.7);
+	-o-animation-name:bounceG;
+	-o-animation-duration:0.9s;
+	-o-animation-iteration-count:infinite;
+	-o-animation-direction:linear;
+	-o-transform:scale(0.7);
+	animation-name:bounceG;
+	animation-duration:0.9s;
+	animation-iteration-count:infinite;
+	animation-direction:linear;
+	transform:scale(0.7);
+}
+
+.-bag-minitext-loader-1{
+	-moz-animation-delay:0.27s;
+	-webkit-animation-delay:0.27s;
+	-ms-animation-delay:0.27s;
+	-o-animation-delay:0.27s;
+	animation-delay:0.27s;
+}
+
+.-bag-minitext-loader-2{
+	-moz-animation-delay:0.36s;
+	-webkit-animation-delay:0.36s;
+	-ms-animation-delay:0.36s;
+	-o-animation-delay:0.36s;
+	animation-delay:0.36s;
+}
+
+.-bag-minitext-loader-3{
+	-moz-animation-delay:0.45s;
+	-webkit-animation-delay:0.45s;
+	-ms-animation-delay:0.45s;
+	-o-animation-delay:0.45s;
+	animation-delay:0.45s;
+}
+
+@-moz-keyframes bounceG{
+0%{
+-moz-transform:scale(1.2);
+opacity:1}
+
+100%{
+-moz-transform:scale(0.7);
+opacity:0.1}
+
+}
+
+@-webkit-keyframes bounceG{
+0%{
+-webkit-transform:scale(1.2);
+opacity:1}
+
+100%{
+-webkit-transform:scale(0.7);
+opacity:0.1}
+
+}
+
+@-ms-keyframes bounceG{
+0%{
+-ms-transform:scale(1.2);
+opacity:1}
+
+100%{
+-ms-transform:scale(0.7);
+opacity:0.1}
+
+}
+
+@-o-keyframes bounceG{
+0%{
+-o-transform:scale(1.2);
+opacity:1}
+
+100%{
+-o-transform:scale(0.7);
+opacity:0.1}
+
+}
+
+@keyframes bounceG{
+0%{
+transform:scale(1.2);
+opacity:1}
+
+100%{
+transform:scale(0.7);
+opacity:0.1}
+
+}

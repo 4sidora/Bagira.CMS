@@ -162,10 +162,19 @@ class system {
 	        $title = str_replace('%text%', page::getGlobalVar('title'), reg::getKey(ormPages::getPrefix().'/title_prefix'));
 	        page::globalVar('title', $title);
 
+			if (file_exists(MODUL_DIR.'/core/template/minitext.tpl'))
+				include(MODUL_DIR.'/core/template/minitext.tpl');
+
 	        // Мини-тексты, если есть
 			$list = reg::getList(ormPages::getPrefix().'/minitext');
-	        while(list($id, $val) = each($list))
-	        	page::globalVar('text_'.$id, $val);
+	        while(list($id, $val) = each($list)) {
+				
+				//инлайн редактирование
+				if (user::isAdmin() && user::issetRight('minitext_edit', 'structure'))
+					$val = str_replace('%val%', $val, str_replace('%id%', $id, $TEMPLATE['frame']));
+				
+				page::globalVar('text_'.$id, $val);
+			}
         }
 
         // Выводим содержимое на экран

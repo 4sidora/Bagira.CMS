@@ -38,11 +38,11 @@ class reg {
     // Изменяем существующий ключ
     private static function updKey($id, $value, $desc = '') {
 
-//		if ($desc != '') {
+		if ($desc != '') {
 			db::q('UPDATE <<register>> SET r_value="'.$value.'", r_description="'.$desc.'" WHERE r_id="'.$id.'"');
-//		} else {
-//			db::q('UPDATE <<register>> SET r_value="'.$value.'" WHERE r_id="'.$id.'"');
-//		}
+		} else {
+			db::q('UPDATE <<register>> SET r_value="'.$value.'" WHERE r_id="'.$id.'"');
+		}
 
        $num = self::findInMas($id);
        if ($num !== false) {
