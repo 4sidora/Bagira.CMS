@@ -73,6 +73,8 @@ class controller {
                     $obj->pseudo_url = $obj_id;
                     $obj->save();
 
+					$obj = new ormPage($obj_id);
+					
                 } else {
 
                     $issetErrors = true;
@@ -91,11 +93,26 @@ class controller {
                 // Отправка нужных писем
 
                 page::assign('site_name', domains::curDomain()->getSiteName());
+				page::assign('site_url', domains::curDomain()->getName());
                 page::assign('base_email', domains::curDomain()->getEmail());
 
                 while(list($key, $val) = each($_POST))
                     page::assign($key, system::checkVar($val, isText));
 
+				if (isset($obj)) {
+					$fields = $obj->getClass()->loadFields();
+
+					foreach ($fields as $field) {
+						if (in_array($field['f_type'], array(70, 75, 80, 85))) {
+							$fsname = $field['f_sname'];
+							$fvalue = $obj->$fsname;
+							if ($fvalue != '') {
+								page::assign($fsname, $fvalue);
+							}
+						}
+					}
+				}
+                
                 // Если указан список адресатов, отправляем письма
                 if ($form_obj->mailing_list != '') {
 
