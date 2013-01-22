@@ -30,7 +30,7 @@ class __userlist {
 		$sel = new ormSelect('user');
 		if (system::issetUrl(2) && system::url(2) != 0)
         	$sel->where('parents', '=', system::url(2));
-		$sel->orderBy('last_visit', desc);
+		$sel->orderBy('create_date', desc);
 
         // Строим таблицу
 		$table = new uiTable($sel);
@@ -39,7 +39,8 @@ class __userlist {
 
         $table->addColumn('login', lang::get('USERS_TABLE_FIELD_1'), 0, true);
         $table->addColumn('surname name', lang::get('USERS_TABLE_FIELD_2'), 0, true);
-        $table->addColumn('last_visit', lang::get('USERS_TABLE_FIELD_3'), 0, true);
+		$table->addColumn('create_date', lang::get('USERS_TABLE_FIELD_7'), 0, true, true, '', 1);
+		$table->addColumn('last_visit', lang::get('USERS_TABLE_FIELD_3'), 0, true, true, '', 1);
         $table->addColumn('parents', lang::get('USERS_TABLE_FIELD_4'), 0, false, true);
 
         $table->defaultRight('user_upd');

@@ -53,6 +53,7 @@ $LANG['USERS_TABLE_FIELD_1'] = 'Логин';
 $LANG['USERS_TABLE_FIELD_2'] = 'Имя';
 $LANG['USERS_TABLE_FIELD_3'] = 'Последний вход';
 $LANG['USERS_TABLE_FIELD_4'] = 'Состоит в группах';
+$LANG['USERS_TABLE_FIELD_7'] = 'Дата регистрации';
 
 $LANG['USERS_TABLE_FIELD_5'] = 'Название группы';
 $LANG['USERS_TABLE_FIELD_6'] = 'Количество пользователей';
