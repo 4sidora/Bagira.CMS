@@ -127,16 +127,18 @@ class uiTable extends uiTableFunctions {
     * @param string $isSortable - Если TRUE, то по данному столбцу можно будет сортировать
     * @param string $click - Если TRUE, то при клике по столбцу будет вызывается стандартное действие для строчки
     * @param string $funct_name - Имя PHP-функции которое будет вызвано обработке значений данного стобца
+	* @param string $first_order - Сортировка при первом клике 0 - asc, 1 - desc
     * @desc Добавляет столбец в таблицу
     */
-    function addColumn($field, $title = 0, $size = 0, $isSortable = false, $click = true, $funct_name = '') {
+    function addColumn($field, $title = 0, $size = 0, $isSortable = false, $click = true, $funct_name = '', $first_order = 0) {
     	$this->columns[] = array(
     		'title' => $title,
       		'field' => $field,
         	'size' => $size,
          	'sortable' => $isSortable,
           	'funct_name' => $funct_name,
-           	'click' => $click
+           	'click' => $click,
+			'first_order' => $first_order
         );
     }
 
@@ -606,8 +608,12 @@ class uiTable extends uiTableFunctions {
 	                    	page::assign('sort2', 'asc');
 
 	                } else {
-		                page::assign('sort', 'none');
-		                page::assign('sort2', 'asc');
+						page::assign('sort', 'none');
+						if ($column['first_order'] == 0) {
+							page::assign('sort2', 'asc');
+						} else {
+							page::assign('sort2', 'desc');
+						}
 	                }
 
 	                page::assign('field', $column['field']);
