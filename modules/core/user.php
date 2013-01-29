@@ -72,6 +72,13 @@ class user {
 					 self::$isGuest = false;
 
  					 self::updateSession($user->id, $user->login, $user->name, $user->email);
+
+					 self::$obj->last_visit = date('Y-m-d H:i:s');
+					 self::$obj->last_ip = self::getIP();
+					 self::$obj->error_passw = 0;
+					 self::$obj->save();
+
+					 system::log(lang::get('ENTER_USER_WITH_COOKIE'), info);
 				 }
 
 		}

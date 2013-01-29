@@ -29,6 +29,7 @@ $LANG['CONSTR_BASE_FIELD_E8'] = 'Вы неправильно указали ст
 $LANG['CONSTR_BASE_FIELD_E9'] = 'Укажите код с картинки!';
 
 $LANG['ENTER_USER'] = 'Вошёл в систему';
+$LANG['ENTER_USER_WITH_COOKIE'] = 'Вошёл в систему через Cookie';
 $LANG['EXIT_USER'] = 'Вышел из системы';
 $LANG['ERROR_PASSWORD'] = 'Пользователь %user% ввел неправильно пароль.';
 $LANG['BLOCKED_USER'] = 'Пользователь %user% %count% раз неправильно ввел пароль и был заблокирован.';
