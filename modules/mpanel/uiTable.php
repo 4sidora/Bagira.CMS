@@ -202,6 +202,7 @@ class uiTable extends uiTableFunctions {
 		    $_SESSION['table_'.$prefix]['max_count'] = 20;
 		   	$_SESSION['table_'.$prefix]['page_num'] = 1;
 		   	$_SESSION['table_'.$prefix]['table_search'] = '';
+			$_SESSION['table_'.$prefix]['page_num_temp'] = 1;
 		}
         //$_SESSION['table_'.$prefix]['max_count'] = 1;
         // Количество строк в таблице
@@ -242,6 +243,7 @@ class uiTable extends uiTableFunctions {
                 $_SESSION['table_'.$this->prefix]['max_count'] = 20;
                 $_SESSION['table_'.$this->prefix]['page_num'] = 1;
                 $_SESSION['table_'.$this->prefix]['table_search'] = '';
+				$_SESSION['table_'.$this->prefix]['page_num_temp'] = 1;
             }
 
     		// Смотрим пришедшие данные из POST
@@ -278,6 +280,7 @@ class uiTable extends uiTableFunctions {
 			        $_SESSION['table_'.$this->prefix]['table_search'] = '';
 			        if ($this->isSelection)
 			        	$this->filter->clear();
+					//$_SESSION['table_'.$this->prefix]['max_count'] = 3;
 				}
 
 				// Нажали ссылку "обычный поиск" (скрыть / показать фильтры)
@@ -346,12 +349,11 @@ class uiTable extends uiTableFunctions {
 	      		$up_line .= page::parse($TEMPLATE['search']);
             }
 
-
-
-
             // +  +  +	Все что касается вывода ФИЛЬТРОВ  +	+	+	+	+	+	+	+
             if ($this->isSelection && !$this->disable_filters) {
 
+				//$_SESSION['table_'.$this->prefix]['page_num'] = 1;
+				
                 if (!isset($_SESSION['table_'.$this->prefix]['showfilter']))
                 	$_SESSION['table_'.$this->prefix]['showfilter'] = $this->filters;
 
@@ -386,7 +388,6 @@ class uiTable extends uiTableFunctions {
                 }
 
 	        } else page::assign('filters', '');
-
 
             page::assign('up_line', $up_line);
 
@@ -631,15 +632,19 @@ class uiTable extends uiTableFunctions {
     // Построение постраничной навигации
     private function navigation($smeshenie = 4, $TEMPLATE) {
 
-        $current_num = $_SESSION['table_'.$this->prefix]['page_num'];
         $max_count = $_SESSION['table_'.$this->prefix]['max_count'];
-		$start = $current_num * $max_count - $max_count;
-
+		$current_num = $_SESSION['table_'.$this->prefix]['page_num'];
+		
 		if ($this->isSelection)
 			$count_page = ceil($this->select->getCount() / $max_count);
 		else
 			$count_page = ceil(((!empty($this->all_count)) ? $this->all_count : count($this->data)) / $max_count);;
 
+		if ($current_num > $count_page) {
+			$current_num = $_SESSION['table_'.$this->prefix]['page_num'] = $count_page;
+		}
+		
+		$start = $current_num * $max_count - $max_count;
 
 		if ($count_page > 1) {
 

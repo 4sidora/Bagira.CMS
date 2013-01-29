@@ -69,7 +69,6 @@ jQuery(document).ready(function() {
 function stopSearch(){
     $("#table_search").val('');
     $("ins > input").val('');
-    $("code ins:eq(3)").remove();
     $(".selectbox_filter").val(0);
 	reloadTable({'clear_search': 1});
 	$("#table_search").focus();
