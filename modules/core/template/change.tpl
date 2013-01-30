@@ -33,6 +33,8 @@ $TEMPLATE['frame'] = <<<END
 	   	%noIE6%
 		<div class="otstup"></div>
 	   	%noIE7%
+		<div class="otstup"></div>
+		%noIE8%
 
 
 	    <div class="otstup"></div>

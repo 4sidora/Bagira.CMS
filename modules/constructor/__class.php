@@ -66,8 +66,8 @@ class __class {
 
         if ($is_page) {
 			ui::SelectBox('class_list', ormClasses::getPagesClassList(), $base_class, 400, '&nbsp;');
-			ui::SelectBox('template_list1', templates::getByDestination(0, true), $class->getDefTemplate(0), 400, '&nbsp;');
-			ui::SelectBox('template_list2', templates::getByDestination(1, true), $class->getDefTemplate(1), 400, '&nbsp;');
+			ui::SelectBox('template_list1', templates::getByDestination(0, true), isset($class) ? $class->getDefTemplate(0) : 0, 400, '&nbsp;');
+			ui::SelectBox('template_list2', templates::getByDestination(1, true), isset($class) ? $class->getDefTemplate(1) : 0, 400, '&nbsp;');
 			page::fParse('page_fields', $TEMPLATE['page_fields']);
 		} else if ($is_user) {
 			page::fParse('page_fields', $TEMPLATE['user_fields']);
