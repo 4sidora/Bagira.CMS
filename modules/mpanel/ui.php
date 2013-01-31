@@ -685,12 +685,33 @@ class ui {
             page::assign('selbox.id', (empty($form_id)) ? $form_name : $form_id);
             page::assign('selbox.addit_url', $addit_url);
 
+			$keys = array_keys($data);
+
+			//сортировка больших списков по имени
+			if (is_array($data) && is_array($data[$keys[0]]) && count($data) > 5 && isset($data[$keys[0]]['name'])) {
+
+				$mas_count = count($data);
+
+				for ($j = 1; $j < $mas_count; $j++) {
+					$prov = 0;
+					for ($i = 0; $i < $mas_count - $j; $i++) {
+						if (strcmp($data[$i]['name'],$data[$i+1]['name']) > 0) {
+							$temp = $data[$i];
+							$data[$i] = $data[$i+1];
+							$data[$i+1] = $temp;
+							$prov++;
+						}
+					}
+					if ($prov == 0) break;
+				}
+			}
+
             $items = '';
             if (!empty($null))
                 $items .= self::getSBItem(0, $null, $active_elem, $TEMPLATE['item']);
 
 
-            $keys = array_keys($data);
+            //$keys = array_keys($data);
             if (isset($keys[0]) && isset($data[$keys[0]]) && is_array($data[$keys[0]])) {
 
                 // Данные как выборка из БД
