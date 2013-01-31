@@ -180,7 +180,7 @@ END;
 $TEMPLATE['field_35'] = <<<END
  	<div class="fieldBox">
         <label for="%field.sname%" class="%field.dotted% %field.zvezd%" title="%field.hint%"><b></b>%field.name%</label>
-    	<input class="input" type="password" name="%field.sname%" id="%field.sname%" value="">
+    	<input class="input" type="password" name="%field.sname%" id="%field.sname%" value="" autocomplete="off">
     </div>
 END;
 

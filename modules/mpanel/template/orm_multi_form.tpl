@@ -168,7 +168,7 @@ END;
 
 // Пароль
 $TEMPLATE['field_35'] = <<<END
-<input class="input" type="password" name="obj%form_name%[%obj_id%][%field.sname%]" id="%field.sname%_%obj_id%" value="" style="width:%width%px;">
+<input class="input" type="password" name="obj%form_name%[%obj_id%][%field.sname%]" id="%field.sname%_%obj_id%" value="" style="width:%width%px;" autocomplete="off">
 END;
 
 // Число        Число с точкой
