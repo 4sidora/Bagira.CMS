@@ -273,10 +273,12 @@ class controller {
                     page::assign('login', $obj->login);
                     page::assign('name', $obj->name);
                     system::sendMail('/users/mails/registration.tpl', $obj->email);
+
+					// Автоматическая авторизация
+					user::authHim($obj);
                 }
 
-                // Можно автоматически авторизовать пользователя
-                //user::authHim($obj);
+                
 
                 // Все хорошо. Пользователь добавлен.
                 if (system::isAjax())
