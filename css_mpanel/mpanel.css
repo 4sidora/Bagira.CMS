@@ -203,7 +203,7 @@ form{ margin:0px; padding:0px;}
 #hideLink b{background:url("../css_mpanel/i/i11.png") 2px -80px no-repeat;}
 #hideLink:hover b{background:url("../css_mpanel/i/i11.png") 2px -92px no-repeat; }
 
-.fieldBox{ width:435px; float:left; margin-bottom:15px; margin-right:53px; padding-left:20px;}
+.fieldBox{ width: 435px; float: left; margin-bottom: 15px; /*margin-right:53px;*/ padding-left: 20px; margin-right: 40px;}
 .fieldBox b{ display:none;}
 .fieldBox label {color:#434343;}
 .fieldBox .input{display:block;  width:426px; margin-top:5px; padding:3px}
@@ -240,7 +240,7 @@ form{ margin:0px; padding:0px;}
 .fieldBox label.chek b{display:block; background:url("../css_mpanel/i/i11.png") left -107px no-repeat; position:absolute; top:1px; left:-17px; width:14px; height:14px;}
 .fieldBox .redactor { margin-top:5px;}
 .ui-tabs .ui-tabs-panel{ overflow:hidden;}
-.ins{ width:1100px; position:relative;}
+.ins{ /*width: 1100px;*/ position: relative; width: 100%;}
 
 
 
