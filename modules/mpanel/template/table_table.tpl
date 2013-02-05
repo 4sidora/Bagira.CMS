@@ -262,22 +262,53 @@ END;
 
 $TEMPLATE['navigation'] = <<<END
 <div class="navigate">
-    %left_block%
 
-	%pages%
+    %first_block%
+
+    %left_block%
 
 	%right_block%
 
+    %last_block%
+
 	<input id="count_page" type="hidden" value="%count_page%">
+</div>
+
+<div class="navigate">
+    %pages%
 </div>
 END;
 
 $TEMPLATE['left_block'] = <<<END
-&larr; Ctrl&nbsp;&nbsp;<a class="cursor table_page_navig" name="%num%">Предыдущая</a>    &nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; &larr; Ctrl&nbsp;&nbsp;<a class="cursor table_page_navig" name="%num_l%">Предыдущая</a>    &nbsp;&nbsp;&nbsp;&nbsp;
+END;
+
+$TEMPLATE['noact_left_block'] = <<<END
+&nbsp;&nbsp;&nbsp;<span class="no_act">&larr;Ctrl&nbsp;&nbsp;Предыдущая</span> &nbsp;&nbsp;&nbsp;&nbsp;
 END;
 
 $TEMPLATE['right_block'] = <<<END
-<a class="cursor table_page_navig" name="%num%">Следующая</a>&nbsp;&nbsp;Ctrl &rarr;
+<a class="cursor table_page_navig" name="%num_r%">Следующая</a>&nbsp;&nbsp;Ctrl &rarr; &nbsp;
+END;
+
+$TEMPLATE['noact_right_block'] = <<<END
+<span class="no_act">Следующая Ctrl &rarr;</span>&nbsp;&nbsp;&nbsp;
+END;
+
+$TEMPLATE['first_block'] = <<<END
+<a class="cursor table_page_navig" name="%first_num%" title="Первая"> << </a>
+END;
+
+$TEMPLATE['noact_first_block'] = <<<END
+<span class="no_act"> <<  </span>
+END;
+
+$TEMPLATE['last_block'] = <<<END
+<a class="cursor table_page_navig" name="%last_num%" title="Последняя"> >> </a>
+END;
+
+$TEMPLATE['noact_last_block'] = <<<END
+<span class="no_act"> >>  </span>
 END;
 
 $TEMPLATE['pages_a'] = <<<END
@@ -287,10 +318,5 @@ END;
 $TEMPLATE['pages_na'] = <<<END
 <a class="cursor table_page_navig" name="%page_num%">%page_num%</a>&nbsp;&nbsp;&nbsp;&nbsp;
 END;
-
-
-
-
-
 
 ?>

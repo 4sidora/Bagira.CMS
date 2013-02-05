@@ -423,7 +423,7 @@ class uiTable extends uiTableFunctions {
             }
 
     		// Постраничная навигация
-            $this->navigation(4, $TEMPLATE);
+            $this->navigation(5, $TEMPLATE);
 
             // Вывод прав
             $this->rights($TEMPLATE);
@@ -630,77 +630,81 @@ class uiTable extends uiTableFunctions {
     }
 
     // Построение постраничной навигации
-    private function navigation($smeshenie = 4, $TEMPLATE) {
+     private function navigation($smeshenie = 5, $TEMPLATE) {
 
-        $max_count = $_SESSION['table_'.$this->prefix]['max_count'];
+		$max_count = $_SESSION['table_'.$this->prefix]['max_count'];
 		$current_num = $_SESSION['table_'.$this->prefix]['page_num'];
 		
 		if ($this->isSelection)
 			$count_page = ceil($this->select->getCount() / $max_count);
 		else
 			$count_page = ceil(((!empty($this->all_count)) ? $this->all_count : count($this->data)) / $max_count);;
-
+		
 		if ($current_num > $count_page) {
 			$current_num = $_SESSION['table_'.$this->prefix]['page_num'] = $count_page;
 		}
 		
 		$start = $current_num * $max_count - $max_count;
-
+		
 		if ($count_page > 1) {
-
-	        // Просчитывает какие страницы показывать
-	        $raznica1 = $current_num - $smeshenie;
-	        $raznica1 = ($raznica1 < 0) ? -$raznica1 : 0;
-
-	        $raznica2 = $count_page - $current_num - $smeshenie;
-	        $raznica2 = ($raznica2 < 0) ? -$raznica2 : 0;
-	        $niz = $current_num - $smeshenie - $raznica2;
-
-	        if ($niz < 1) $niz = 1;
-	        $verx = $current_num + $smeshenie + $raznica1;
-	        if ($verx > $count_page) $verx = $count_page;
-
-	        // Определяемся с левым блоком
-	        page::assign('num', $current_num - 1);
-	        if ($niz !== 1 && isset($TEMPLATE['left_block']))
-		        $left_block = page::parse($TEMPLATE['left_block']);
-	        else
-	            $left_block = '';
-	        page::assign('left_block', $left_block);
-
-	        // Определяемся с правым блоком
-	        page::assign('num', $current_num + 1);
-	        if ($verx != $count_page && isset($TEMPLATE['right_block']))
-	            $right_block = page::parse($TEMPLATE['right_block']);
-	        else
-	            $right_block = '';
-	        page::assign('right_block', $right_block);
-
-	        // Вывод списка страниц
-	        $pages = '';
-	        for ($i = $niz; $i < $verx+1; $i++){
-	             page::assign('page_num', $i);
-	             $tmpl = ($i == $current_num) ? 'pages_a' : 'pages_na';
-	             $pages .= page::parse($TEMPLATE[$tmpl]);
-	        }
-	        page::assign('pages', $pages);
-	        $navbar = page::parse($TEMPLATE['navigation']);
-
-    	} else $navbar = '';
-
-    	if (!empty($navbar)) {
-
-	        $counts = array(1 => 1, 5 => 5, 10 => 10, 20 => 20, 30 => 30, 50 => 50, 100 => 100);
-	        ui::SelectBox('max_count', $counts, $max_count, 50);
-
-         	page::assign('navbar', $navbar);
-          	page::assign('count_page', $count_page);
-	        page::fParse('navbar', $TEMPLATE['navibar']);
-
-        } else page::assign('navbar', '');
-
-        // Устанавливает лимит для выборки объектов
-        if ($this->isSelection && $start > -1 && $max_count > 0)
+		
+			// Просчитывает какие страницы показывать
+			$niz = $current_num - $smeshenie;
+			
+			if ($niz < 1) $niz = 1;
+			$verx = $current_num + $smeshenie;
+			if ($verx > $count_page) $verx = $count_page;
+			
+			// Определяемся с левым блоком
+			page::assign('num_l', $current_num - 1);
+			page::assign('first_num', 1);
+			page::assign('num_r', $current_num + 1);
+			page::assign('last_num', $count_page);
+			
+			if ($current_num == 1 && isset($TEMPLATE['left_block'])) {
+				page::fParse('left_block',$TEMPLATE['noact_left_block']);
+				page::fParse('first_block', $TEMPLATE['noact_first_block']);
+				page::fParse('right_block', $TEMPLATE['right_block']);
+				page::fParse('last_block', $TEMPLATE['last_block']);
+			} else if ($current_num == $count_page && isset($TEMPLATE['right_block'])) {
+				page::fParse('left_block',$TEMPLATE['left_block']);
+				page::fParse('first_block', $TEMPLATE['first_block']);
+				page::fParse('right_block', $TEMPLATE['noact_right_block']);
+				page::fParse('last_block', $TEMPLATE['noact_last_block']);
+			} else {
+				page::fParse('left_block',$TEMPLATE['left_block']);
+				page::fParse('first_block', $TEMPLATE['first_block']);
+				page::fParse('right_block', $TEMPLATE['right_block']);
+				page::fParse('last_block', $TEMPLATE['last_block']);
+			}
+			
+			// Вывод списка страниц
+			$pages = '';
+			
+			for ($i = $niz; $i < $verx+1; $i++){
+				page::assign('page_num', $i);
+				$tmpl = ($i == $current_num) ? 'pages_a' : 'pages_na';
+				$pages .= page::parse($TEMPLATE[$tmpl]);
+			}
+			
+			page::assign('pages', $pages);
+			$navbar = page::parse($TEMPLATE['navigation']);
+		
+		} else $navbar = '';
+		
+		if (!empty($navbar)) {
+		
+			$counts = array(1 => 1, 5 => 5, 10 => 10, 20 => 20, 30 => 30, 50 => 50, 100 => 100);
+			ui::SelectBox('max_count', $counts, $max_count, 50);
+			
+			page::assign('navbar', $navbar);
+			page::assign('count_page', $count_page);
+			page::fParse('navbar', $TEMPLATE['navibar']);
+		
+		} else page::assign('navbar', '');
+		
+		// Устанавливает лимит для выборки объектов
+		if ($this->isSelection && $start > -1 && $max_count > 0)
 			$this->select->limit($start, $max_count);
 	}
 

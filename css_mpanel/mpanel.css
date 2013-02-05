@@ -582,6 +582,7 @@ ul.objectsLink li a.new {    float:left;    display:block;    margin-left:10px;}
 .navigate a,  .navigate a:link,   .navigate a:visited { cursor: pointer; color: #005ad3; font-size:12px;  text-decoration:underline; }
 .navigate a:hover {  color: #e33729;}
 .navigate strong{ color:#000000;}
+.navigate .no_act { color: #828081; font-size:12px; }
 
 .navigate2{color:#000000; font-size:12px; margin-right:10px; width:150px; display:inline; float:right; height:30px; }
 
