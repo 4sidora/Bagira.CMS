@@ -264,9 +264,12 @@ class uiMultiForm extends uiTableFunctions {
 
 	            } else {
 
-                    $keys = array_keys($fields);
+					$check = false;
+					foreach ($fields as $val) {
+						if (!empty($val)) $check = true;
+					} 
 
-	            	if (!empty($fields[$keys[0]])) {
+	            	if ($check) {
 
 	            		if (function_exists($change_funct))
 	                    	$is_ok = call_user_func($change_funct, $id, $fields, $this->form_name, $addit_val);
