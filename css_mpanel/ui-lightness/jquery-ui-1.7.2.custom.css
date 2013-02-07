@@ -425,4 +425,6 @@
 padding: 20px 0px 5px; display: block; /*background: none;*/ }
 .ui-tabs .ui-tabs-hide { display: none !important; }
 
-
+.ui-datepicker-today .ui-state-highlight{border: 1px dashed #a6a6a6; background: #f3f2f2;}
+.ui-datepicker-current-day .ui-state-active{border: 1px solid #fed22f; background: #ffe45c url(images/ui-bg_highlight-soft_75_ffe45c_1x100.png) 50% top repeat-x; color: #363636;}
+.ui-datepicker-today .ui-state-active{border: 1px dashed #e1b100;}
