@@ -14,7 +14,6 @@ class ormPages {
     private static $pages_obj = array();        // КЕШ созданных объектов страниц
     private static $pages_rel = array();        // Связи объектов, для быстрого поиска родителей объекта
     private static $pages_rel2 = array();       // Связи объектов, для быстрого перебора подразделов
-    private static $pages_url = array();        // Для быстрого поиска объекта по псевдоадресу
     private static $pages_count = array();      // КЕШ для количества страниц по разделам
     private static $cycle = array();        	// Для хранения текущей страницы при переборе
 
@@ -108,7 +107,6 @@ class ormPages {
 
         	while (list($key, $value) = each($tmp)) {
         		self::$pages[$value['o_id']] = $value;
-        		self::$pages_url[$value['pseudo_url']][] = $value['o_id'];
 
         		if (self::$pages[$value['o_id']]['is_home_page'])
         			self::$homepage_id = $value['o_id'];
@@ -440,40 +438,27 @@ class ormPages {
 
     		if (!empty($val)) {
 
-	    		if (isset(self::$pages_url[$val])){
+				$parent_id_sql = ($parent_id == 0) ? 'IS NULL' : '= "'.$parent_id.'"';
+				
+				// Проверяем есть ли контентная страница
+				$sql = 'SELECT *
+						FROM <<objects>>, <<pages>>, <<rels>>
+						WHERE pseudo_url = "'.$val.'" and
+							r_parent_id '.$parent_id_sql.' and
+							o_id = r_children_id and
+							o_id = p_obj_id and
+							o_to_trash = 0
+						LIMIT 1;';
 
-                    // Ищем по элементам структуры сайта
-	         	    while (list($num, $obj_id) = each(self::$pages_url[$val])) {
+				$mas = db::q($sql, record);
 
-	                    if ($parent_id == self::getParent($obj_id)) {
-	                    	$parent_id = $obj_id;
-	                    	$pages_active[] = $obj_id;
-	                    	break;
-	                    }
-	         	    }
+				if (!empty($mas)) {
+					// Если существует, загужаем ее данные в коллекцию
+					$parent_id = $mas['o_id'];
+					$pages_active[] = $parent_id;
+					self::get($mas);
+				} else $parent_id = 0;
 
-	    		} else {
-
-                    // Проверяем есть ли контентная страница
-                    $sql = 'SELECT *
-                    		FROM <<objects>>, <<pages>>, <<rels>>
-                    		WHERE pseudo_url = "'.$val.'" and
-                    			r_parent_id = "'.$parent_id.'" and
-                    			o_id = r_children_id and
-                    			o_id = p_obj_id and
-                    			o_to_trash = 0
-                    		LIMIT 1;';
-
-                    $mas = db::q($sql, record);
-
-                    if (!empty($mas)) {
-                        // Если существует, загужаем ее данные в коллекцию
-                    	$parent_id = $mas['o_id'];
-                    	$pages_active[] = $parent_id;
-                    	self::get($mas);
-                    } else $parent_id = 0;
-
-	    		}
     		}
 
     	if (empty(self::$pages_active))
