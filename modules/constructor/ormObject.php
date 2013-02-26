@@ -1028,10 +1028,18 @@ class ormObject extends innerErrorList {
 
             // Файл
             case 70:
+				
+				$cur_file = $this->__get($field);
+				
                 if (isset($_FILES['file_'.$field])) {
                     $tmp = system::copyFile($_FILES['file_'.$field]['tmp_name'], $_FILES['file_'.$field]['name'], '/upload/file');
                     $value = (empty($tmp)) ? $value : $tmp;
                 }
+				
+                if (system::fileName($value) != system::fileName($cur_file)) {
+					@unlink(ROOT_DIR.$cur_file); //удаляем прошлый файл
+                }
+				
                 return '`'.$field.'` = "'.$value.'", ';
 
                 break;
@@ -1051,7 +1059,7 @@ class ormObject extends innerErrorList {
             // Изображение
             case 75:
 
-                $cur_img_file = system::fileName($this->__get($field));
+                $cur_file = $this->__get($field);
 
                 if (isset($_FILES['file_'.$field])) {
                     $tmp = system::copyFile($_FILES['file_'.$field]['tmp_name'], $_FILES['file_'.$field]['name'], '/upload/image');
@@ -1059,9 +1067,10 @@ class ormObject extends innerErrorList {
                 }
 
                 // Удаляем КЭШ рисунков, если были изменения
-                if (system::fileName($value) != $cur_img_file) {
+                if (system::fileName($value) != system::fileName($cur_file)) {
                     $this->preResizeJpeg($value);
-                    $this->deleteCacheImages($cur_img_file);
+                    $this->deleteCacheImages(system::fileName($cur_file));
+					@unlink(ROOT_DIR.$cur_file); //удаляем прошлый файл
                 }
 
                 return '`'.$field.'` = "'.$value.'", ';
@@ -1071,21 +1080,34 @@ class ormObject extends innerErrorList {
             // Видео
             case 80:
 
+				$cur_file = $this->__get($field);
+				
                 if (isset($_FILES['file_'.$field])) {
                     $tmp = system::copyFile($_FILES['file_'.$field]['tmp_name'], $_FILES['file_'.$field]['name'], '/upload/media');
                     $value = (empty($tmp)) ? $value : $tmp;
                 }
 
+				if (system::fileName($value) != system::fileName($cur_file)) {
+					@unlink(ROOT_DIR.$cur_file); //удаляем прошлый файл
+                }
+				
                 return '`'.$field.'` = "'.$value.'", ';
                 break;
 
             // Флеш-ролик
             case 85:
+				
+				$cur_file = $this->__get($field);
+				
                 if (isset($_FILES['file_'.$field])) {
                     $tmp = system::copyFile($_FILES['file_'.$field]['tmp_name'], $_FILES['file_'.$field]['name'], '/upload/flash');
                     $value = (empty($tmp)) ? $value : $tmp;
                 }
 
+				if (system::fileName($value) != system::fileName($cur_file)) {
+					@unlink(ROOT_DIR.$cur_file); //удаляем прошлый файл
+                }
+				
                 return '`'.$field.'` = "'.$value.'", ';
                 break;
 
@@ -1309,6 +1331,8 @@ class ormObject extends innerErrorList {
     // Удаление объекта данных       -		-		-		-		-		-		-		-
     public function delete(){
 
+		
+		
         if (!empty($this->id)) {
 
             // Удаляем вложенные объекты. Только тех, которые не имеют нескольких родителей.
@@ -1316,7 +1340,18 @@ class ormObject extends innerErrorList {
             while($obj = $this->getChild(true))
                 if (count($obj->getParents(true)) < 2)
                     $obj->delete();
-
+			
+			foreach ($this->getClass()->loadFields() as $name => $field) {
+				if (in_array($field['f_type'], array(70, 75, 80, 85))) {
+					
+					@unlink(ROOT_DIR.$this->$name);
+					
+					if ($field['f_type'] == 75) {
+						$this->deleteCacheImages(system::fileName($this->$name));
+					}
+				}
+			}
+			
             $ret = db::q('DELETE FROM <<objects>> WHERE o_id = "'.$this->id.'";');
 
             if($ret === false) {

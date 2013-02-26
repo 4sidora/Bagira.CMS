@@ -7,8 +7,8 @@ $TEMPLATE['frame'] = <<<END
 <div class="selectfile" id="selectfile_%sid%" style="%sh_selblock%">
 	<input id="file_%sid%" name="file_%sname%" type="file" style="width:150px;" value="" onChange="$('#%sid%').val(this.value);" />
 
-    <br/>
-    <span class="link" id="selectButton_%sid%" onclick="showElFinder('%sid%');">%text.change%</span>
+    <!-- <br/>
+    <span class="link" id="selectButton_%sid%" onclick="showElFinder('%sid%');">%text.change%</span> -->
 </div>
 
 <span class="filelist %file.ext%" id="filelist_%sid%" style="%sh_fileblock%">

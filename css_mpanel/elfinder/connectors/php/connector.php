@@ -13,9 +13,9 @@ include_once dirname(__FILE__).DIRECTORY_SEPARATOR.'elFinder.class.php';
 $isAdmin = (!empty($_SESSION['curUser']) && isset($_SESSION['curUser']['isAdmin']) && $_SESSION['curUser']['isAdmin']);
 
 $opts = array(
-	'root'            => '../../../../upload',                       // path to root directory
-	'URL'             => '/upload/', // root directory URL
-	'rootAlias'       => 'Home',       // display this instead of root directory name
+	'root'            => '../../../../upload/custom',                       // path to root directory
+	'URL'             => '/upload/custom/', // root directory URL
+	'rootAlias'       => 'Custom',       // display this instead of root directory name
 	//'uploadAllow'   => array('images/*'),
 	//'uploadDeny'    => array('all'),
 	//'uploadOrder'   => 'deny,allow'

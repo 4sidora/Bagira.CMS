@@ -6,7 +6,7 @@ $TEMPLATE['frame'] = <<<END
 
 <div class="selectfile" id="selectfile_%sname%" style="%sh_selblock%">
 	<input id="file_%sname%" name="file_%sname%" type="file" value="" onChange="$('#%sname%').val(this.value);" />
-    %text.or%  <span class="link" id="selectButton_%sname%" onclick="showElFinder('%sname%');">%text.change%</span>
+    <!-- %text.or%  <span class="link" id="selectButton_%sname%" onclick="showElFinder('%sname%');">%text.change%</span> -->
 </div>
 
 <span class="filelist %file.ext%" id="filelist_%sname%" style="%sh_fileblock%">
