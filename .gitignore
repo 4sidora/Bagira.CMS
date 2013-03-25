@@ -5,3 +5,5 @@
 !/cache/img/*.gitignore
 !/upload/file/*.gitignore
 revue.log
+config-db.php
+config-cache.php
