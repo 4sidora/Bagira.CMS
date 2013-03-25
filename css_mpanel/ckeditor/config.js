@@ -22,19 +22,38 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// The toolbar groups arrangement, optimized for two toolbar rows.
 	config.toolbar = [
+
+
+        { name: 'document', items : [ 'Source'] },
+        { name: 'clipboard', items : [ 'Cut','Copy','PasteText','-','Undo','Redo' ] },
+        { name: 'insert', items : [ '-','Image','MediaEmbed','Table','SpecialChar'] },
+        { name: 'insert', items : ['-','About'] },
+        '/',
+        { name: 'styles', items : [ 'Format' ] },    /* ,'Font' */
+        { name: 'paragraph', items : [ '-','Bold','Italic','Underline','Strike'] },
+        { name: 'links', items : [ 'Link','Unlink' ] },
+        { name: 'paragraph', items : [ '-','JustifyLeft','JustifyCenter','JustifyRight'] },
+        { name: 'basicstyles', items : [ '-','NumberedList','BulletedList', '-','Subscript','Superscript', '-','Blockquote'] },
+        { name: 'basicstyles', items : [ '-','RemoveFormat'] }
+
+
+        /*   Default buttons
+
 		{ name: 'document', items : [ 'Source','ShowBlocks','Print'] },
 		{ name: 'clipboard', items : [ 'Cut','Copy','PasteText','-','Undo','Redo' ] },
 		{ name: 'editing', items : [ 'Find','Replace','-','SelectAll' ] },
 		{ name: 'insert', items : [ '-','Image','MediaEmbed','Iframe','Flash','Table','Smiley','SpecialChar'] },
 		{ name: 'insert', items : ['-','About'] },
 		'/',
-		{ name: 'styles', items : [ 'FontSize','Format' ] },    /* ,'Font' */
+		{ name: 'styles', items : [ 'FontSize','Format' ] },
 		{ name: 'paragraph', items : [ '-','Bold','Italic','Underline','Strike'] },
 		{ name: 'links', items : [ 'Link','Unlink' ] },
 		{ name: 'paragraph', items : [ '-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ] },
 		{ name: 'colors', items : [ 'TextColor','BGColor' ] },
 		{ name: 'basicstyles', items : [ '-','NumberedList','BulletedList', '-','Subscript','Superscript', '-','Blockquote'] },
 		{ name: 'basicstyles', items : [ '-','RemoveFormat'] }
+
+         */
 	];
 
 	// Remove some buttons, provided by the standard plugins, which we don't
