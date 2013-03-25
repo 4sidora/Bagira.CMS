@@ -147,14 +147,14 @@ class __page {
         // Создаем форму и выводим ее на страницу
         $form = new ormEditForm($obj, $right);
         $form->setORMList($class_list);
-        $form->addPadding('param', 8, 1);
+        $form->addPadding('param', 9, 1);
 
 
         // Выбор шаблона оформления страниц
-        $form->addField('param', 9, '', lang::get('STRUCTURE_TEMPLATE'), $this->getTemplateBox('template_id', $templs, $obj->template_id));
+        $form->addField('param', 10, '', lang::get('STRUCTURE_TEMPLATE'), $this->getTemplateBox('template_id', $templs, $obj->template_id));
 
         // Выбор шаблона оформления объектов
-        $form->addField('param', 10, '', lang::get('STRUCTURE_TEMPLATE2'), $this->getTemplateBox('template2_id', templates::getByDestination(1, true), $obj->template2_id, 1));
+        $form->addField('param', 11, '', lang::get('STRUCTURE_TEMPLATE2'), $this->getTemplateBox('template2_id', templates::getByDestination(1, true), $obj->template2_id, 1));
 
         // Выводим ID и URL страницы
         $this->getPageInfo($obj, $form);
