@@ -1,0 +1,4 @@
+# Disable LF normalization for all files
+* -text
+core.autocrlf false
+core.safecrlf false
