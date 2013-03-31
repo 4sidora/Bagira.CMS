@@ -120,13 +120,6 @@ class __class {
         if (isset($_POST['class_list']))
 	    	$class->setBaseClass($_POST['class_list']);
 
-		if (isset($_POST['template_list1']))
-			$class->setDefTemplate($_POST['template_list1'], 0);
-		 
-		if (isset($_POST['template_list2']))
-			$class->setDefTemplate($_POST['template_list2'], 1);
-			
-			
 	    $class_id = $class->save();
 
 	    if ($class_id === false) {
@@ -142,6 +135,12 @@ class __class {
 	    	system::redirect('/constructor/class_'.substr(system::action(), -3).'/'.$_POST['obj_id']);
 	 	}
 
+		if (isset($_POST['template_list1']))
+			$class->setDefTemplate($_POST['template_list1'], 0);
+		 
+		if (isset($_POST['template_list2']))
+			$class->setDefTemplate($_POST['template_list2'], 1);
+		
         if ($_POST['parram'] == 'apply')
 			system::redirect('/constructor/class_upd/'.$class_id);
 		else
