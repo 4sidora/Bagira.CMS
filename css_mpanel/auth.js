@@ -4,41 +4,58 @@ var wrongL = false;
 
 jQuery(document).ready(function() {
 
+
+    //проверка формы "Авторизация"
+    $("#authForm").submit(function (){
+
+        if ( $("#auth_login").val() == '') {
+            alert('Укажите свой E-mail!');
+            $('#auth_login').focus();
+
+        } else  if (!reEmail.test($("#auth_login").val())) {
+            alert('E-mail указан в неправильном формате!');
+            $('#auth_login').focus();
+
+        } else if ( $("#auth_password").val() == '' ) {
+            $('#auth_password').focus();
+            alert('Укажите пароль!');
+
+        } else return true;
+
+        return false;
+    });
+
     testlogin();
     testpass();
 
-    $("#login").keyup(function () { testlogin();});
-    $("#passw").keyup(function () { testpass()  });
-
-    $("input").keyup(function (event) {
-        if ((event.keyCode == 0xA)||(event.keyCode == 0xD)){
-            enter_auth();
-            return false;
-        }
-    });
+    $("#auth_login").keyup(testlogin).change(testlogin);
+    $("#auth_password").keyup(testpass).change(testpass);
 
     $("#login").focus();
+
+    if ($('#error').val() > 0)
+        alert('Вы указали не правильный логин или пароль!');
 
 });
 
 function testlogin(){
-    if ( reEmail.test($("#login").val()) ) {
-        $("#login").css({ color: "#000"} );
+    if ( reEmail.test($("#auth_login").val()) ) {
+        $("#auth_login").css({ color: "#000"} );
         $("#logintext").css({ color: "#000"} );
-        if ($("#passw").val().length >= 1) wrongL = true;
+        if ($("#auth_password").val().length >= 1) wrongL = true;
     } else { hideLogin(); }
 }
 
 function testpass(){
-    if ($("#passw").val().length >= 1){
-        $("#passw").css({ color: "#000"} );
+    if ($("#auth_password").val().length >= 1){
+        $("#auth_password").css({ color: "#000"} );
         $("#passwtext").css({ color: "#000"} );
-        if (reEmail.test($("#login").val())) wrongL = true;
+        if (reEmail.test($("#auth_login").val())) wrongL = true;
     } else {  hidePassw(); }
 }
 
-function hideLogin(){  $("#login").css({ color: "#CC6666"});  $("#logintext").css({ color: "#CC6666"} );   }
-function hidePassw(){  $("#passw").css({ color: "#CC6666"});  $("#passwtext").css({ color: "#CC6666"} );  }
-function enter_auth(){ testlogin(); testpass(); if (wrongL) $('#auth_form').submit(); }
+function hideLogin(){  $("#auth_login").css({ color: "#CC6666"});  $("#logintext").css({ color: "#CC6666"} ); }
+function hidePassw(){  $("#auth_password").css({ color: "#CC6666"});  $("#passwtext").css({ color: "#CC6666"} ); }
+
 
 

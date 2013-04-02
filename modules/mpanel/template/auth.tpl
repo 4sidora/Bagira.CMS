@@ -21,24 +21,25 @@ $TEMPLATE['frame'] = <<<END
 <a class="logo" target="_blank" href="http://www.bagira-cms.ru" title="Bagira.CMS" tabindex="5"></a><span class="clear"></span>
 
 
-<form id="auth_form" action="%url%" method="post" onsubmit="return (wrongL);">
+<form id="authForm" action="%url%" method="post">
 
-	<label id="logintext" for="login">Адрес электронной почты</label>
-	<input type="text" name="login" id="login" tabindex="1" />
+	<label id="logintext" for="auth_login">E-mail</label>
+	<input type="text" name="login" id="auth_login" tabindex="1" />
 
-	<label id="passwtext" for="passw">Пароль <strong>(<a href="/users/recover" tabindex="4">напомнить</a>)</strong></label>
-	<input type="password" name="passw" id="passw" tabindex="2" />
+	<label id="passwtext" for="auth_password">Пароль <strong>(<a href="/users/recover" tabindex="5">напомнить</a>)</strong></label>
+	<input type="password" name="passw" id="auth_password" tabindex="2" />
 
-	<input type="hidden" name="enter"  value="1" />
-    <input type="submit" name="tt" style="display:none;"/>
-
-	<div class="remember">
-		<input type="checkbox" checked name="remember_me" value="1" id="remember_me"><label for="remember_me">Запомнить меня</label>
-	</div>
+    <input type="hidden" name="enter"  value="1" />
+    <input type="hidden" id="error"  value="%error%" />
 
 	<div class="clear"></div>
 
-	<button id="send_" tabindex="3" onclick="return enter_auth();" >Вход</button>
+	<button id="send_" tabindex="4" type="submit">Вход</button>
+
+    <div class="remember">
+        <input type="checkbox" name="remember_me" value="1" id="remember_me" tabindex="3"><label for="remember_me">Запомнить меня</label>
+    </div>
+
 </form>
 
 

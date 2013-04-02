@@ -13,7 +13,7 @@ class controller {
         // Попытка авторизации
         if(!empty($_POST['enter']))
             if (!user::auth($_POST['login'], $_POST['passw']))
-               $this->showAuthForm();
+               $this->showAuthForm(1);
             else
                 header("Location: ".$_SERVER["HTTP_REFERER"]);
 
@@ -292,7 +292,7 @@ class controller {
             return $sub_menu;
     }
 
-    private function showAuthForm(){
+    private function showAuthForm($error = 0){
     	if (file_exists(MODUL_DIR.'/mpanel/template/auth.tpl')) {
 			include(MODUL_DIR.'/mpanel/template/auth.tpl');
 
@@ -305,6 +305,7 @@ class controller {
             	page::assign('login', lang::get('AUTHFORM_LOGIN'));
             	page::assign('passw', lang::get('AUTHFORM_PASSW'));
             	page::assign('enter', lang::get('AUTHFORM_ENTER'));
+                page::assign('error', $error);
             	echo page::parse($TEMPLATE['frame']);
 
             } else {
